@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a1f0f"/>
+      <stop offset="100%" stop-color="#2d7a3e"/>
+    </linearGradient>
+  </defs>
+  <rect width="192" height="192" rx="38" fill="url(#g)"/>
+  <text x="96" y="105" font-family="Georgia,Times New Roman,serif" font-size="86" font-weight="700"
+        fill="white" text-anchor="middle" dominant-baseline="auto"
+        style="letter-spacing:-3px">Hato</text>
+  <rect x="32" y="115" width="128" height="2.5" rx="1.2" fill="#81e09a" opacity="0.75"/>
+  <text x="96" y="148" font-family="Arial,Helvetica,sans-serif" font-size="20" font-weight="300"
+        fill="#81e09a" text-anchor="middle" letter-spacing="9">APP</text>
+</svg>
