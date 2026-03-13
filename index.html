@@ -1,0 +1,2604 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="theme-color" content="#1e4d2b">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="HatoApp">
+<title>HatoApp Ganadero</title>
+<link rel="manifest" href="./manifest.json">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Lora:wght@500;600;700&family=Outfit:wght@300;400;500;600;700&family=Merriweather:wght@400;700&family=Source+Sans+3:wght@400;600;700&family=Playfair+Display:wght@700&family=Nunito:wght@400;600;700&family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --v:#1e4d2b;--v2:#2d7a3e;--v3:#4caf65;--vp:#e6f4ea;
+  --tierra:#7c4a1e;--tierra2:#b5733a;
+  --crema:#f8f4ee;--blanco:#fff;
+  --gris:#64748b;--gris2:#94a3b8;--gris3:#f1f5f9;
+  --rojo:#dc2626;--rojop:#fee2e2;
+  --naranja:#ea580c;--naranjap:#fff0e6;
+  --amarillo:#d97706;--amarillop:#fef9c3;
+  --azul:#1d4ed8;--azulp:#dbeafe;
+  --rosa:#be185d;--rosap:#fce7f3;
+  --verde:#16a34a;--verdep:#dcfce7;
+  --sombra:0 2px 16px rgba(30,77,43,.10);
+  --r:16px;--r2:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{font-family:'Outfit',sans-serif;background:var(--crema);color:#1a2e1a;min-height:100vh;padding-bottom:72px;overflow-x:hidden;}
+
+/* HEADER */
+.hdr{background:linear-gradient(150deg,var(--v) 0%,var(--v2) 60%,#3a9e52 100%);color:#fff;padding:18px 16px 14px;position:sticky;top:0;z-index:200;box-shadow:0 3px 20px rgba(0,0,0,.22);}
+.hdr-row{display:flex;align-items:center;justify-content:space-between;}
+.hdr h1{font-family:'Lora',serif;font-size:1.45rem;letter-spacing:-.3px;}
+.hdr h1 em{color:#81e09a;font-style:normal;}
+.hdr-right{display:flex;gap:8px;align-items:center;}
+.hdr-btn{position:relative;background:rgba(255,255,255,.15);border:none;color:#fff;width:38px;height:38px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.hdr-btn svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2;}
+.bell-dot{position:absolute;top:5px;right:5px;background:#f87171;border-radius:50%;width:9px;height:9px;border:2px solid var(--v);display:none;}
+.hdr-perfil{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:4px 10px 4px 5px;cursor:pointer;}
+.hdr-perfil-foto{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:.9rem;overflow:hidden;flex-shrink:0;}
+.hdr-perfil-foto img{width:100%;height:100%;object-fit:cover;}
+.hdr-perfil-nom{font-size:.72rem;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100px;}
+.stats-strip{display:flex;margin-top:12px;background:rgba(0,0,0,.15);border-radius:12px;overflow:hidden;}
+.ss{flex:1;text-align:center;padding:8px 4px;border-right:1px solid rgba(255,255,255,.08);}
+.ss:last-child{border-right:none;}
+.ss-n{font-size:1.3rem;font-weight:700;line-height:1;}
+.ss-l{font-size:.58rem;opacity:.7;text-transform:uppercase;letter-spacing:.6px;margin-top:2px;}
+
+/* NAV */
+.nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;box-shadow:0 -1px 12px rgba(0,0,0,.1);z-index:200;}
+.nb{flex:1;padding:9px 4px;border:none;background:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;font-family:'Outfit',sans-serif;font-size:.55rem;color:var(--gris);transition:color .2s;position:relative;}
+.nb.on{color:var(--v2);}
+.nb svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;}
+.ndot{position:absolute;top:8px;right:calc(50% - 12px);width:7px;height:7px;background:var(--rojo);border-radius:50%;border:2px solid #fff;display:none;}
+
+/* VISTAS */
+.vista{display:none;padding:14px 14px 6px;}
+.vista.on{display:block;}
+.vtit{font-family:'Lora',serif;font-size:1.05rem;color:var(--v);margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--vp);}
+
+/* LISTA */
+.sbar{background:#fff;border:1.5px solid #e2e8f0;border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:8px;margin-bottom:10px;box-shadow:0 1px 4px rgba(0,0,0,.04);}
+.sbar input{border:none;outline:none;flex:1;font-family:'Outfit',sans-serif;font-size:.88rem;background:none;}
+.ftags{display:flex;gap:6px;margin-bottom:10px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none;}
+.ftags::-webkit-scrollbar{display:none;}
+.ftag{padding:5px 12px;border-radius:20px;border:1.5px solid #dde1e8;background:#fff;font-family:'Outfit',sans-serif;font-size:.72rem;cursor:pointer;white-space:nowrap;font-weight:500;transition:all .18s;}
+.ftag.on{background:var(--v);color:#fff;border-color:var(--v);}
+
+/* CARD ANIMAL */
+.acard{background:#fff;border-radius:var(--r);margin-bottom:9px;box-shadow:var(--sombra);cursor:pointer;transition:transform .12s;border-left:4px solid var(--v2);display:flex;overflow:hidden;}
+.acard:active{transform:scale(.985);}
+.acard.h{border-left-color:#ec4899;}.acard.m{border-left-color:#3b82f6;}.acard.t{border-left-color:var(--tierra2);}
+.acard.ia{opacity:.65;border-left-style:dashed;}
+.ac-foto{width:72px;min-width:72px;background:var(--gris3);display:flex;align-items:center;justify-content:center;font-size:2rem;overflow:hidden;}
+.ac-foto img{width:100%;height:100%;object-fit:cover;}
+.ac-body{flex:1;padding:11px 12px 10px;min-width:0;}
+.ac-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:5px;}
+.ac-arete{font-family:'Lora',serif;font-size:.97rem;font-weight:700;color:var(--v);}
+.ac-nom{font-size:.7rem;color:var(--gris);margin-top:1px;}
+.ac-badges{display:flex;gap:3px;flex-wrap:wrap;justify-content:flex-end;}
+.badge{font-size:.55rem;padding:2px 6px;border-radius:20px;font-weight:700;text-transform:uppercase;letter-spacing:.2px;}
+.bh{background:var(--rosap);color:var(--rosa);}.bm{background:var(--azulp);color:var(--azul);}.bt{background:#fff7ed;color:#9a3412;}
+.bact{background:#dcfce7;color:#14532d;}.bvend{background:var(--gris3);color:#475569;}.bmuert{background:var(--rojop);color:var(--rojo);}
+.bvok{background:#dcfce7;color:#14532d;}.bvw{background:var(--amarillop);color:#92400e;}.bvl{background:var(--rojop);color:var(--rojo);}
+.bgan{background:#dcfce7;color:#14532d;}.bper{background:var(--rojop);color:var(--rojo);}
+.ac-inf{display:flex;flex-wrap:wrap;gap:7px;}
+.adi{font-size:.68rem;color:var(--gris);}
+.adi strong{color:#1a2e1a;}
+
+/* FAB */
+.fab{position:fixed;bottom:80px;right:16px;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--v),var(--v2));border:none;cursor:pointer;box-shadow:0 4px 18px rgba(30,77,43,.4);display:flex;align-items:center;justify-content:center;z-index:150;}
+.fab svg{stroke:#fff;fill:none;stroke-width:2.5;}
+
+/* OVERLAY */
+.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.52);z-index:500;overflow-y:auto;}
+.ov.on{display:flex;align-items:flex-end;justify-content:center;}
+.mdl{background:var(--crema);width:100%;max-width:480px;border-radius:24px 24px 0 0;max-height:93vh;overflow-y:auto;}
+.mh{background:linear-gradient(135deg,var(--v),var(--v2));color:#fff;padding:16px 18px;border-radius:24px 24px 0 0;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;}
+.mh-t{font-family:'Lora',serif;font-size:1rem;}
+.mx{background:rgba(255,255,255,.2);border:none;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;}
+.mtabs{display:flex;background:#fff;border-bottom:2px solid var(--gris3);position:sticky;top:52px;z-index:9;}
+.mtab{flex:1;padding:10px 2px;border:none;background:none;cursor:pointer;font-family:'Outfit',sans-serif;font-size:.65rem;font-weight:600;color:var(--gris);border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;}
+.mtab.on{color:var(--v2);border-bottom-color:var(--v2);}
+.msec{background:#fff;margin:10px 12px 0;border-radius:var(--r2);overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,.05);}
+.msec-t{background:var(--vp);padding:8px 14px;font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.9px;color:var(--v);}
+.campo{padding:10px 14px;border-bottom:1px solid #f0f4f0;}
+.campo:last-child{border-bottom:none;}
+.campo label{display:block;font-size:.65rem;font-weight:600;color:var(--gris);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;}
+.req{color:var(--rojo);}
+.campo input,.campo select,.campo textarea{width:100%;border:1.5px solid #e2e8f0;border-radius:9px;padding:9px 11px;font-family:'Outfit',sans-serif;font-size:.86rem;outline:none;transition:border-color .2s;background:#fff;}
+.campo input:focus,.campo select:focus,.campo textarea:focus{border-color:var(--v2);}
+.campo textarea{min-height:60px;resize:vertical;}
+.crow{display:flex;}.crow .campo{flex:1;}
+.rg{display:flex;gap:6px;flex-wrap:wrap;}
+.ro{flex:1;min-width:64px;border:1.5px solid #e2e8f0;border-radius:9px;padding:8px 5px;cursor:pointer;text-align:center;font-size:.75rem;user-select:none;font-weight:500;transition:all .18s;}
+.rs-hembra{background:var(--rosap);border-color:#ec4899;color:var(--rosa);font-weight:700;}
+.rs-macho{background:var(--azulp);border-color:#3b82f6;color:var(--azul);font-weight:700;}
+.rs-ternero{background:#fff7ed;border-color:#f97316;color:#9a3412;font-weight:700;}
+.rs-activo{background:#dcfce7;border-color:#22c55e;color:#14532d;font-weight:700;}
+.rs-vendido{background:var(--gris3);border-color:#94a3b8;color:#475569;font-weight:700;}
+.rs-muerto{background:var(--rojop);border-color:#ef4444;color:var(--rojo);font-weight:700;}
+.mfoot{padding:12px 12px 22px;display:flex;gap:8px;}
+.bsave{flex:1;background:linear-gradient(135deg,var(--v),var(--v2));color:#fff;border:none;border-radius:12px;padding:13px;font-family:'Outfit',sans-serif;font-size:.93rem;font-weight:700;cursor:pointer;}
+.bdel{background:var(--rojop);color:var(--rojo);border:none;border-radius:12px;padding:13px 14px;font-family:'Outfit',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;}
+
+/* FOTO ANIMAL */
+.foto-box{margin:10px 12px 0;border-radius:var(--r2);overflow:hidden;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.05);}
+.foto-preview{width:100%;height:190px;object-fit:cover;display:block;}
+.foto-placeholder{width:100%;height:140px;background:var(--gris3);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;cursor:pointer;}
+.foto-placeholder span{font-size:.78rem;color:var(--gris);font-weight:500;}
+.foto-src-btns{display:flex;border-top:1px solid #f0f4f0;}
+.foto-src-btn{flex:1;padding:11px 6px;border:none;background:none;cursor:pointer;font-family:'Outfit',sans-serif;font-size:.78rem;font-weight:600;color:var(--v2);display:flex;align-items:center;justify-content:center;gap:4px;}
+.foto-src-btn:active{background:var(--gris3);}
+.foto-src-btn+.foto-src-btn{border-left:1px solid #f0f4f0;}
+input[type=file]{display:none;}
+
+/* DETALLE NATIVO */
+#vDetalle{display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:300;background:var(--crema);flex-direction:column;padding:0;}
+#vDetalle.on{display:flex;}
+.det-hdr{background:linear-gradient(150deg,var(--v),var(--v2));color:#fff;flex-shrink:0;}
+.det-foto{width:100%;height:200px;object-fit:cover;display:block;}
+.det-foto-ph{width:100%;height:100px;background:rgba(0,0,0,.2);display:flex;align-items:center;justify-content:center;font-size:3rem;}
+.det-info{padding:12px 14px 0;}
+.det-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.det-back{background:none;border:none;color:#fff;cursor:pointer;font-size:1.5rem;padding:0 4px 0 0;}
+.det-av{width:44px;height:44px;background:rgba(255,255,255,.18);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;}
+.det-arete{font-family:'Lora',serif;font-size:1.2rem;font-weight:700;}
+.det-nom{font-size:.76rem;opacity:.82;margin-top:1px;}
+.btn-edt{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:9px;padding:7px 12px;font-family:'Outfit',sans-serif;font-size:.75rem;cursor:pointer;margin-left:auto;white-space:nowrap;}
+.det-tabs{display:flex;background:rgba(0,0,0,.18);flex-shrink:0;overflow-x:auto;}
+.det-tabs::-webkit-scrollbar{display:none;}
+.dt{flex:1;min-width:60px;padding:10px 3px;border:none;background:none;cursor:pointer;font-family:'Outfit',sans-serif;font-size:.62rem;font-weight:600;color:rgba(255,255,255,.65);border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap;}
+.dt.on{color:#fff;border-bottom-color:#81e09a;}
+.det-scroll{flex:1;overflow-y:auto;padding-bottom:80px;}
+.det-body{padding:12px;}
+.dgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.dc{background:#fff;border-radius:11px;padding:10px 12px;box-shadow:0 1px 6px rgba(0,0,0,.05);}
+.dc.full{grid-column:1/-1;}
+.dl{font-size:.58rem;text-transform:uppercase;letter-spacing:.5px;color:var(--gris);margin-bottom:3px;font-weight:600;}
+.dv{font-size:.85rem;font-weight:500;}
+.dv.big{font-size:1.08rem;font-weight:700;color:var(--v);}
+
+/* VACUNAS */
+.vac-item{background:#fff;border-radius:12px;padding:11px 13px;margin-bottom:8px;box-shadow:0 1px 6px rgba(0,0,0,.06);display:flex;gap:9px;align-items:flex-start;}
+.vi-ico{width:36px;height:36px;border-radius:10px;background:#e8f5e2;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+.vi-inf{flex:1;min-width:0;}
+.vi-nom{font-weight:700;font-size:.85rem;}
+.vi-dat{font-size:.68rem;color:var(--gris);margin-top:2px;}
+.vi-prox{font-size:.65rem;font-weight:600;margin-top:4px;padding:3px 8px;border-radius:20px;display:inline-block;}
+.vi-prox.ok{background:#dcfce7;color:#14532d;}.vi-prox.w{background:var(--amarillop);color:#92400e;}.vi-prox.l{background:var(--rojop);color:var(--rojo);}
+.vi-btns{display:flex;flex-direction:column;gap:2px;flex-shrink:0;}
+.vedit,.vdel{background:none;border:none;cursor:pointer;padding:4px;font-size:.8rem;}
+.vedit{color:var(--v2);}.vdel{color:var(--gris2);}
+.vadd{width:100%;background:var(--vp);color:var(--v);border:2px dashed #7ec89b;border-radius:12px;padding:11px;font-family:'Outfit',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;}
+.vempty{text-align:center;padding:24px;color:var(--gris);font-size:.82rem;}
+
+/* PESAJES */
+.peso-item{background:#fff;border-radius:11px;padding:10px 13px;margin-bottom:7px;box-shadow:0 1px 5px rgba(0,0,0,.05);display:flex;align-items:center;gap:10px;}
+.peso-val{font-family:'Lora',serif;font-size:1.2rem;font-weight:700;color:var(--v);min-width:70px;}
+.peso-inf{flex:1;}
+.peso-fecha{font-size:.72rem;color:var(--gris);}
+.peso-diff{font-size:.68rem;font-weight:700;padding:2px 7px;border-radius:20px;margin-top:3px;display:inline-block;}
+.peso-del{background:none;border:none;color:var(--gris2);cursor:pointer;font-size:.85rem;padding:4px;}
+
+/* GASTOS */
+.gasto-item{background:#fff;border-radius:11px;padding:10px 13px;margin-bottom:7px;box-shadow:0 1px 5px rgba(0,0,0,.05);display:flex;align-items:center;gap:10px;}
+.gasto-ico{width:34px;height:34px;border-radius:9px;background:var(--naranjap);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0;}
+.gasto-inf{flex:1;min-width:0;}
+.gasto-nom{font-size:.83rem;font-weight:700;}
+.gasto-det{font-size:.68rem;color:var(--gris);margin-top:2px;}
+.gasto-monto{font-family:'Lora',serif;font-size:1rem;font-weight:700;color:var(--naranja);white-space:nowrap;}
+.gasto-del{background:none;border:none;color:var(--gris2);cursor:pointer;font-size:.82rem;padding:4px;}
+
+/* VENTAS */
+.venta-card{background:#fff;border-radius:var(--r);padding:13px 15px;margin-bottom:9px;box-shadow:var(--sombra);border-left:4px solid var(--verde);}
+.venta-card.perdida{border-left-color:var(--rojo);}
+.vc-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px;}
+.vc-arete{font-family:'Lora',serif;font-size:1rem;font-weight:700;color:var(--v);}
+.vc-nom{font-size:.7rem;color:var(--gris);margin-top:1px;}
+.vc-gan{font-size:1.1rem;font-weight:700;}
+.vc-gan.g{color:var(--verde);}.vc-gan.p{color:var(--rojo);}
+.vc-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;}
+.vc-cell{text-align:center;}
+.vc-cl{font-size:.58rem;text-transform:uppercase;color:var(--gris);letter-spacing:.4px;}
+.vc-cv{font-size:.82rem;font-weight:700;}
+
+/* MODALES SECUNDARIOS */
+.sov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:700;align-items:flex-end;justify-content:center;}
+.sov.on{display:flex;}
+.smdl{background:#fff;width:100%;max-width:480px;border-radius:24px 24px 0 0;max-height:88vh;overflow-y:auto;}
+.smh{padding:15px 18px;border-radius:24px 24px 0 0;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;}
+.smh-t{font-family:'Lora',serif;font-size:.95rem;color:#fff;}
+.ssave{width:calc(100% - 32px);margin:10px 16px 20px;display:block;color:#fff;border:none;border-radius:12px;padding:13px;font-family:'Outfit',sans-serif;font-size:.92rem;font-weight:700;cursor:pointer;}
+
+/* ALERTAS */
+.ap{background:#fff;border-radius:var(--r);padding:13px;margin-bottom:9px;box-shadow:var(--sombra);}
+.as-t{font-weight:700;font-size:.8rem;margin-bottom:9px;}
+.ai{display:flex;align-items:flex-start;gap:9px;padding:9px 0;border-bottom:1px solid #f1f5f9;cursor:pointer;}
+.ai:last-child{border-bottom:none;}
+.ai-ico{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0;}
+.ai-t{font-size:.8rem;font-weight:700;}
+.ai-s{font-size:.68rem;color:var(--gris);margin-top:2px;}
+.ai-d{font-size:.65rem;font-weight:700;padding:3px 8px;border-radius:20px;white-space:nowrap;align-self:center;}
+
+/* RESUMEN */
+.rc{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
+.rcard{background:#fff;border-radius:13px;padding:12px;box-shadow:var(--sombra);text-align:center;}
+.rn{font-family:'Lora',serif;font-size:1.9rem;font-weight:700;line-height:1;}
+.rl{font-size:.6rem;color:var(--gris);text-transform:uppercase;letter-spacing:.5px;margin-top:3px;}
+
+/* BACKUP */
+.bsec{background:#fff;border-radius:var(--r);padding:14px;margin-bottom:9px;box-shadow:var(--sombra);}
+.bst{font-weight:700;margin-bottom:3px;font-size:.9rem;}
+.bsd{font-size:.76rem;color:var(--gris);margin-bottom:10px;}
+.bbtn{width:100%;padding:11px;border-radius:10px;border:none;font-family:'Outfit',sans-serif;font-size:.86rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;margin-bottom:7px;}
+.bbtn:last-child{margin-bottom:0;}
+.bwarn{background:#fef9c3;border:1px solid #fde047;border-radius:9px;padding:8px 11px;font-size:.7rem;color:#713f12;margin-top:7px;}
+
+/* PERFILES */
+#pantallaPerfiles{display:none;position:fixed;inset:0;z-index:400;background:linear-gradient(160deg,var(--v) 0%,var(--v2) 50%,#3a9e52 100%);flex-direction:column;}
+#pantallaPerfiles.on{display:flex;}
+.pp-top{padding:48px 24px 24px;text-align:center;flex-shrink:0;}
+.pp-logo{font-family:'Lora',serif;font-size:1.9rem;color:#fff;}
+.pp-logo em{color:#81e09a;font-style:normal;}
+.pp-sub{font-size:.7rem;color:rgba(255,255,255,.7);letter-spacing:.8px;margin-top:4px;}
+.pp-body{flex:1;background:var(--crema);border-radius:28px 28px 0 0;padding:22px 16px 100px;overflow-y:auto;}
+.pp-tit{font-family:'Lora',serif;font-size:.97rem;color:var(--v);margin-bottom:14px;}
+.pcard{background:#fff;border-radius:var(--r);padding:13px 15px;margin-bottom:9px;box-shadow:var(--sombra);display:flex;align-items:center;gap:12px;cursor:pointer;border:2px solid transparent;transition:all .15s;}
+.pcard.activo{border-color:var(--v2);background:var(--vp);}
+.pc-foto{width:50px;height:50px;border-radius:50%;background:var(--gris3);display:flex;align-items:center;justify-content:center;font-size:1.5rem;overflow:hidden;flex-shrink:0;}
+.pc-foto img{width:100%;height:100%;object-fit:cover;}
+.pc-inf{flex:1;min-width:0;}
+.pc-nom{font-weight:700;font-size:.92rem;}
+.pc-desc{font-size:.7rem;color:var(--gris);margin-top:2px;}
+.pc-stats{font-size:.65rem;color:var(--v2);font-weight:600;margin-top:3px;}
+.pc-act{background:var(--v2);color:#fff;font-size:.58rem;font-weight:700;padding:2px 7px;border-radius:20px;white-space:nowrap;flex-shrink:0;}
+.pc-edit{background:none;border:none;cursor:pointer;font-size:.95rem;padding:6px;border-radius:8px;flex-shrink:0;}
+.pp-add{width:100%;background:var(--vp);color:var(--v);border:2px dashed #7ec89b;border-radius:13px;padding:13px;font-family:'Outfit',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;margin-top:2px;}
+
+/* MODAL PERFIL */
+.pov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:600;align-items:flex-end;justify-content:center;}
+.pov.on{display:flex;}
+.pmdl{background:#fff;width:100%;max-width:480px;border-radius:24px 24px 0 0;max-height:90vh;overflow-y:auto;}
+.pmh{background:linear-gradient(135deg,var(--tierra),var(--tierra2));color:#fff;padding:15px 18px;border-radius:24px 24px 0 0;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;}
+.pmh-t{font-family:'Lora',serif;font-size:.95rem;}
+
+/* RECORTE DE FOTO */
+.crop-ov{display:none;position:fixed;inset:0;background:#000;z-index:800;flex-direction:column;}
+.crop-ov.on{display:flex;}
+.crop-area{flex:1;position:relative;overflow:hidden;}
+.crop-img{position:absolute;cursor:grab;user-select:none;touch-action:none;}
+.crop-img:active{cursor:grabbing;}
+.crop-circle{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 9999px rgba(0,0,0,.65);pointer-events:none;width:260px;height:260px;}
+.crop-bar{background:#111;padding:14px 16px 32px;display:flex;gap:10px;align-items:center;flex-shrink:0;}
+.crop-zoom{flex:1;accent-color:var(--v2);height:6px;}
+.crop-ok{background:var(--v2);color:#fff;border:none;border-radius:11px;padding:12px 24px;font-family:'Outfit',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;}
+.crop-cancel{background:rgba(255,255,255,.12);color:#fff;border:none;border-radius:11px;padding:12px 16px;font-family:'Outfit',sans-serif;font-size:.9rem;cursor:pointer;}
+.pf-foto-box{display:flex;flex-direction:column;align-items:center;padding:18px 14px 12px;}
+.pf-circle{width:90px;height:90px;border-radius:50%;background:var(--gris3);display:flex;align-items:center;justify-content:center;font-size:2.4rem;overflow:hidden;border:3px dashed #cdd9e5;margin-bottom:10px;}
+.pf-circle img{width:100%;height:100%;object-fit:cover;}
+.pf-btns{display:flex;gap:7px;}
+.pf-btn{padding:7px 12px;border-radius:9px;border:1.5px solid var(--v2);background:none;color:var(--v2);font-family:'Outfit',sans-serif;font-size:.75rem;font-weight:600;cursor:pointer;}
+.pf-btn.del{border-color:var(--rojo);color:var(--rojo);}
+.psave-row{display:flex;gap:8px;padding:0 12px;margin-bottom:20px;}
+.psave{flex:1;background:linear-gradient(135deg,var(--v),var(--v2));color:#fff;border:none;border-radius:12px;padding:13px;font-family:'Outfit',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;}
+
+/* INSTALL BANNER */
+.install-banner{background:linear-gradient(135deg,var(--tierra),var(--tierra2));color:#fff;padding:11px 16px;display:flex;align-items:center;gap:10px;}
+.install-banner.hide{display:none;}
+.ib-txt{flex:1;font-size:.77rem;}
+.ib-txt strong{display:block;font-size:.86rem;margin-bottom:1px;}
+.ib-btn{background:rgba(255,255,255,.25);border:1px solid rgba(255,255,255,.5);color:#fff;border-radius:8px;padding:6px 13px;font-family:'Outfit',sans-serif;font-size:.78rem;font-weight:700;cursor:pointer;white-space:nowrap;}
+.ib-x{background:none;border:none;color:rgba(255,255,255,.7);font-size:1.1rem;cursor:pointer;}
+
+/* CHIPS / MISC */
+.chip{background:var(--vp);color:var(--v);padding:3px 9px;border-radius:20px;font-size:.7rem;font-weight:700;}
+.chips{display:flex;flex-wrap:wrap;gap:6px;}
+.empty-l{text-align:center;padding:40px 20px;color:var(--gris);}
+.empty-l h3{font-size:1rem;color:#374151;margin:10px 0 5px;}
+.toast{position:fixed;bottom:82px;left:50%;transform:translateX(-50%) translateY(12px);background:#1a2e1a;color:#fff;padding:9px 18px;border-radius:20px;font-size:.8rem;opacity:0;transition:all .28s;z-index:999;white-space:nowrap;pointer-events:none;}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0);}
+.loading{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:50vh;gap:12px;color:var(--gris);}
+.spin{width:38px;height:38px;border:3px solid var(--vp);border-top-color:var(--v2);border-radius:50%;animation:spin .8s linear infinite;}
+/* LOGO HATOAPP */
+.hatoapp-logo{display:flex;flex-direction:column;align-items:flex-start;gap:0;}
+.logo-marca{display:flex;align-items:baseline;gap:0;line-height:1;}
+.logo-hato{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:700;color:#fff;letter-spacing:-1.5px;}
+.logo-app{font-family:'Outfit',sans-serif;font-size:.75rem;font-weight:300;color:#81e09a;letter-spacing:5px;margin-left:3px;align-self:flex-end;margin-bottom:4px;}
+.logo-linea{width:100%;height:1px;background:linear-gradient(90deg,rgba(129,224,154,.5),transparent);margin:3px 0 3px;}
+.logo-sub{font-family:'Outfit',sans-serif;font-size:.5rem;font-weight:600;letter-spacing:4px;color:rgba(255,255,255,.4);text-transform:uppercase;}
+
+/* LOGO oscuro (para Acerca de) */
+.hatoapp-logo-dark .logo-hato{color:#0f2d18;}
+.hatoapp-logo-dark .logo-app{color:#2d7a3e;}
+.hatoapp-logo-dark .logo-linea{background:linear-gradient(90deg,rgba(45,122,62,.4),transparent);}
+.hatoapp-logo-dark .logo-sub{color:rgba(0,0,0,.3);}
+
+/* ACERCA DE */
+.acerca-hero{background:linear-gradient(160deg,#0a1f0f,#1e4d2b);border-radius:var(--r);padding:32px 24px;margin-bottom:12px;display:flex;flex-direction:column;align-items:flex-start;position:relative;overflow:hidden;}
+.acerca-hero::after{content:'';position:absolute;right:-20px;bottom:-20px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.04);}
+.acerca-hero::before{content:'';position:absolute;right:40px;top:-30px;width:90px;height:90px;border-radius:50%;background:rgba(129,224,154,.06);}
+.av-linea{width:60px;height:1px;background:linear-gradient(90deg,rgba(129,224,154,.5),transparent);margin:8px 0 6px;}
+.av-sub{font-family:'Outfit',sans-serif;font-size:.5rem;font-weight:600;letter-spacing:5px;color:rgba(255,255,255,.35);text-transform:uppercase;}
+.acerca-card{background:#fff;border-radius:var(--r);padding:16px 18px;margin-bottom:9px;box-shadow:var(--sombra);}
+.acerca-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #f1f5f9;}
+.acerca-row:last-child{border-bottom:none;padding-bottom:0;}
+.acerca-ico{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+.acerca-lbl{font-size:.62rem;text-transform:uppercase;letter-spacing:.5px;color:var(--gris);font-weight:600;margin-bottom:2px;}
+.acerca-val{font-size:.88rem;font-weight:600;color:#1a2e1a;}
+.acerca-val.mono{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:var(--v);}
+.acerca-footer{text-align:center;padding:16px;color:var(--gris2);font-size:.68rem;}
+
+/* CONFIGURACIÓN */
+.cfg-sec{background:#fff;border-radius:var(--r);margin-bottom:10px;box-shadow:var(--sombra);overflow:hidden;}
+.cfg-sec-t{background:var(--vp);padding:9px 16px;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.9px;color:var(--v);display:flex;align-items:center;gap:7px;}
+.cfg-row{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;border-bottom:1px solid #f1f5f9;}
+.cfg-row:last-child{border-bottom:none;}
+.cfg-lbl{font-size:.82rem;font-weight:600;color:#1a2e1a;}
+.cfg-desc{font-size:.65rem;color:var(--gris);margin-top:2px;}
+.cfg-sel{border:1.5px solid #e2e8f0;border-radius:9px;padding:7px 10px;font-family:'Outfit',sans-serif;font-size:.82rem;color:#1a2e1a;background:#fff;outline:none;min-width:110px;cursor:pointer;}
+.cfg-sel:focus{border-color:var(--v2);}
+.cfg-preview{background:linear-gradient(135deg,#0a1f0f,#1e4d2b);border-radius:var(--r);padding:16px;margin-bottom:10px;color:#fff;}
+.cfg-prev-t{font-size:.6rem;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:10px;}
+.cfg-prev-row{display:flex;gap:8px;flex-wrap:wrap;}
+.cfg-chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:7px 12px;font-size:.78rem;font-weight:600;}
+.cfg-chip span{color:#81e09a;font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;}
+
+/* ── TEMAS ── */
+body.tema-oscuro{background:#111827;color:#f3f4f6;}
+body.tema-oscuro .acard,body.tema-oscuro .rcard,body.tema-oscuro .cfg-sec,body.tema-oscuro .acerca-card,body.tema-oscuro .msec,body.tema-oscuro .smdl,body.tema-oscuro .pmdl,body.tema-oscuro .mdl,body.tema-oscuro .peso-item,body.tema-oscuro .gasto-item,body.tema-oscuro .vac-item,body.tema-oscuro .venta-card,body.tema-oscuro .ap{background:#1f2937;color:#f3f4f6;}
+body.tema-oscuro .nav{background:#1f2937;border-top:1px solid #374151;}
+body.tema-oscuro .nb{color:#9ca3af;}body.tema-oscuro .nb.on{color:#81e09a;}
+body.tema-oscuro .campo input,body.tema-oscuro .campo select,body.tema-oscuro .campo textarea,body.tema-oscuro .cfg-sel,body.tema-oscuro .rq-inp{background:#374151;border-color:#4b5563;color:#f3f4f6;}
+body.tema-oscuro .vtit{color:#81e09a;}body.tema-oscuro .cfg-sec-t{background:#2d3748;}
+body.tema-oscuro .cfg-row,body.tema-oscuro .acerca-row,body.tema-oscuro .campo{border-color:#374151;}
+body.tema-oscuro .sbar{background:#1f2937;border-color:#374151;}body.tema-oscuro .sbar input{color:#f3f4f6;}
+body.tema-oscuro .ftag{background:#1f2937;border-color:#374151;color:#9ca3af;}body.tema-oscuro .ftag.on{background:var(--v2);color:#fff;}
+body.tema-oscuro .dc{background:#2d3748;}body.tema-oscuro .dl{color:#9ca3af;}
+body.tema-oscuro .hdr-perfil-nom{color:#fff;}
+body.tema-oscuro .rq-modal,body.tema-oscuro .font-opt{background:#1f2937;border-color:#374151;}
+body.tema-oscuro .font-name{color:#f3f4f6;}
+body.tema-tierra{background:#fdf6ee;}
+body.tema-tierra .hdr{background:linear-gradient(150deg,#4a2010,#6b3a1f,#8b4d2a);}
+body.tema-tierra .bsave,body.tema-tierra .psave,body.tema-tierra .rq-save{background:linear-gradient(135deg,#6b3a1f,#8b4d2a);}
+body.tema-tierra .acard{border-left-color:#8b4d2a !important;}
+body.tema-tierra .nb.on{color:#8b4d2a;}body.tema-tierra .vtit{color:#6b3a1f;}
+body.tema-tierra .cfg-sec-t{color:#6b3a1f;background:#fdebd0;}
+body.tema-tierra .ftag.on{background:#8b4d2a;}
+
+/* ── FUENTES ── */
+body.fuente-clasica{font-family:'Merriweather',serif !important;}
+body.fuente-clasica .cfg-lbl,body.fuente-clasica .ac-nom,body.fuente-clasica .adi{font-family:'Merriweather',serif;}
+body.fuente-clasica .logo-hato,.fuente-clasica .det-arete{font-family:'Playfair Display',serif !important;}
+body.fuente-moderna{font-family:'Inter',sans-serif !important;}
+body.fuente-moderna .logo-hato,.fuente-moderna .det-arete,.fuente-moderna .ss-n{font-family:'Inter',sans-serif !important;font-weight:900;}
+body.fuente-suave{font-family:'Nunito',sans-serif !important;}
+body.fuente-suave .logo-hato{font-family:'Nunito',sans-serif !important;}
+body.fuente-editorial{font-family:'Source Sans 3',sans-serif !important;}
+body.fuente-editorial .logo-hato,.fuente-editorial .det-arete{font-family:'DM Serif Display',serif !important;}
+
+/* ── SELECTOR FUENTES ── */
+.font-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px 12px 4px;}
+.font-opt{border:2px solid #e2e8f0;border-radius:12px;padding:12px 14px;cursor:pointer;transition:all .18s;background:#fff;}
+.font-opt.on{border-color:var(--v2);background:var(--vp);}
+body.tema-oscuro .font-opt.on{background:#2d3748;border-color:#4caf65;}
+.font-name{font-size:.78rem;font-weight:700;color:#1a2e1a;margin-bottom:2px;}
+.font-preview{font-size:1.15rem;color:var(--v);line-height:1.2;}
+.font-desc{font-size:.58rem;color:var(--gris);margin-top:3px;letter-spacing:.3px;}
+
+/* ── SELECTOR TEMAS ── */
+.tema-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:12px 12px 4px;}
+.tema-opt{border:2px solid #e2e8f0;border-radius:12px;padding:10px 6px;cursor:pointer;text-align:center;transition:all .18s;background:#fff;}
+body.tema-oscuro .tema-opt{background:#1f2937;border-color:#374151;}
+.tema-opt.on{border-width:3px;}
+.tema-dot{width:30px;height:30px;border-radius:50%;margin:0 auto 6px;}
+.tema-lbl{font-size:.62rem;font-weight:700;color:var(--gris);}
+
+/* ── DASHBOARD SALUD ── */
+.salud-wrap{background:linear-gradient(135deg,#0a1f0f,#1e4d2b);border-radius:var(--r);padding:16px;margin-bottom:10px;position:relative;overflow:hidden;}
+.salud-wrap::before{content:'';position:absolute;right:-20px;top:-20px;width:90px;height:90px;background:rgba(129,224,154,.06);border-radius:50%;}
+.salud-titulo{font-size:.55rem;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:12px;}
+.salud-meter{display:flex;align-items:center;gap:14px;margin-bottom:14px;}
+.salud-ring{position:relative;width:78px;height:78px;flex-shrink:0;}
+.salud-ring svg{transform:rotate(-90deg);width:78px;height:78px;}
+.salud-ring-bg{fill:none;stroke:rgba(255,255,255,.1);stroke-width:8;}
+.salud-ring-fill{fill:none;stroke-width:8;stroke-linecap:round;transition:stroke-dasharray .9s ease;}
+.salud-score{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;}
+.salud-num{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:#fff;line-height:1;}
+.salud-pct{font-size:.45rem;color:rgba(255,255,255,.45);letter-spacing:1px;margin-top:1px;}
+.salud-right{flex:1;min-width:0;}
+.salud-label{font-size:.95rem;font-weight:700;color:#fff;margin-bottom:3px;}
+.salud-desc{font-size:.68rem;color:rgba(255,255,255,.5);line-height:1.4;}
+.salud-bars{display:flex;flex-direction:column;gap:8px;}
+.sb-row{display:flex;align-items:center;gap:8px;}
+.sb-lbl{font-size:.6rem;color:rgba(255,255,255,.45);min-width:80px;}
+.sb-track{flex:1;height:5px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden;}
+.sb-fill{height:100%;border-radius:3px;transition:width .7s ease;}
+.sb-val{font-size:.62rem;font-weight:700;color:rgba(255,255,255,.65);min-width:28px;text-align:right;}
+
+/* ── GRÁFICA PESO ── */
+.peso-chart-wrap{background:#f8fafc;border-radius:12px;padding:12px;margin-bottom:10px;}
+body.tema-oscuro .peso-chart-wrap{background:#2d3748;}
+.peso-chart-t{font-size:.6rem;font-weight:700;color:var(--gris);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;}
+.peso-chart-svg{width:100%;display:block;}
+
+/* ── REGISTRO RÁPIDO ── */
+.rq-btn{position:fixed;bottom:82px;right:76px;width:42px;height:42px;border-radius:50%;background:#fff;border:2px solid var(--v2);cursor:pointer;box-shadow:0 3px 14px rgba(0,0,0,.12);display:none;align-items:center;justify-content:center;z-index:150;}
+.rq-btn.vis{display:flex;}
+.rq-btn svg{stroke:var(--v2);fill:none;stroke-width:2;}
+.rq-modal{position:fixed;bottom:136px;right:12px;width:268px;background:#fff;border-radius:18px;box-shadow:0 8px 36px rgba(0,0,0,.2);z-index:600;display:none;overflow:hidden;}
+body.tema-oscuro .rq-modal{background:#1f2937;}
+.rq-modal.on{display:block;animation:fi .18s ease;}
+.rq-hdr{background:linear-gradient(135deg,var(--v),var(--v2));padding:11px 14px;display:flex;align-items:center;justify-content:space-between;}
+.rq-t{color:#fff;font-size:.8rem;font-weight:700;}
+.rq-x{background:none;border:none;color:rgba(255,255,255,.7);font-size:.9rem;cursor:pointer;padding:0;}
+.rq-body{padding:10px 12px 12px;display:flex;flex-direction:column;gap:8px;}
+.rq-inp{width:100%;border:1.5px solid #e2e8f0;border-radius:9px;padding:8px 10px;font-family:inherit;font-size:.82rem;outline:none;transition:border-color .18s;}
+.rq-inp:focus{border-color:var(--v2);}
+.rq-save{width:100%;background:linear-gradient(135deg,var(--v),var(--v2));color:#fff;border:none;border-radius:9px;padding:10px;font-family:inherit;font-size:.82rem;font-weight:700;cursor:pointer;}
+
+@keyframes spin{to{transform:rotate(360deg)}}
+.acard,.vac-item,.peso-item,.gasto-item,.venta-card{animation:fi .18s ease both;}
+</style>
+</head>
+<body>
+<!-- SVG SPRITE — íconos profesionales -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <symbol id="ic-cow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M8 3C6 3 4 5 4 7v1L2 10v3h2v1a5 5 0 0 0 10 0v-1h2v-3l-2-2V7c0-2-2-4-4-4H8Z"/>
+    <circle cx="9" cy="12" r=".7" fill="currentColor" stroke="none"/><circle cx="15" cy="12" r=".7" fill="currentColor" stroke="none"/>
+    <path d="M9 15.5s1 1 3 0"/>
+    <path d="M6 7 4 5m12 2 2-2"/>
+  </symbol>
+  <symbol id="ic-dollar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></symbol>
+  <symbol id="ic-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></symbol>
+  <symbol id="ic-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></symbol>
+  <symbol id="ic-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></symbol>
+  <symbol id="ic-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></symbol>
+  <symbol id="ic-settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></symbol>
+  <symbol id="ic-list" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></symbol>
+  <symbol id="ic-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+  <symbol id="ic-camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></symbol>
+  <symbol id="ic-image" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></symbol>
+  <symbol id="ic-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6m4-6v6"/><path d="M9 6V4h6v2"/></symbol>
+  <symbol id="ic-edit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></symbol>
+  <symbol id="ic-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></symbol>
+  <symbol id="ic-save" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></symbol>
+  <symbol id="ic-vaccine" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m18 2 4 4-3.5 3.5-4-4L18 2Z"/><path d="m14.5 5.5-5 5"/><path d="m9.5 10.5-2 2 4 4 2-2"/><path d="m7.5 12.5-5 5"/><path d="m13.5 16.5-2 2"/></symbol>
+  <symbol id="ic-weight" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 2h12l2 20H4L6 2Z"/><path d="M12 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/><line x1="8" y1="12" x2="16" y2="12"/></symbol>
+  <symbol id="ic-expense" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></symbol>
+  <symbol id="ic-back" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></symbol>
+  <symbol id="ic-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></symbol>
+  <symbol id="ic-zoom" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></symbol>
+  <symbol id="ic-building" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 21V9"/></symbol>
+  <symbol id="ic-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></symbol>
+  <symbol id="ic-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
+  <symbol id="ic-code" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></symbol>
+  <symbol id="ic-ruler" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21.3 8.7 15.3 2.7a1 1 0 0 0-1.4 0L2.7 13.9a1 1 0 0 0 0 1.4l6 6a1 1 0 0 0 1.4 0L21.3 10.1a1 1 0 0 0 0-1.4Z"/><path d="m7.5 10.5 2 2m1.5-3.5 2 2m1.5-3.5 2 2"/></symbol>
+  <symbol id="ic-currency" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M14.5 8H10a2 2 0 0 0 0 4h4a2 2 0 0 1 0 4H9.5"/><line x1="12" y1="6" x2="12" y2="8"/><line x1="12" y1="16" x2="12" y2="18"/></symbol>
+</svg>
+<div id="pantallaPerfiles">
+  <div class="pp-top">
+    <!-- <svg width="48" height="48" style="opacity:.85;margin-bottom:10px" viewBox="0 0 24 24" fill="none" stroke="#81e09a" stroke-width="1.4"><use href="#ic-cow"/></svg> -->
+    <div style="display:flex;flex-direction:column;align-items:center;">
+      <div style="display:flex;align-items:baseline;gap:0;line-height:1;">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:700;color:#fff;letter-spacing:-2px;">Hato</span>
+        <span style="font-family:'Outfit',sans-serif;font-size:.9rem;font-weight:300;color:#81e09a;letter-spacing:6px;margin-left:4px;align-self:flex-end;margin-bottom:5px;">APP</span>
+      </div>
+      <div style="width:80px;height:1px;background:linear-gradient(90deg,transparent,rgba(129,224,154,.5),transparent);margin:6px 0 5px;"></div>
+      <div style="font-family:'Outfit',sans-serif;font-size:.52rem;font-weight:600;letter-spacing:5px;color:rgba(255,255,255,.4);text-transform:uppercase;">Gestión Ganadera</div>
+    </div>
+  </div>
+  <div class="pp-body">
+    <div class="pp-tit">Selecciona un perfil</div>
+    <div id="listaPerfiles"></div>
+    <button class="pp-add" onclick="abrirModalPerfil()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><use href="#ic-plus"/></svg> Crear nuevo perfil</button>
+    <div style="text-align:center;margin-top:10px;font-size:.75rem;color:rgba(255,255,255,.5)">— o —</div>
+    <input type="file" id="fileInputPP" accept=".json" onchange="importJSON(event)" style="display:none">
+    <button class="pp-add" style="background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.25);margin-top:8px" onclick="document.getElementById('fileInputPP').click()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><use href="#ic-save"/></svg> Restaurar desde respaldo JSON
+    </button>
+  </div>
+</div>
+
+<!-- MODAL PERFIL -->
+<div class="pov" id="ovPerfil" onclick="csiO('ovPerfil',event)">
+<div class="pmdl">
+  <div class="pmh">
+    <div class="pmh-t" id="pMTit">👤 Nuevo Perfil</div>
+    <button class="mx" onclick="cerrarOv('ovPerfil')">✕</button>
+  </div>
+  <div class="pf-foto-box">
+    <div class="pf-circle" id="pfCircle">
+      <span id="pfEmoji">🐄</span>
+      <img id="pfImg" style="display:none" src="" alt="">
+    </div>
+    <div class="pf-btns">
+      <button class="pf-btn" onclick="document.getElementById('pfCam').click()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#ic-camera"/></svg> Cámara</button>
+      <button class="pf-btn" onclick="document.getElementById('pfGal').click()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#ic-image"/></svg> Galería</button>
+      <button class="pf-btn del" id="pfDelFoto" style="display:none" onclick="quitarFotoPerfil()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#ic-trash"/></svg></button>
+    </div>
+    <input type="file" id="pfCam" accept="image/*" capture="environment" onchange="iniciarCropPerfil(event)">
+    <input type="file" id="pfGal" accept="image/*" onchange="iniciarCropPerfil(event)">
+  </div>
+  <div style="padding:0 12px">
+    <div class="msec">
+      <div class="campo"><label>Nombre del Perfil <span class="req">*</span></label><input id="pf-nom" placeholder="Ej: Mi Finca, Hato El Porvenir..."></div>
+      <div class="campo"><label>Descripción / Ubicación</label><input id="pf-desc" placeholder="Ej: Finca Los Pinos, Tabasco..."></div>
+      <div class="campo" style="border:none"><label>Propietario / Responsable</label><input id="pf-owner" placeholder="Ej: Freddy Hernández..."></div>
+    </div>
+  </div>
+  <div class="psave-row" style="margin-top:12px">
+    <button id="pfBtnDel" style="display:none;background:var(--rojop);color:var(--rojo);border:none;border-radius:12px;padding:13px 14px;font-family:'Outfit',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;" onclick="eliminarPerfil()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#ic-trash"/></svg></button>
+    <button class="psave" onclick="guardarPerfil()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" style="vertical-align:middle;margin-right:5px"><use href="#ic-save"/></svg>Guardar Perfil</button>
+  </div>
+</div>
+</div>
+
+<!-- RECORTE FOTO -->
+<div class="crop-ov" id="cropOv">
+  <div class="crop-area" id="cropArea">
+    <img id="cropImg" class="crop-img" src="" alt="" draggable="false">
+    <div class="crop-circle"></div>
+  </div>
+  <div class="crop-bar">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" style="flex-shrink:0"><use href="#ic-zoom"/></svg>
+    <input type="range" class="crop-zoom" id="cropZoom" min="50" max="300" value="100" oninput="aplicarZoom()">
+    <button class="crop-cancel" onclick="cancelarCrop()">Cancelar</button>
+    <button class="crop-ok" onclick="confirmarCrop()">Usar foto</button>
+  </div>
+</div>
+
+<!-- INSTALL BANNER -->
+<div class="install-banner hide" id="installBanner">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><use href="#ic-download"/></svg>
+  <div class="ib-txt"><strong>Instalar HatoApp</strong>Acceso sin internet</div>
+  <button class="ib-btn" onclick="instalarPWA()">Instalar</button>
+  <button class="ib-x" onclick="document.getElementById('installBanner').classList.add('hide')">✕</button>
+</div>
+
+<!-- HEADER -->
+<div class="hdr" id="mainHdr">
+  <div class="hdr-row">
+    <div class="hatoapp-logo">
+      <div class="logo-marca">
+        <span class="logo-hato">Hato</span>
+        <span class="logo-app">APP</span>
+      </div>
+      <div class="logo-linea"></div>
+      <div class="logo-sub">Gestión Ganadera</div>
+    </div>
+    <div class="hdr-right">
+      <div class="hdr-perfil" onclick="document.getElementById('pantallaPerfiles').classList.add('on');renderListaPerfiles()">
+        <div class="hdr-perfil-foto" id="hdrFoto">🐄</div>
+        <div class="hdr-perfil-nom" id="hdrNom">Perfil</div>
+      </div>
+      <button class="hdr-btn" onclick="mostrarVista('alertas')">
+        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <div class="bell-dot" id="bellDot"></div>
+      </button>
+    </div>
+  </div>
+  <div class="stats-strip">
+    <div class="ss"><div class="ss-n" id="sT">0</div><div class="ss-l">Total</div></div>
+    <div class="ss"><div class="ss-n" id="sH">0</div><div class="ss-l">Hembras</div></div>
+    <div class="ss"><div class="ss-n" id="sM">0</div><div class="ss-l">Machos</div></div>
+    <div class="ss"><div class="ss-n" id="sTe">0</div><div class="ss-l">Terneros</div></div>
+    <div class="ss"><div class="ss-n" id="sA" style="color:#f87171">0</div><div class="ss-l">Alertas</div></div>
+  </div>
+</div>
+
+<!-- VISTAS -->
+<div class="vista on" id="vLista">
+  <div class="sbar">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" id="busq" placeholder="Buscar arete, nombre, raza, lote..." oninput="renderLista()">
+  </div>
+  <div class="ftags">
+    <button class="ftag on" onclick="setF('todos',this)">Todos</button>
+    <button class="ftag" onclick="setF('activo',this)">Activos</button>
+    <button class="ftag" onclick="setF('hembra',this)">Hembras</button>
+    <button class="ftag" onclick="setF('macho',this)">Machos</button>
+    <button class="ftag" onclick="setF('ternero',this)">Terneros</button>
+    <button class="ftag" onclick="setF('vendido',this)">Vendidos</button>
+  </div>
+  <div id="listaBovinos"><div class="loading"><div class="spin"></div><span>Cargando...</span></div></div>
+</div>
+
+<div class="vista" id="vDetalle"></div>
+
+<div class="vista" id="vVentas">
+  <div class="vtit">💰 Control de Ventas</div>
+  <div id="resVentas" style="margin-bottom:10px"></div>
+  <div id="listaVentas"></div>
+</div>
+
+<div class="vista" id="vAlertas">
+  <div class="vtit">🔔 Alertas de Vacunación</div>
+  <div id="alertasBody"></div>
+</div>
+
+<div class="vista" id="vResumen">
+  <div class="vtit">Resumen del Hato</div>
+  <!-- Dashboard salud -->
+  <div class="salud-wrap" id="saludWrap">
+    <div class="salud-titulo">Índice de Salud del Hato</div>
+    <div class="salud-meter">
+      <div class="salud-ring">
+        <svg viewBox="0 0 78 78"><circle class="salud-ring-bg" cx="39" cy="39" r="31"/><circle class="salud-ring-fill" id="saludArc" cx="39" cy="39" r="31" stroke="#4caf65" stroke-dasharray="0 195"/></svg>
+        <div class="salud-score"><span class="salud-num" id="saludNum">—</span><span class="salud-pct">PUNTOS</span></div>
+      </div>
+      <div class="salud-right">
+        <div class="salud-label" id="saludLabel">Calculando...</div>
+        <div class="salud-desc" id="saludDesc">Agrega registros para ver el índice</div>
+      </div>
+    </div>
+    <div class="salud-bars">
+      <div class="sb-row"><span class="sb-lbl">Vacunación</span><div class="sb-track"><div class="sb-fill" id="sb-vac" style="background:#4caf65;width:0%"></div></div><span class="sb-val" id="sv-vac">—</span></div>
+      <div class="sb-row"><span class="sb-lbl">Cond. corporal</span><div class="sb-track"><div class="sb-fill" id="sb-cc" style="background:#81e09a;width:0%"></div></div><span class="sb-val" id="sv-cc">—</span></div>
+      <div class="sb-row"><span class="sb-lbl">Sin alertas</span><div class="sb-track"><div class="sb-fill" id="sb-al" style="background:#f59e0b;width:0%"></div></div><span class="sb-val" id="sv-al">—</span></div>
+      <div class="sb-row"><span class="sb-lbl">Pesajes rec.</span><div class="sb-track"><div class="sb-fill" id="sb-pe" style="background:#60a5fa;width:0%"></div></div><span class="sb-val" id="sv-pe">—</span></div>
+    </div>
+  </div>
+  <div class="rc">
+    <div class="rcard"><div class="rn" id="r-t" style="color:var(--v)">0</div><div class="rl">Activos</div></div>
+    <div class="rcard"><div class="rn" id="r-h" style="color:var(--rosa)">0</div><div class="rl">Hembras</div></div>
+    <div class="rcard"><div class="rn" id="r-m" style="color:var(--azul)">0</div><div class="rl">Machos</div></div>
+    <div class="rcard"><div class="rn" id="r-te" style="color:var(--tierra2)">0</div><div class="rl">Terneros</div></div>
+  </div>
+  <div id="resExtra"></div>
+</div>
+
+<div class="vista" id="vBackup">
+  <div class="vtit">🔒 Respaldo y Ajustes</div>
+  <div class="bsec">
+    <div class="bst">💾 Exportar Respaldo Completo</div>
+    <div class="bsd">Bovinos, vacunas, pesajes, gastos y fotos del perfil activo.</div>
+    <button class="bbtn" style="background:var(--v);color:#fff" onclick="exportJSON()">⬇️ Descargar Respaldo JSON</button>
+    <div class="bwarn">⚠️ Recomendado hacer respaldo semanal.</div>
+  </div>
+  <div class="bsec">
+    <div class="bst">📊 Exportar CSV (Excel)</div>
+    <div class="bsd">Tabla del hato para Excel o Google Sheets.</div>
+    <button class="bbtn" style="background:var(--tierra);color:#fff" onclick="exportCSV()">📊 Descargar CSV</button>
+  </div>
+  <div class="bsec">
+    <div class="bst">📂 Restaurar Respaldo</div>
+    <div class="bsd">Importa un .json guardado anteriormente al perfil activo.</div>
+    <input type="file" id="fileInput" accept=".json" onchange="importJSON(event)">
+    <button class="bbtn" style="background:var(--vp);color:var(--v);border:2px solid var(--v2)" onclick="document.getElementById('fileInput').click()">⬆️ Cargar Respaldo</button>
+  </div>
+  <div class="bsec" style="background:var(--vp);border:2px solid var(--v2)">
+    <div class="bst" style="color:var(--v)">📱 Instalar App</div>
+    <div class="bsd" style="color:var(--v)">Android: Menú → "Agregar a pantalla de inicio". iOS: Compartir → "En pantalla de inicio".</div>
+    <button class="bbtn" style="background:var(--v);color:#fff" onclick="instalarPWA()">📲 Instalar GanaderíaPRO</button>
+  </div>
+  <div class="bsec" style="border:2px solid var(--rojop)">
+    <div class="bst" style="color:var(--rojo)">⚠️ Zona de Peligro</div>
+    <div class="bsd">Elimina todos los registros del perfil activo.</div>
+    <button class="bbtn" style="background:var(--rojop);color:var(--rojo)" onclick="borrarTodo()">🗑️ Eliminar Todo</button>
+  </div>
+</div>
+
+<!-- CONFIGURACIÓN -->
+<div class="vista" id="vConfig">
+  <div class="vtit">Configuración</div>
+
+  <div id="cfgPreview" class="cfg-preview">
+    <div class="cfg-prev-t">Vista previa de formato</div>
+    <div class="cfg-prev-row">
+      <div class="cfg-chip">Peso: <span id="cpPeso">350 kg</span></div>
+      <div class="cfg-chip">Precio: <span id="cpPrecio">$1,200.00</span></div>
+      <div class="cfg-chip">Moneda: <span id="cpMon">MXN</span></div>
+    </div>
+  </div>
+
+  <div class="cfg-sec">
+    <div class="cfg-sec-t"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#ic-ruler"/></svg>Unidades de Peso</div>
+    <div class="cfg-row">
+      <div><div class="cfg-lbl">Unidad de peso</div><div class="cfg-desc">Kilogramos o libras</div></div>
+      <select class="cfg-sel" id="cfg-peso" onchange="guardarConfig()">
+        <option value="kg">Kilogramos (kg)</option>
+        <option value="lb">Libras (lb)</option>
+      </select>
+    </div>
+    <div class="cfg-row">
+      <div><div class="cfg-lbl">Decimales en peso</div><div class="cfg-desc">Ej: 350 vs 350.5</div></div>
+      <select class="cfg-sel" id="cfg-pesoDec" onchange="guardarConfig()">
+        <option value="0">Sin decimales</option>
+        <option value="1">1 decimal</option>
+        <option value="2">2 decimales</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="cfg-sec">
+    <div class="cfg-sec-t"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#ic-currency"/></svg>Moneda</div>
+    <div class="cfg-row">
+      <div><div class="cfg-lbl">Moneda</div><div class="cfg-desc">Para compras, ventas y gastos</div></div>
+      <select class="cfg-sel" id="cfg-moneda" onchange="guardarConfig()">
+        <option value="MXN">MXN — Peso mexicano</option>
+        <option value="USD">USD — Dólar americano</option>
+        <option value="COP">COP — Peso colombiano</option>
+        <option value="GTQ">GTQ — Quetzal guatemalteco</option>
+        <option value="HNL">HNL — Lempira hondureño</option>
+        <option value="BRL">BRL — Real brasileño</option>
+        <option value="ARS">ARS — Peso argentino</option>
+        <option value="CLP">CLP — Peso chileno</option>
+        <option value="VES">VES — Bolívar venezolano</option>
+        <option value="PEN">PEN — Sol peruano</option>
+        <option value="EUR">EUR — Euro</option>
+      </select>
+    </div>
+    <div class="cfg-row">
+      <div><div class="cfg-lbl">Símbolo</div><div class="cfg-desc">Mostrar símbolo o código</div></div>
+      <select class="cfg-sel" id="cfg-monedaSim" onchange="guardarConfig()">
+        <option value="symbol">Símbolo ($, €...)</option>
+        <option value="code">Código (MXN, USD...)</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="cfg-sec">
+    <div class="cfg-sec-t"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#ic-calendar"/></svg>Fecha</div>
+    <div class="cfg-row">
+      <div><div class="cfg-lbl">Formato de fecha</div><div class="cfg-desc">Cómo se muestran las fechas</div></div>
+      <select class="cfg-sel" id="cfg-fecha" onchange="guardarConfig()">
+        <option value="dd/mm/yyyy">DD/MM/AAAA</option>
+        <option value="mm/dd/yyyy">MM/DD/AAAA</option>
+        <option value="yyyy-mm-dd">AAAA-MM-DD</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="cfg-sec">
+    <div class="cfg-sec-t"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#ic-edit"/></svg>Tipografía</div>
+    <div class="font-grid">
+      <div class="font-opt" id="fo-default" onclick="setFuente('default',this)">
+        <div class="font-preview" style="font-family:'Outfit',sans-serif">HatoApp</div>
+        <div class="font-name">Outfit</div>
+        <div class="font-desc">Moderna y legible</div>
+      </div>
+      <div class="font-opt" id="fo-clasica" onclick="setFuente('clasica',this)">
+        <div class="font-preview" style="font-family:'Merriweather',serif">HatoApp</div>
+        <div class="font-name">Merriweather</div>
+        <div class="font-desc">Clásica serif</div>
+      </div>
+      <div class="font-opt" id="fo-moderna" onclick="setFuente('moderna',this)">
+        <div class="font-preview" style="font-family:'Inter',sans-serif;font-weight:700">HatoApp</div>
+        <div class="font-name">Inter</div>
+        <div class="font-desc">Minimalista tech</div>
+      </div>
+      <div class="font-opt" id="fo-suave" onclick="setFuente('suave',this)">
+        <div class="font-preview" style="font-family:'Nunito',sans-serif">HatoApp</div>
+        <div class="font-name">Nunito</div>
+        <div class="font-desc">Redondeada amigable</div>
+      </div>
+      <div class="font-opt" id="fo-editorial" onclick="setFuente('editorial',this)">
+        <div class="font-preview" style="font-family:'DM Serif Display',serif">HatoApp</div>
+        <div class="font-name">DM Serif</div>
+        <div class="font-desc">Editorial elegante</div>
+      </div>
+      <div class="font-opt" id="fo-lora" onclick="setFuente('lora',this)">
+        <div class="font-preview" style="font-family:'Lora',serif">HatoApp</div>
+        <div class="font-name">Lora</div>
+        <div class="font-desc">Serif equilibrada</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cfg-sec">
+    <div class="cfg-sec-t"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>Tema de Color</div>
+    <div class="tema-grid">
+      <div class="tema-opt on" id="to-natural" onclick="setTema('natural',this)" style="border-color:#2d7a3e;">
+        <div class="tema-dot" style="background:linear-gradient(135deg,#1e4d2b,#4caf65)"></div>
+        <div class="tema-lbl">Natural</div>
+      </div>
+      <div class="tema-opt" id="to-oscuro" onclick="setTema('oscuro',this)">
+        <div class="tema-dot" style="background:linear-gradient(135deg,#111827,#374151)"></div>
+        <div class="tema-lbl">Oscuro</div>
+      </div>
+      <div class="tema-opt" id="to-tierra" onclick="setTema('tierra',this)">
+        <div class="tema-dot" style="background:linear-gradient(135deg,#4a2010,#8b4d2a)"></div>
+        <div class="tema-lbl">Tierra</div>
+      </div>
+    </div>
+    <div style="padding:0 12px 12px;font-size:.68rem;color:var(--gris);">El tema se aplica al instante en toda la app.</div>
+  </div>
+
+  <div class="cfg-sec">
+    <div class="cfg-sec-t"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#ic-download"/></svg>Datos y Respaldo</div>
+    <div style="padding:4px 4px 8px">
+      <div style="padding:8px 12px"><button class="bbtn" style="background:var(--v);color:#fff" onclick="exportJSON()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><use href="#ic-download"/></svg> Descargar Respaldo JSON</button></div>
+      <div style="padding:0 12px 4px"><button class="bbtn" style="background:var(--tierra);color:#fff" onclick="exportCSV()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><use href="#ic-download"/></svg> Exportar CSV (Excel)</button></div>
+      <div style="padding:0 12px 4px">
+        <input type="file" id="fileInput" accept=".json" onchange="importJSON(event)">
+        <button class="bbtn" style="background:var(--vp);color:var(--v);border:2px solid var(--v2)" onclick="document.getElementById('fileInput').click()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#ic-save"/></svg> Restaurar Respaldo</button>
+      </div>
+      <div style="padding:0 12px 8px"><button class="bbtn" style="background:var(--vp);color:var(--v)" onclick="instalarPWA()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#ic-download"/></svg> Instalar App (PWA)</button></div>
+    </div>
+  </div>
+
+  <div class="cfg-sec" style="border:1.5px solid var(--rojop)">
+    <div class="cfg-sec-t" style="background:var(--rojop);color:var(--rojo)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#ic-trash"/></svg>Zona de peligro</div>
+    <div style="padding:12px">
+      <div style="font-size:.75rem;color:var(--gris);margin-bottom:10px">Elimina todos los registros del perfil activo. Esta acción no se puede deshacer.</div>
+      <button class="bbtn" style="background:var(--rojop);color:var(--rojo);margin:0" onclick="borrarTodo()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#ic-trash"/></svg> Eliminar todos los datos</button>
+    </div>
+  </div>
+</div>
+
+<!-- ACERCA DE -->
+<div class="vista" id="vAcerca">
+  <div class="acerca-hero">
+    <div style="display:flex;flex-direction:column;align-items:flex-start;">
+      <div style="display:flex;align-items:baseline;gap:0;line-height:1;">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:3.2rem;font-weight:700;color:#fff;letter-spacing:-2px;">Hato</span>
+        <span style="font-family:'Outfit',sans-serif;font-size:.85rem;font-weight:300;color:#81e09a;letter-spacing:6px;margin-left:4px;align-self:flex-end;margin-bottom:5px;">APP</span>
+      </div>
+      <div style="width:90px;height:1px;background:linear-gradient(90deg,rgba(129,224,154,.55),transparent);margin:6px 0 5px;"></div>
+      <div style="font-family:'Outfit',sans-serif;font-size:.5rem;font-weight:600;letter-spacing:5px;color:rgba(255,255,255,.35);text-transform:uppercase;">Sistema de Gestión Ganadera</div>
+    </div>
+    <div style="margin-top:20px;background:rgba(255,255,255,.07);border-radius:10px;padding:10px 14px;border:1px solid rgba(255,255,255,.1);">
+      <span style="font-family:'Outfit',sans-serif;font-size:.65rem;color:rgba(255,255,255,.5);letter-spacing:3px;text-transform:uppercase;">Versión</span>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;color:#81e09a;line-height:1.1;margin-top:2px;">1.0.0</div>
+      <div style="font-size:.62rem;color:rgba(255,255,255,.35);margin-top:2px;">Primera versión estable</div>
+    </div>
+  </div>
+
+  <div class="acerca-card">
+    <div style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--gris);margin-bottom:12px;display:flex;align-items:center;gap:6px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#ic-user"/></svg>Desarrollador</div>
+    <div class="acerca-row">
+      <div class="acerca-ico" style="background:var(--vp);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--v2)" stroke-width="1.8"><use href="#ic-user"/></svg></div>
+      <div>
+        <div class="acerca-lbl">Creado por</div>
+        <div class="acerca-val">FreddyDev</div>
+      </div>
+    </div>
+    <div class="acerca-row">
+      <div class="acerca-ico" style="background:#e8f0fe;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1d4ed8" stroke-width="1.8"><use href="#ic-building"/></svg></div>
+      <div>
+        <div class="acerca-lbl">Empresa</div>
+        <div class="acerca-val mono">GNet</div>
+      </div>
+    </div>
+    <div class="acerca-row">
+      <div class="acerca-ico" style="background:var(--amarillop);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--amarillo)" stroke-width="1.8"><use href="#ic-calendar"/></svg></div>
+      <div>
+        <div class="acerca-lbl">Año</div>
+        <div class="acerca-val">2026</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="acerca-card">
+    <div style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--gris);margin-bottom:12px;display:flex;align-items:center;gap:6px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#ic-info"/></svg>Sobre HatoApp</div>
+    <div class="acerca-row">
+      <div class="acerca-ico" style="background:var(--vp);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--v2)" stroke-width="1.8"><use href="#ic-list"/></svg></div>
+      <div>
+        <div class="acerca-lbl">Propósito</div>
+        <div class="acerca-val">Registro y control integral del hato ganadero bovino</div>
+      </div>
+    </div>
+    <div class="acerca-row">
+      <div class="acerca-ico" style="background:#fce7f3;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--rosa)" stroke-width="1.8"><use href="#ic-shield"/></svg></div>
+      <div>
+        <div class="acerca-lbl">Privacidad</div>
+        <div class="acerca-val">Sin servidores — todos los datos permanecen en tu dispositivo</div>
+      </div>
+    </div>
+    <div class="acerca-row">
+      <div class="acerca-ico" style="background:#dcfce7;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--verde)" stroke-width="1.8"><use href="#ic-settings"/></svg></div>
+      <div>
+        <div class="acerca-lbl">Funciona sin internet</div>
+        <div class="acerca-val">Disponible offline una vez instalada</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="acerca-footer">
+    <!-- <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="1.4" style="margin-bottom:8px"><use href="#ic-cow"/></svg> -->
+    <div style="font-family:'Cormorant Garamond',serif;font-size:.85rem;color:rgba(0,0,0,.25);letter-spacing:1px;">HatoApp Ganadero © 2026 GNet</div>
+    <div style="font-size:.6rem;color:rgba(0,0,0,.18);margin-top:3px;letter-spacing:2px;">FreddyDev — Todos los derechos reservados</div>
+  </div>
+</div>
+
+<!-- REGISTRO RÁPIDO -->
+<button class="rq-btn" id="rqBtn" onclick="toggleRQ()" title="Registro rápido">
+  <svg width="18" height="18" viewBox="0 0 24 24"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" stroke="currentColor" stroke-width="2" fill="none"/><polyline points="13 2 13 9 20 9" stroke="currentColor" stroke-width="2" fill="none"/><line x1="12" y1="13" x2="12" y2="17" stroke="currentColor" stroke-width="2"/><line x1="10" y1="15" x2="14" y2="15" stroke="currentColor" stroke-width="2"/></svg>
+</button>
+<div class="rq-modal" id="rqModal">
+  <div class="rq-hdr">
+    <span class="rq-t">Registro Rápido</span>
+    <button class="rq-x" onclick="toggleRQ()">✕</button>
+  </div>
+  <div class="rq-body">
+    <input class="rq-inp" id="rq-arete" placeholder="Arete / ID *">
+    <div style="display:flex;gap:6px">
+      <select class="rq-inp" id="rq-sexo" style="flex:1">
+        <option value="">Sexo *</option>
+        <option value="hembra">Hembra</option>
+        <option value="macho">Macho</option>
+        <option value="ternero">Ternero</option>
+      </select>
+      <input class="rq-inp" id="rq-peso" type="number" placeholder="Peso" style="flex:1;min-width:0">
+    </div>
+    <input class="rq-inp" id="rq-raza" placeholder="Raza (opcional)">
+    <input class="rq-inp" id="rq-lote" placeholder="Lote / Potrero (opcional)">
+    <button class="rq-save" onclick="guardarRapido()">Guardar animal</button>
+  </div>
+</div>
+
+<!-- FAB -->
+<button class="fab" id="fabBtn" onclick="abrirForm()">
+  <svg width="22" height="22" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+</button>
+
+<!-- NAV -->
+<nav class="nav" id="mainNav">
+  <button class="nb on" id="n-lista" onclick="mostrarVista('lista')">
+    <svg viewBox="0 0 24 24"><use href="#ic-list"/></svg>Hato
+  </button>
+  <button class="nb" id="n-ventas" onclick="mostrarVista('ventas')">
+    <svg viewBox="0 0 24 24"><use href="#ic-dollar"/></svg>Ventas
+  </button>
+  <button class="nb" id="n-alertas" onclick="mostrarVista('alertas')">
+    <svg viewBox="0 0 24 24"><use href="#ic-bell"/></svg>Alertas
+    <div class="ndot" id="navDot"></div>
+  </button>
+  <button class="nb" id="n-resumen" onclick="mostrarVista('resumen')">
+    <svg viewBox="0 0 24 24"><use href="#ic-chart"/></svg>Resumen
+  </button>
+  <button class="nb" id="n-config" onclick="mostrarVista('config')">
+    <svg viewBox="0 0 24 24"><use href="#ic-settings"/></svg>Config
+  </button>
+  <button class="nb" id="n-acerca" onclick="mostrarVista('acerca')">
+    <svg viewBox="0 0 24 24"><use href="#ic-info"/></svg>Acerca
+  </button>
+</nav>
+
+<!-- MODAL ANIMAL -->
+<div class="ov" id="ovBov" onclick="csiO('ovBov',event)">
+<div class="mdl" id="mdlBov">
+  <div class="mh">
+    <div class="mh-t" id="mTit">🐄 Nuevo Bovino</div>
+    <button class="mx" onclick="cerrarOv('ovBov')">✕</button>
+  </div>
+  <div class="mtabs">
+    <button class="mtab on" onclick="mTab(0,this)">📋 General</button>
+    <button class="mtab" onclick="mTab(1,this)">🔬 Reprod.</button>
+    <button class="mtab" onclick="mTab(2,this)">📍 Manejo</button>
+    <button class="mtab" onclick="mTab(3,this)">💰 Económ.</button>
+  </div>
+  <!-- Foto -->
+  <div class="foto-box" id="fotoBox">
+    <div class="foto-placeholder" id="fotoPlh">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+      <span>Toca para agregar foto</span>
+    </div>
+    <img id="fotoPreview" class="foto-preview" style="display:none" src="" alt="">
+    <div class="foto-src-btns" id="fotoActions" style="display:none">
+      <button class="foto-src-btn" onclick="document.getElementById('fotoCam').click()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#ic-camera"/></svg> Cámara</button>
+      <button class="foto-src-btn" onclick="document.getElementById('fotoGal').click()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#ic-image"/></svg> Galería</button>
+      <button class="foto-src-btn" style="color:var(--rojo)" onclick="quitarFoto()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#ic-trash"/></svg> Quitar</button>
+    </div>
+    <div class="foto-src-btns" id="fotoBtns">
+      <button class="foto-src-btn" onclick="document.getElementById('fotoCam').click()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#ic-camera"/></svg> Tomar foto</button>
+      <button class="foto-src-btn" onclick="document.getElementById('fotoGal').click()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#ic-image"/></svg> Galería</button>
+    </div>
+    <input type="file" id="fotoCam" accept="image/*" capture="environment" onchange="cargarFotoAnimal(event)">
+    <input type="file" id="fotoGal" accept="image/*" onchange="cargarFotoAnimal(event)">
+  </div>
+  <!-- Tab 0 General -->
+  <div id="tp-0">
+    <div class="msec"><div class="msec-t">🏷️ Identificación</div>
+      <div class="campo"><label>Arete / ID <span class="req">*</span></label><input id="f-arete" placeholder="Ej: BOV-001" maxlength="30"></div>
+      <div class="campo"><label>Nombre / Apodo</label><input id="f-nombre" placeholder="Ej: La Pintada"></div>
+      <div class="campo"><label>Sexo <span class="req">*</span></label>
+        <div class="rg">
+          <div class="ro" id="o-hembra" onclick="rad('sexo','hembra')">♀ Hembra</div>
+          <div class="ro" id="o-macho" onclick="rad('sexo','macho')">♂ Macho</div>
+          <div class="ro" id="o-ternero" onclick="rad('sexo','ternero')">🐮 Ternero</div>
+        </div>
+      </div>
+      <div class="campo"><label>Estado</label>
+        <div class="rg">
+          <div class="ro" id="o-activo" onclick="rad('estado','activo')">✅ Activo</div>
+          <div class="ro" id="o-vendido" onclick="rad('estado','vendido')">💰 Vendido</div>
+          <div class="ro" id="o-muerto" onclick="rad('estado','muerto')">❌ Muerto</div>
+        </div>
+      </div>
+    </div>
+    <div class="msec"><div class="msec-t">📋 Datos Generales</div>
+      <div class="crow"><div class="campo"><label>Fecha Nacimiento</label><input type="date" id="f-fechaNac"></div><div class="campo"><label>Fecha Ingreso</label><input type="date" id="f-fechaIngreso"></div></div>
+      <div class="campo"><label>Raza / Cruza</label>
+        <select id="f-raza"><option value="">Seleccionar...</option>
+          <optgroup label="Bos taurus"><option>Angus</option><option>Hereford</option><option>Simmental</option><option>Charolais</option><option>Limousin</option><option>Holstein</option><option>Jersey</option><option>Pardo Suizo</option><option>Shorthorn</option></optgroup>
+          <optgroup label="Bos indicus"><option>Brahman</option><option>Nelore</option><option>Gyr</option><option>Guzerat</option><option>Indobrasil</option></optgroup>
+          <optgroup label="Cruzas"><option>Brangus</option><option>Braford</option><option>Simbrah</option><option>Santa Gertrudis</option><option>Beefmaster</option></optgroup>
+          <option>Criolla</option><option>Otra / Mestiza</option>
+        </select>
+      </div>
+      <div class="campo"><label>Detalle Cruza</label><input id="f-razaDet" placeholder="Ej: 3/4 Angus 1/4 Brahman"></div>
+      <div class="campo"><label>Color / Pelaje</label><input id="f-color" placeholder="Ej: Negro, Rojo moteado"></div>
+      <div class="campo"><label>Señas / Marcas</label><input id="f-senas" placeholder="Ej: Mancha blanca en frente"></div>
+    </div>
+    <div class="msec"><div class="msec-t">🏠 Procedencia</div>
+      <div class="campo"><label>Procedencia</label><select id="f-proc"><option value="">Seleccionar...</option><option>Nacido en el hato</option><option>Comprado</option><option>Donado</option><option>Transferido</option></select></div>
+      <div class="campo"><label>Proveedor / Finca Origen</label><input id="f-prov" placeholder="Nombre del vendedor"></div>
+      <div class="crow"><div class="campo"><label>Arete Madre</label><input id="f-madre" placeholder="BOV-..."></div><div class="campo"><label>Arete Padre</label><input id="f-padre" placeholder="BOV-..."></div></div>
+      <div class="campo"><label>Registro Oficial</label><input id="f-regOf" placeholder="Nº de pedigrí"></div>
+    </div>
+    <div class="msec"><div class="msec-t">⚖️ Peso Inicial</div>
+      <div class="crow"><div class="campo"><label>Peso al Nacer (kg)</label><input type="number" id="f-pesoNac" placeholder="0" min="0" step="0.1"></div><div class="campo"><label>Peso Actual (kg)</label><input type="number" id="f-pesoAct" placeholder="0" min="0" step="0.1"></div></div>
+      <div class="crow"><div class="campo"><label>Fecha Pesaje</label><input type="date" id="f-fechaPeso"></div><div class="campo"><label>Cond. Corporal</label><select id="f-cc"><option value="">-</option><option>1 — Muy flaco</option><option>2 — Flaco</option><option>3 — Normal</option><option>4 — Gordo</option><option>5 — Obeso</option></select></div></div>
+    </div>
+    <div class="msec" style="margin-bottom:12px"><div class="msec-t">📝 Observaciones</div>
+      <div class="campo" style="border:none"><label>Notas</label><textarea id="f-obs" placeholder="Observaciones generales..."></textarea></div>
+    </div>
+  </div>
+  <!-- Tab 1 Reproductivo -->
+  <div id="tp-1" style="display:none">
+    <div class="msec"><div class="msec-t">🔬 Estado Reproductivo</div>
+      <div class="campo"><label>Estado Reproductivo</label><select id="f-estR"><option value="">Seleccionar...</option><option>Vacía</option><option>Preñada</option><option>En celo</option><option>Lactando</option><option>Seca</option><option>Novilla (sin parir)</option><option>Toro activo</option><option>Toro retirado</option><option>Castrado</option></select></div>
+      <div class="campo"><label>Propósito</label><select id="f-prop"><option value="">Seleccionar...</option><option>Carne</option><option>Leche</option><option>Doble propósito</option><option>Reproducción</option><option>Trabajo (buey)</option></select></div>
+      <div class="campo"><label>Producción Leche (lts/día)</label><input type="number" id="f-leche" placeholder="0" min="0" step="0.1"></div>
+    </div>
+    <div class="msec"><div class="msec-t">🗓️ Historial Reproductivo</div>
+      <div class="crow"><div class="campo"><label>Último Parto</label><input type="date" id="f-ultP"></div><div class="campo"><label>Nº de Partos</label><input type="number" id="f-nP" placeholder="0" min="0"></div></div>
+      <div class="crow"><div class="campo"><label>Última Monta / IA</label><input type="date" id="f-ultM" oninput="calcParto()"></div><div class="campo"><label>Parto Probable</label><input type="date" id="f-pPrb" placeholder="Auto calculado"></div></div>
+      <div class="campo"><label>Tipo de Monta</label><select id="f-monta"><option value="">Seleccionar...</option><option>Natural (toro)</option><option>Inseminación Artificial</option><option>Transferencia de Embriones</option></select></div>
+    </div>
+    <div class="msec" style="margin-bottom:12px"><div class="msec-t">🩺 Historial Médico</div>
+      <div class="campo" style="border:none"><label>Enfermedades / Tratamientos</label><textarea id="f-enf" placeholder="Enfermedades previas, tratamientos..."></textarea></div>
+    </div>
+  </div>
+  <!-- Tab 2 Manejo -->
+  <div id="tp-2" style="display:none">
+    <div class="msec"><div class="msec-t">📍 Ubicación</div>
+      <div class="crow"><div class="campo"><label>Lote / Potrero</label><input id="f-lote" placeholder="Ej: Potrero 3"></div><div class="campo"><label>Grupo de Manejo</label><input id="f-grupo" placeholder="Ej: Vacas preñadas"></div></div>
+    </div>
+    <div class="msec" style="margin-bottom:12px"><div class="msec-t">🌾 Alimentación</div>
+      <div class="campo"><label>Tipo de Alimentación</label><select id="f-alim"><option value="">Seleccionar...</option><option>Pastoreo extensivo</option><option>Pastoreo rotacional</option><option>Estabulado completo</option><option>Semi-estabulado</option><option>Pastoreo + suplemento</option></select></div>
+      <div class="campo" style="border:none"><label>Suplemento / Concentrado</label><input id="f-supl" placeholder="Ej: Maíz 2kg/día"></div>
+    </div>
+  </div>
+  <!-- Tab 3 Económico -->
+  <div id="tp-3" style="display:none">
+    <div class="msec" style="margin-bottom:12px"><div class="msec-t">💰 Datos Económicos</div>
+      <div class="crow"><div class="campo"><label>Precio Compra ($)</label><input type="number" id="f-precC" placeholder="0" min="0" step="0.01"></div><div class="campo"><label>Valor Actual ($)</label><input type="number" id="f-valA" placeholder="0" min="0" step="0.01"></div></div>
+      <div class="crow"><div class="campo"><label>Precio Venta ($)</label><input type="number" id="f-precV" placeholder="0" min="0" step="0.01"></div><div class="campo"><label>Fecha Venta</label><input type="date" id="f-fechaV"></div></div>
+      <div class="campo" style="border:none"><label>Comprador / Destino</label><input id="f-comp" placeholder="Nombre del comprador"></div>
+    </div>
+  </div>
+  <div class="mfoot">
+    <button class="bdel" id="btnDel" style="display:none" onclick="eliminarBovino()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#ic-trash"/></svg></button>
+    <button class="bsave" onclick="guardarBovino()"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" style="vertical-align:middle;margin-right:5px"><use href="#ic-save"/></svg>Guardar Registro</button>
+  </div>
+</div>
+</div>
+
+<!-- MODAL VACUNA -->
+<div class="sov" id="ovVac" onclick="csiO('ovVac',event)">
+<div class="smdl">
+  <div class="smh" style="background:linear-gradient(135deg,var(--tierra),var(--tierra2))">
+    <div class="smh-t" id="vacTit">💉 Registrar Vacuna</div>
+    <button class="mx" onclick="cerrarOv('ovVac')">✕</button>
+  </div>
+  <div style="padding:4px 0">
+    <div class="campo"><label>Tipo de Vacuna / Tratamiento</label>
+      <select id="vf-tipo">
+        <option value="">Seleccionar...</option>
+        <optgroup label="Obligatorias"><option value="Fiebre Aftosa" data-d="180">Fiebre Aftosa (FMD)</option><option value="Brucelosis" data-d="365">Brucelosis (RB51)</option><option value="Rabia Bovina" data-d="365">Rabia Bovina</option></optgroup>
+        <optgroup label="Clostridiales"><option value="Carbón Sintomático" data-d="180">Carbón Sintomático</option><option value="Edema Maligno" data-d="180">Edema Maligno</option><option value="Triple Clostridiosis" data-d="180">Triple Clostridiosis</option></optgroup>
+        <optgroup label="Reproductivas"><option value="IBR" data-d="365">IBR — Rinotraqueítis</option><option value="DVB" data-d="365">DVB — Diarrea Viral</option><option value="Leptospirosis" data-d="180">Leptospirosis</option><option value="Campylobacteriosis" data-d="365">Campylobacteriosis</option></optgroup>
+        <optgroup label="Antiparasitarios"><option value="Desparasitante Interno" data-d="90">Desparasitante Interno</option><option value="Garrapaticida" data-d="90">Garrapaticida</option><option value="Doble Acción" data-d="90">Doble Acción</option></optgroup>
+        <optgroup label="Vitaminas"><option value="Vitamina ADE" data-d="90">Vitamina ADE</option><option value="Complejo B" data-d="60">Complejo B</option><option value="Hierro / Minerales" data-d="90">Hierro / Minerales</option></optgroup>
+        <option value="otro" data-d="365">Otro — especificar</option>
+      </select>
+    </div>
+    <div class="campo"><label>Especificar nombre</label><input id="vf-nom" placeholder="Nombre del producto..."></div>
+    <div class="campo"><label>Fecha de Aplicación <span class="req">*</span></label><input type="date" id="vf-fecha"></div>
+    <div class="campo"><label>Próxima dosis (días)</label><input type="number" id="vf-per" placeholder="Ej: 180" min="1" max="999"></div>
+    <div class="campo"><label>Dosis / Producto</label><input id="vf-dosis" placeholder="Ej: 5ml Ivomec"></div>
+    <div class="campo"><label>Veterinario / Responsable</label><input id="vf-vet" placeholder="Nombre del aplicador"></div>
+    <div class="campo" style="border:none"><label>Notas</label><input id="vf-notas" placeholder="Observaciones..."></div>
+  </div>
+  <button class="ssave" id="vacSave" style="background:linear-gradient(135deg,var(--tierra),var(--tierra2))" onclick="guardarVacuna()">💉 Registrar Vacuna</button>
+</div>
+</div>
+
+<!-- MODAL PESAJE -->
+<div class="sov" id="ovPeso" onclick="csiO('ovPeso',event)">
+<div class="smdl">
+  <div class="smh" style="background:linear-gradient(135deg,#1d4ed8,#3b82f6)">
+    <div class="smh-t">⚖️ Registrar Pesaje</div>
+    <button class="mx" onclick="cerrarOv('ovPeso')">✕</button>
+  </div>
+  <div style="padding:4px 0">
+    <div class="campo"><label>Peso (kg) <span class="req">*</span></label><input type="number" id="pf-peso" placeholder="Ej: 350" min="0" step="0.1"></div>
+    <div class="campo"><label>Fecha <span class="req">*</span></label><input type="date" id="pf-fecha"></div>
+    <div class="campo" style="border:none"><label>Notas</label><input id="pf-notas" placeholder="Ej: Post destete, en corral..."></div>
+  </div>
+  <button class="ssave" style="background:linear-gradient(135deg,#1d4ed8,#3b82f6)" onclick="guardarPesaje()">⚖️ Registrar Peso</button>
+</div>
+</div>
+
+<!-- MODAL GASTO -->
+<div class="sov" id="ovGasto" onclick="csiO('ovGasto',event)">
+<div class="smdl">
+  <div class="smh" style="background:linear-gradient(135deg,var(--naranja),#f59e0b)">
+    <div class="smh-t" id="gastoTit">💸 Registrar Gasto</div>
+    <button class="mx" onclick="cerrarOv('ovGasto')">✕</button>
+  </div>
+  <div style="padding:4px 0">
+    <div class="campo"><label>Categoría</label>
+      <select id="gf-cat"><option value="">Seleccionar...</option>
+        <option>Veterinario / Consulta</option><option>Medicamento</option><option>Vacuna</option>
+        <option>Alimentación / Suplemento</option><option>Transporte</option><option>Inseminación</option>
+        <option>Herraje / Marcado</option><option>Otros</option>
+      </select>
+    </div>
+    <div class="campo"><label>Descripción <span class="req">*</span></label><input id="gf-desc" placeholder="Ej: Ivermectina 50ml"></div>
+    <div class="campo"><label>Monto ($) <span class="req">*</span></label><input type="number" id="gf-monto" placeholder="0" min="0" step="0.01"></div>
+    <div class="campo"><label>Fecha <span class="req">*</span></label><input type="date" id="gf-fecha"></div>
+    <div class="campo" style="border:none"><label>Notas</label><input id="gf-notas" placeholder="Observaciones..."></div>
+  </div>
+  <button class="ssave" id="gastoSave" style="background:linear-gradient(135deg,var(--naranja),#f59e0b)" onclick="guardarGasto()">💸 Registrar Gasto</button>
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ================================================================
+// IndexedDB
+// ================================================================
+const DB_NAME='GanaderiaProDB';
+let db=null;
+
+function initDB(){
+  return new Promise((res,rej)=>{
+    const req=indexedDB.open(DB_NAME,3);
+    req.onupgradeneeded=e=>{
+      const d=e.target.result;
+      if(!d.objectStoreNames.contains('perfiles')) d.createObjectStore('perfiles',{keyPath:'id'});
+      if(!d.objectStoreNames.contains('bovinos')){
+        const bs=d.createObjectStore('bovinos',{keyPath:'id'});
+        bs.createIndex('perfilId','perfilId',{unique:false});
+      }
+      if(!d.objectStoreNames.contains('vacunas')){
+        const vs=d.createObjectStore('vacunas',{keyPath:'id'});
+        vs.createIndex('bovinoId','bovinoId',{unique:false});
+      }
+      if(!d.objectStoreNames.contains('pesajes')){
+        const ps=d.createObjectStore('pesajes',{keyPath:'id'});
+        ps.createIndex('bovinoId','bovinoId',{unique:false});
+      }
+      if(!d.objectStoreNames.contains('gastos')){
+        const gs=d.createObjectStore('gastos',{keyPath:'id'});
+        gs.createIndex('bovinoId','bovinoId',{unique:false});
+      }
+    };
+    req.onsuccess=e=>{db=e.target.result;res(db);};
+    req.onerror=e=>rej(e.target.error);
+  });
+}
+
+function getAll(store){
+  return new Promise((res,rej)=>{
+    const req=db.transaction(store,'readonly').objectStore(store).getAll();
+    req.onsuccess=e=>res(e.target.result);
+    req.onerror=e=>rej(e.target.error);
+  });
+}
+function putRecord(store,rec){
+  return new Promise((res,rej)=>{
+    const req=db.transaction(store,'readwrite').objectStore(store).put(rec);
+    req.onsuccess=e=>res(e.target.result);
+    req.onerror=e=>rej(e.target.error);
+  });
+}
+function deleteRecord(store,id){
+  return new Promise((res,rej)=>{
+    const req=db.transaction(store,'readwrite').objectStore(store).delete(id);
+    req.onsuccess=()=>res();
+    req.onerror=e=>rej(e.target.error);
+  });
+}
+function clearStore(store){
+  return new Promise((res,rej)=>{
+    const req=db.transaction(store,'readwrite').objectStore(store).clear();
+    req.onsuccess=()=>res();
+    req.onerror=e=>rej(e.target.error);
+  });
+}
+
+// ================================================================
+// Estado
+// ================================================================
+let bovinos=[],vacunas=[],perfiles=[],pesajes=[],gastos=[];
+let editId=null,vacBovId=null,editVacId=null;
+let pesoBovId=null,gastoBovId=null,editGastoId=null;
+let filtroAct='todos';
+let rads={sexo:null,estado:'activo'};
+let fotoAnimalB64=null,fotoPerfilB64=null;
+let editPerfilId=null,perfilActivo=null;
+let pwaPrompt=null;
+// Crop state
+let cropImgSrc=null,cropOffX=0,cropOffY=0,cropScale=1,cropTarget=null;
+let cropDrag=false,cropStartX=0,cropStartY=0,cropStartOX=0,cropStartOY=0;
+
+const FC=['arete','nombre','fechaNac','fechaIngreso','raza','razaDet','color','senas',
+  'proc','prov','madre','padre','regOf','pesoNac','pesoAct','fechaPeso','cc','obs',
+  'estR','prop','leche','ultP','nP','ultM','pPrb','monta','enf',
+  'lote','grupo','alim','supl','precC','valA','precV','fechaV','comp'];
+
+const hoy=()=>new Date().toISOString().split('T')[0];
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).substr(2,5);
+// fmt$ se mantiene como alias por compatibilidad, usa fmtDinero
+const fmt$=v=>fmtDinero(v);
+
+// ================================================================
+// PWA
+// ================================================================
+window.addEventListener('beforeinstallprompt',e=>{
+  e.preventDefault();pwaPrompt=e;
+  document.getElementById('installBanner').classList.remove('hide');
+});
+function instalarPWA(){
+  if(pwaPrompt){pwaPrompt.prompt();pwaPrompt.userChoice.then(()=>{pwaPrompt=null;document.getElementById('installBanner').classList.add('hide');});}
+  else toast('📱 Menú del navegador → "Agregar a pantalla de inicio"');
+}
+
+// ================================================================
+// CONFIGURACIÓN
+// ================================================================
+const CFG_KEY='hatoapp_cfg';
+let cfg={peso:'kg',pesoDec:'1',moneda:'MXN',monedaSim:'symbol',fecha:'dd/mm/yyyy',fuente:'default',tema:'natural'};
+
+function cargarConfig(){
+  try{const s=localStorage.getItem(CFG_KEY);if(s)cfg={...cfg,...JSON.parse(s)};}catch(e){}
+  ['peso','pesoDec','moneda','monedaSim','fecha'].forEach(k=>{
+    const el=document.getElementById('cfg-'+k);
+    if(el)el.value=cfg[k]||el.options[0].value;
+  });
+}
+
+function guardarConfig(){
+  cfg={
+    peso:document.getElementById('cfg-peso').value,
+    pesoDec:document.getElementById('cfg-pesoDec').value,
+    moneda:document.getElementById('cfg-moneda').value,
+    monedaSim:document.getElementById('cfg-monedaSim').value,
+    fecha:document.getElementById('cfg-fecha').value
+  };
+  localStorage.setItem(CFG_KEY,JSON.stringify(cfg));
+  renderConfigPreview();
+  toast('✓ Configuración guardada');
+  renderLista();
+}
+
+function renderConfigPreview(){
+  const w=fmtPeso(350);
+  const p=fmtDinero(1200);
+  document.getElementById('cpPeso').textContent=w;
+  document.getElementById('cpPrecio').textContent=p;
+  document.getElementById('cpMon').textContent=cfg.moneda;
+}
+
+// Formatear peso según config
+function fmtPeso(val){
+  if(!val&&val!==0)return'—';
+  let v=parseFloat(val);
+  if(cfg.peso==='lb') v=v*2.20462;
+  const dec=parseInt(cfg.pesoDec)||0;
+  return v.toFixed(dec)+' '+cfg.peso;
+}
+
+// Formatear dinero según config
+const SIM_MAP={MXN:'$',USD:'$',COP:'$',GTQ:'Q',HNL:'L',BRL:'R$',ARS:'$',CLP:'$',VES:'Bs.',PEN:'S/',EUR:'€'};
+function fmtDinero(val){
+  if(!val&&val!==0)return'—';
+  const n=parseFloat(val);
+  if(isNaN(n))return'—';
+  const f=n.toLocaleString('es-MX',{minimumFractionDigits:2,maximumFractionDigits:2});
+  if(cfg.monedaSim==='code') return cfg.moneda+' '+f;
+  return(SIM_MAP[cfg.moneda]||'$')+f;
+}
+
+// Formatear fecha según config
+function fmtFecha(str){
+  if(!str)return'—';
+  const[y,m,d]=str.split('-');
+  if(!y||!m||!d)return str;
+  if(cfg.fecha==='dd/mm/yyyy') return`${d}/${m}/${y}`;
+  if(cfg.fecha==='mm/dd/yyyy') return`${m}/${d}/${y}`;
+  return str;
+}
+
+// ================================================================
+// INIT
+// ================================================================
+async function init(){
+  const logEl=document.getElementById('listaBovinos');
+  const log=msg=>{if(logEl)logEl.innerHTML=`<div style="padding:20px;font-size:.75rem;color:#666">${msg}</div>`;};
+  try{
+    log('Paso 1: abriendo base de datos...');
+    await initDB();
+    log('Paso 2: cargando configuración...');
+    cargarConfig();
+    log('Paso 3: leyendo datos...');
+    [bovinos,vacunas,perfiles,pesajes,gastos]=await Promise.all([
+      getAll('bovinos'),getAll('vacunas'),getAll('perfiles'),getAll('pesajes'),getAll('gastos')
+    ]);
+    log('Paso 4: inicializando formularios...');
+    const fe=document.getElementById('f-fechaIngreso');if(fe)fe.value=hoy();
+    const vfe=document.getElementById('vf-fecha');if(vfe)vfe.value=hoy();
+    const pfe=document.getElementById('pf-fecha');if(pfe)pfe.value=hoy();
+    const gfe=document.getElementById('gf-fecha');if(gfe)gfe.value=hoy();
+    rad('estado','activo');
+    const vft=document.getElementById('vf-tipo');
+    if(vft)vft.addEventListener('change',function(){
+      const d=this.options[this.selectedIndex].getAttribute('data-d');
+      if(d){const vfp=document.getElementById('vf-per');if(vfp)vfp.value=d;}
+    });
+    const fp=document.getElementById('fotoPlh');
+    if(fp)fp.onclick=()=>{const fg=document.getElementById('fotoGal');if(fg)fg.click();};
+    if('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(()=>{});
+    log('Paso 5: aplicando tema y fuente...');
+    aplicarFuenteYTema();
+    log('Paso 6: cargando perfil...');
+    if(!perfiles.length){
+      logEl.innerHTML='';
+      document.getElementById('pantallaPerfiles').classList.add('on');
+      setTimeout(()=>abrirModalPerfil(),350);
+    } else {
+      const uid2=localStorage.getItem('gpro_pid');
+      const p=perfiles.find(x=>x.id===uid2)||perfiles[0];
+      seleccionarPerfil(p.id,false);
+    }
+  } catch(err){
+    logEl.innerHTML=`<div style="margin:16px;background:#fff3cd;border-radius:12px;padding:16px;border-left:4px solid #f59e0b">
+      <strong style="color:#92400e">Error de inicio:</strong><br>
+      <code style="font-size:.72rem;color:#78350f;word-break:break-all">${err && err.message ? err.message : String(err)}</code><br><br>
+      <button onclick="location.reload()" style="background:#1e4d2b;color:#fff;border:none;border-radius:8px;padding:8px 16px;font-size:.82rem;cursor:pointer">Reintentar</button>
+    </div>`;
+  }
+}
+init();
+
+// ================================================================
+// PERFILES
+// ================================================================
+function renderListaPerfiles(){
+  const c=document.getElementById('listaPerfiles');
+  if(!perfiles.length){c.innerHTML='';return;}
+  c.innerHTML=perfiles.map(p=>{
+    const bc=bovinos.filter(b=>b.perfilId===p.id&&(!b.estado||b.estado==='activo')).length;
+    const vc=vacunas.filter(v=>bovinos.find(b=>b.id===v.bovinoId&&b.perfilId===p.id)).length;
+    const ea=perfilActivo&&perfilActivo.id===p.id;
+    const fh=p.foto?`<img src="${p.foto}" alt="">`:`<span>${p.emoji||'🐄'}</span>`;
+    return `<div class="pcard ${ea?'activo':''}" onclick="seleccionarPerfil('${p.id}')">
+      <div class="pc-foto">${fh}</div>
+      <div class="pc-inf">
+        <div class="pc-nom">${p.nombre}</div>
+        ${p.descripcion?`<div class="pc-desc">📍 ${p.descripcion}</div>`:''}
+        ${p.owner?`<div class="pc-desc">👤 ${p.owner}</div>`:''}
+        <div class="pc-stats">🐄 ${bc} activos · 💉 ${vc} vacunas</div>
+      </div>
+      ${ea?'<span class="pc-act">ACTIVO</span>':''}
+      <button class="pc-edit" onclick="event.stopPropagation();abrirModalPerfil('${p.id}')">✏️</button>
+    </div>`;
+  }).join('');
+}
+
+function seleccionarPerfil(id,cerrar=true){
+  perfilActivo=perfiles.find(p=>p.id===id);
+  if(!perfilActivo)return;
+  localStorage.setItem('gpro_pid',id);
+  // Header
+  const hf=document.getElementById('hdrFoto'),hn=document.getElementById('hdrNom');
+  hn.textContent=perfilActivo.nombre;
+  if(perfilActivo.foto) hf.innerHTML=`<img src="${perfilActivo.foto}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;
+  else hf.textContent=perfilActivo.emoji||'🐄';
+  if(cerrar) document.getElementById('pantallaPerfiles').classList.remove('on');
+  renderLista();updateStats();
+  const rqb=document.getElementById('rqBtn');if(rqb)rqb.classList.add('vis');
+}
+
+function abrirModalPerfil(id=null){
+  editPerfilId=id;fotoPerfilB64=null;
+  document.getElementById('pMTit').textContent=id?'✏️ Editar Perfil':'👤 Nuevo Perfil';
+  document.getElementById('pfBtnDel').style.display=id?'block':'none';
+  resetFotoPerfil();
+  ['pf-nom','pf-desc','pf-owner'].forEach(i=>document.getElementById(i).value='');
+  if(id){
+    const p=perfiles.find(x=>x.id===id);if(!p)return;
+    document.getElementById('pf-nom').value=p.nombre||'';
+    document.getElementById('pf-desc').value=p.descripcion||'';
+    document.getElementById('pf-owner').value=p.owner||'';
+    if(p.foto){fotoPerfilB64=p.foto;mostrarFotoPerfil(p.foto);}
+  }
+  document.getElementById('ovPerfil').classList.add('on');
+}
+
+function resetFotoPerfil(){
+  document.getElementById('pfEmoji').style.display='block';
+  document.getElementById('pfImg').style.display='none';
+  document.getElementById('pfImg').src='';
+  document.getElementById('pfDelFoto').style.display='none';
+}
+
+function mostrarFotoPerfil(src){
+  document.getElementById('pfEmoji').style.display='none';
+  document.getElementById('pfImg').src=src;
+  document.getElementById('pfImg').style.display='block';
+  document.getElementById('pfDelFoto').style.display='block';
+}
+
+function quitarFotoPerfil(){fotoPerfilB64=null;resetFotoPerfil();}
+
+async function guardarPerfil(){
+  const nom=(document.getElementById('pf-nom').value||'').trim();
+  if(!nom){toast('⚠️ El nombre es requerido');return;}
+  const p={
+    id:editPerfilId||uid(),nombre:nom,
+    descripcion:document.getElementById('pf-desc').value,
+    owner:document.getElementById('pf-owner').value,
+    foto:fotoPerfilB64||null,emoji:'🐄',
+    uAt:new Date().toISOString()
+  };
+  await putRecord('perfiles',p);
+  if(editPerfilId){const i=perfiles.findIndex(x=>x.id===editPerfilId);perfiles[i]=p;}
+  else perfiles.push(p);
+  cerrarOv('ovPerfil');
+  if(!perfilActivo||editPerfilId===perfilActivo?.id) seleccionarPerfil(p.id,false);
+  renderListaPerfiles();
+  toast(editPerfilId?'✅ Perfil actualizado':'✅ Perfil creado');
+  editPerfilId=null;
+}
+
+async function eliminarPerfil(){
+  if(!editPerfilId)return;
+  const bc=bovinos.filter(b=>b.perfilId===editPerfilId).length;
+  const msg=bc>0?`Este perfil tiene ${bc} bovinos. ¿Eliminar todo?`:'¿Eliminar este perfil?';
+  if(!confirm(msg))return;
+  if(bc>0){
+    const bids=bovinos.filter(b=>b.perfilId===editPerfilId).map(b=>b.id);
+    for(const bid of bids){
+      for(const v of vacunas.filter(x=>x.bovinoId===bid)) await deleteRecord('vacunas',v.id);
+      for(const p of pesajes.filter(x=>x.bovinoId===bid)) await deleteRecord('pesajes',p.id);
+      for(const g of gastos.filter(x=>x.bovinoId===bid)) await deleteRecord('gastos',g.id);
+      await deleteRecord('bovinos',bid);
+    }
+    vacunas=vacunas.filter(v=>!bovinos.find(b=>b.id===v.bovinoId&&b.perfilId===editPerfilId));
+    pesajes=pesajes.filter(p=>!bovinos.find(b=>b.id===p.bovinoId&&b.perfilId===editPerfilId));
+    gastos=gastos.filter(g=>!bovinos.find(b=>b.id===g.bovinoId&&b.perfilId===editPerfilId));
+    bovinos=bovinos.filter(b=>b.perfilId!==editPerfilId);
+  }
+  await deleteRecord('perfiles',editPerfilId);
+  perfiles=perfiles.filter(p=>p.id!==editPerfilId);
+  cerrarOv('ovPerfil');
+  if(perfilActivo?.id===editPerfilId){
+    perfilActivo=null;
+    if(perfiles.length) seleccionarPerfil(perfiles[0].id,false);
+    else document.getElementById('pantallaPerfiles').classList.add('on');
+  }
+  renderListaPerfiles();updateStats();
+  toast('🗑️ Perfil eliminado');editPerfilId=null;
+}
+
+// ================================================================
+// CROP DE FOTO (estilo WhatsApp)
+// ================================================================
+function iniciarCropPerfil(e){
+  const file=e.target.files[0];if(!file)return;
+  cropTarget='perfil';
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    cropImgSrc=ev.target.result;
+    abrirCrop(cropImgSrc);
+  };
+  reader.readAsDataURL(file);
+  e.target.value='';
+}
+
+function abrirCrop(src){
+  const img=document.getElementById('cropImg');
+  cropOffX=0;cropOffY=0;cropScale=1;
+  img.style.width='';img.style.height='';img.style.left='0';img.style.top='0';
+  img.onload=()=>{
+    const area=document.getElementById('cropArea');
+    const aw=area.clientWidth,ah=area.clientHeight;
+    const cSize=260;
+    // Escala mínima para cubrir el círculo
+    const minS=Math.max(cSize/img.naturalWidth,cSize/img.naturalHeight);
+    cropScale=minS;
+    const iw=img.naturalWidth*cropScale;
+    const ih=img.naturalHeight*cropScale;
+    // Centrar imagen
+    cropOffX=(aw-iw)/2;
+    cropOffY=(ah-ih)/2;
+    const sliderMin=Math.round(minS*100);
+    document.getElementById('cropZoom').min=sliderMin;
+    document.getElementById('cropZoom').max=Math.min(sliderMin*3,400);
+    document.getElementById('cropZoom').value=sliderMin;
+    aplicarTransform();
+  };
+  img.src=src;
+  document.getElementById('cropOv').classList.add('on');
+  setupCropEvents();
+}
+
+function centerCrop(aw,ah,iw,ih){
+  cropOffX=(aw-iw)/2;
+  cropOffY=(ah-ih)/2;
+}
+
+function aplicarZoom(){
+  const val=parseInt(document.getElementById('cropZoom').value);
+  const img=document.getElementById('cropImg');
+  const prevIW=img.naturalWidth*cropScale;
+  const prevIH=img.naturalHeight*cropScale;
+  cropScale=val/100;
+  const newIW=img.naturalWidth*cropScale;
+  const newIH=img.naturalHeight*cropScale;
+  // Mantener centro al hacer zoom
+  cropOffX+=( prevIW-newIW)/2;
+  cropOffY+=(prevIH-newIH)/2;
+  clampCrop();
+  aplicarTransform();
+}
+
+function aplicarTransform(){
+  const img=document.getElementById('cropImg');
+  const w=img.naturalWidth*cropScale;
+  const h=img.naturalHeight*cropScale;
+  img.style.width=w+'px';
+  img.style.height=h+'px';
+  img.style.left=cropOffX+'px';
+  img.style.top=cropOffY+'px';
+  img.style.transform='none';
+}
+
+function clampCrop(){
+  const img=document.getElementById('cropImg');
+  const area=document.getElementById('cropArea');
+  const aw=area.clientWidth,ah=area.clientHeight;
+  const cSize=260;
+  const cx=aw/2-cSize/2,cy=ah/2-cSize/2;
+  const iw=img.naturalWidth*cropScale,ih=img.naturalHeight*cropScale;
+  if(cropOffX>cx) cropOffX=cx;
+  if(cropOffY>cy) cropOffY=cy;
+  if(cropOffX+iw<cx+cSize) cropOffX=cx+cSize-iw;
+  if(cropOffY+ih<cy+cSize) cropOffY=cy+cSize-ih;
+}
+
+function setupCropEvents(){
+  const img=document.getElementById('cropImg');
+  // Touch
+  img.ontouchstart=e=>{
+    e.preventDefault();
+    const t=e.touches[0];
+    cropDrag=true;cropStartX=t.clientX;cropStartY=t.clientY;
+    cropStartOX=cropOffX;cropStartOY=cropOffY;
+  };
+  img.ontouchmove=e=>{
+    e.preventDefault();
+    if(!cropDrag)return;
+    const t=e.touches[0];
+    cropOffX=cropStartOX+(t.clientX-cropStartX);
+    cropOffY=cropStartOY+(t.clientY-cropStartY);
+    clampCrop();aplicarTransform();
+  };
+  img.ontouchend=()=>cropDrag=false;
+  // Mouse
+  img.onmousedown=e=>{
+    cropDrag=true;cropStartX=e.clientX;cropStartY=e.clientY;
+    cropStartOX=cropOffX;cropStartOY=cropOffY;
+    e.preventDefault();
+  };
+  document.onmousemove=e=>{
+    if(!cropDrag)return;
+    cropOffX=cropStartOX+(e.clientX-cropStartX);
+    cropOffY=cropStartOY+(e.clientY-cropStartY);
+    clampCrop();aplicarTransform();
+  };
+  document.onmouseup=()=>cropDrag=false;
+}
+
+function cancelarCrop(){
+  document.getElementById('cropOv').classList.remove('on');
+}
+
+function confirmarCrop(){
+  const img=document.getElementById('cropImg');
+  const area=document.getElementById('cropArea');
+  const aw=area.clientWidth,ah=area.clientHeight;
+  const cSize=260;
+  const cx=aw/2-cSize/2,cy=ah/2-cSize/2;
+  const canvas=document.createElement('canvas');
+  canvas.width=300;canvas.height=300;
+  const ctx=canvas.getContext('2d');
+  ctx.beginPath();ctx.arc(150,150,150,0,Math.PI*2);ctx.clip();
+  // Coordenadas fuente: qué parte de la imagen original corresponde al círculo
+  const srcX=(cx-cropOffX)/cropScale;
+  const srcY=(cy-cropOffY)/cropScale;
+  const srcW=cSize/cropScale;
+  const srcH=cSize/cropScale;
+  ctx.drawImage(img,srcX,srcY,srcW,srcH,0,0,300,300);
+  const result=canvas.toDataURL('image/jpeg',0.88);
+  document.getElementById('cropOv').classList.remove('on');
+  if(cropTarget==='perfil'){
+    fotoPerfilB64=result;
+    mostrarFotoPerfil(result);
+  }
+}
+
+// ================================================================
+// STATS / ALERTAS
+// ================================================================
+function bPerfil(){return perfilActivo?bovinos.filter(b=>b.perfilId===perfilActivo.id):[];}
+
+function getAlertas(){
+  const hm=new Date().setHours(0,0,0,0),res=[];
+  const bids=new Set(bPerfil().map(b=>b.id));
+  vacunas.forEach(v=>{
+    if(!bids.has(v.bovinoId)||!v.fecha||!v.periodo)return;
+    const prox=new Date(v.fecha).setHours(0,0,0,0)+v.periodo*86400000;
+    const diff=Math.round((prox-hm)/86400000);
+    if(diff<=30){const b=bovinos.find(x=>x.id===v.bovinoId);res.push({v,b,diff});}
+  });
+  return res.sort((a,b)=>a.diff-b.diff);
+}
+
+function updateStats(){
+  const bp=bPerfil(),act=bp.filter(b=>!b.estado||b.estado==='activo');
+  document.getElementById('sT').textContent=act.length;
+  document.getElementById('sH').textContent=act.filter(b=>b.sexo==='hembra').length;
+  document.getElementById('sM').textContent=act.filter(b=>b.sexo==='macho').length;
+  document.getElementById('sTe').textContent=act.filter(b=>b.sexo==='ternero').length;
+  const na=getAlertas().length;
+  document.getElementById('sA').textContent=na;
+  document.getElementById('bellDot').style.display=na>0?'block':'none';
+  document.getElementById('navDot').style.display=na>0?'block':'none';
+}
+
+// ================================================================
+// NAVEGACIÓN
+// ================================================================
+function mostrarVista(v){
+  document.querySelectorAll('.vista').forEach(e=>e.classList.remove('on'));
+  document.querySelectorAll('.nb').forEach(e=>e.classList.remove('on'));
+  const esD=v==='detalle';
+  document.getElementById('mainHdr').style.display=esD?'none':'';
+  document.getElementById('mainNav').style.display=esD?'none':'';
+  document.getElementById('fabBtn').style.display=v==='lista'?'flex':'none';
+  const mv={lista:'vLista',detalle:'vDetalle',ventas:'vVentas',alertas:'vAlertas',resumen:'vResumen',config:'vConfig',acerca:'vAcerca'};
+  const mn={lista:'n-lista',ventas:'n-ventas',alertas:'n-alertas',resumen:'n-resumen',config:'n-config',acerca:'n-acerca'};
+  if(mv[v]) document.getElementById(mv[v]).classList.add('on');
+  if(mn[v]) document.getElementById(mn[v]).classList.add('on');
+  if(v==='alertas') renderAlertas();
+  if(v==='resumen') renderResumen();
+  if(v==='ventas') renderVentas();
+  if(v==='config') renderConfigPreview();
+  // Botón registro rápido solo en vista lista
+  const rqb=document.getElementById('rqBtn');
+  if(rqb) rqb.classList.toggle('vis',v==='lista');
+  if(v!=='lista'){const m=document.getElementById('rqModal');if(m)m.classList.remove('on');}
+
+}
+
+// ================================================================
+// LISTA
+// ================================================================
+function setF(f,btn){filtroAct=f;document.querySelectorAll('.ftag').forEach(b=>b.classList.remove('on'));btn.classList.add('on');renderLista();}
+
+function edad(fn){
+  if(!fn)return null;
+  let m=(new Date().getFullYear()-new Date(fn).getFullYear())*12+new Date().getMonth()-new Date(fn).getMonth();
+  return m<1?'<1 mes':m<24?m+' meses':Math.floor(m/12)+' años';
+}
+
+function vacBadge(bid){
+  const vl=vacunas.filter(v=>v.bovinoId===bid);if(!vl.length)return null;
+  const hm=new Date().setHours(0,0,0,0);let min=Infinity;
+  vl.forEach(v=>{if(!v.fecha||!v.periodo)return;const d=Math.round((new Date(v.fecha).setHours(0,0,0,0)+v.periodo*86400000-hm)/86400000);if(d<min)min=d;});
+  if(min===Infinity)return null;
+  if(min<0)return{c:'bvl',t:'💉 Vencida'};
+  if(min<=14)return{c:'bvw',t:`💉 ${min}d`};
+  return{c:'bvok',t:'💉 OK'};
+}
+
+function rentBadge(b){
+  if(!b.precV||!b.precC)return null;
+  const gan=parseFloat(b.precV)-parseFloat(b.precC)-(gastos.filter(g=>g.bovinoId===b.id).reduce((s,g)=>s+parseFloat(g.monto||0),0));
+  return gan>=0?{c:'bgan',t:`+${fmt$(gan)}`}:{c:'bper',t:fmt$(gan)};
+}
+
+function renderLista(){
+  const q=(document.getElementById('busq').value||'').toLowerCase();
+  let l=bPerfil();
+  if(filtroAct==='activo') l=l.filter(b=>!b.estado||b.estado==='activo');
+  else if(filtroAct==='vendido') l=l.filter(b=>b.estado==='vendido');
+  else if(['hembra','macho','ternero'].includes(filtroAct)) l=l.filter(b=>b.sexo===filtroAct);
+  if(q) l=l.filter(b=>(b.arete||'').toLowerCase().includes(q)||(b.nombre||'').toLowerCase().includes(q)||(b.raza||'').toLowerCase().includes(q)||(b.lote||'').toLowerCase().includes(q));
+  const c=document.getElementById('listaBovinos');
+  if(!l.length){
+    c.innerHTML=`<div class="empty-l"><div style="font-size:3rem;opacity:.2">🐄</div><h3>Sin bovinos registrados</h3><p>Toca <strong>+</strong> para agregar el primero</p></div>`;
+    return;
+  }
+  c.innerHTML=l.map(b=>{
+    const sc=b.sexo==='hembra'?'h':b.sexo==='macho'?'m':b.sexo==='ternero'?'t':'';
+    const sb=b.sexo==='hembra'?'bh':b.sexo==='macho'?'bm':'bt';
+    const st=b.sexo==='hembra'?'♀ Hembra':b.sexo==='macho'?'♂ Macho':'🐮 Ternero';
+    const eb=b.estado==='vendido'?'bvend':b.estado==='muerto'?'bmuert':'bact';
+    const et=b.estado==='vendido'?'Vendido':b.estado==='muerto'?'Muerto':'Activo';
+    const ia=(b.estado==='vendido'||b.estado==='muerto')?'ia':'';
+    const e=edad(b.fechaNac),vb=vacBadge(b.id),rb=rentBadge(b);
+    const fh=b.foto?`<img src="${b.foto}" alt="">`:`<span>${b.sexo==='hembra'?'🐄':b.sexo==='macho'?'🐂':'🐮'}</span>`;
+    return `<div class="acard ${sc} ${ia}" onclick="verDetalle('${b.id}')">
+      <div class="ac-foto">${fh}</div>
+      <div class="ac-body">
+        <div class="ac-top">
+          <div><div class="ac-arete">${b.arete||'Sin arete'}</div><div class="ac-nom">${b.nombre||'—'}</div></div>
+          <div class="ac-badges">
+            ${b.sexo?`<span class="badge ${sb}">${st}</span>`:''}
+            <span class="badge ${eb}">${et}</span>
+            ${vb?`<span class="badge ${vb.c}">${vb.t}</span>`:''}
+            ${rb?`<span class="badge ${rb.c}">${rb.t}</span>`:''}
+          </div>
+        </div>
+        <div class="ac-inf">
+          ${b.raza?`<div class="adi"><strong>${b.raza}</strong></div>`:''}
+          ${b.pesoAct?`<div class="adi">⚖ <strong>${fmtPeso(b.pesoAct)}</strong></div>`:''}
+          ${e?`<div class="adi">${fmtFecha(b.fechaNac)?'':''}${e}</div>`:''}
+          ${b.lote?`<div class="adi">${b.lote}</div>`:''}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ================================================================
+// FORMULARIO ANIMAL
+// ================================================================
+function mTab(i,btn){
+  for(let j=0;j<4;j++) document.getElementById('tp-'+j).style.display=j===i?'block':'none';
+  document.querySelectorAll('.mtab').forEach((b,x)=>b.classList.toggle('on',x===i));
+}
+
+function rad(g,v){
+  rads[g]=v;
+  const m={sexo:['hembra','macho','ternero'],estado:['activo','vendido','muerto']};
+  m[g].forEach(x=>{const el=document.getElementById('o-'+x);if(el)el.className='ro'+(x===v?` rs-${x}`:'');});
+}
+
+function calcParto(){
+  const m=document.getElementById('f-ultM').value;
+  if(!m)return;
+  const d=new Date(m);d.setDate(d.getDate()+283);
+  document.getElementById('f-pPrb').value=d.toISOString().split('T')[0];
+}
+
+function abrirForm(id=null){
+  editId=id;fotoAnimalB64=null;limpiarForm();
+  mTab(0,document.querySelectorAll('.mtab')[0]);
+  document.getElementById('btnDel').style.display=id?'block':'none';
+  if(id){
+    const b=bovinos.find(x=>x.id===id);if(!b)return;
+    document.getElementById('mTit').textContent='✏️ Editar Bovino';
+    FC.forEach(c=>{const el=document.getElementById('f-'+c);if(el&&b[c]!==undefined)el.value=b[c];});
+    if(b.sexo)rad('sexo',b.sexo);if(b.estado)rad('estado',b.estado);
+    if(b.foto){fotoAnimalB64=b.foto;mostrarFotoAnimal(b.foto);}
+  } else {
+    document.getElementById('mTit').textContent='🐄 Nuevo Bovino';
+    document.getElementById('f-fechaIngreso').value=hoy();
+    rads={sexo:null,estado:'activo'};rad('estado','activo');
+  }
+  document.getElementById('ovBov').classList.add('on');
+  document.getElementById('mdlBov').scrollTop=0;
+}
+
+function limpiarForm(){
+  FC.forEach(c=>{const el=document.getElementById('f-'+c);if(el)el.value='';});
+  document.querySelectorAll('#mdlBov select').forEach(s=>s.selectedIndex=0);
+  ['o-hembra','o-macho','o-ternero','o-activo','o-vendido','o-muerto'].forEach(id=>{const el=document.getElementById(id);if(el)el.className='ro';});
+  rads={sexo:null,estado:'activo'};
+  document.getElementById('fotoPlh').style.display='flex';
+  document.getElementById('fotoPreview').style.display='none';
+  document.getElementById('fotoPreview').src='';
+  document.getElementById('fotoActions').style.display='none';
+  document.getElementById('fotoBtns').style.display='flex';
+  fotoAnimalB64=null;
+}
+
+function cargarFotoAnimal(e){
+  const file=e.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    const img=new Image();
+    img.onload=()=>{
+      const canvas=document.createElement('canvas');
+      const MAX=800;let w=img.width,h=img.height;
+      if(w>MAX){h=Math.round(h*MAX/w);w=MAX;}
+      if(h>MAX){w=Math.round(w*MAX/h);h=MAX;}
+      canvas.width=w;canvas.height=h;
+      canvas.getContext('2d').drawImage(img,0,0,w,h);
+      fotoAnimalB64=canvas.toDataURL('image/jpeg',0.75);
+      mostrarFotoAnimal(fotoAnimalB64);
+    };
+    img.src=ev.target.result;
+  };
+  reader.readAsDataURL(file);e.target.value='';
+}
+
+function mostrarFotoAnimal(src){
+  document.getElementById('fotoPlh').style.display='none';
+  document.getElementById('fotoBtns').style.display='none';
+  document.getElementById('fotoPreview').src=src;
+  document.getElementById('fotoPreview').style.display='block';
+  document.getElementById('fotoActions').style.display='flex';
+}
+
+function quitarFoto(){
+  fotoAnimalB64=null;
+  document.getElementById('fotoPlh').style.display='flex';
+  document.getElementById('fotoPreview').style.display='none';
+  document.getElementById('fotoPreview').src='';
+  document.getElementById('fotoActions').style.display='none';
+  document.getElementById('fotoBtns').style.display='flex';
+}
+
+async function guardarBovino(){
+  const arete=(document.getElementById('f-arete').value||'').trim();
+  if(!arete){toast('⚠️ El arete es requerido');return;}
+  if(!rads.sexo){toast('⚠️ Selecciona el sexo');return;}
+  if(bovinos.find(b=>b.arete===arete&&b.id!==editId&&b.perfilId===perfilActivo?.id)){toast('⚠️ Ya existe ese arete en este perfil');return;}
+  const b={id:editId||uid()};
+  FC.forEach(c=>{const el=document.getElementById('f-'+c);if(el)b[c]=el.value;});
+  b.sexo=rads.sexo;b.estado=rads.estado||'activo';
+  b.foto=fotoAnimalB64||null;
+  b.perfilId=perfilActivo?perfilActivo.id:null;
+  b.uAt=new Date().toISOString();
+  if(!editId)b.cAt=new Date().toISOString();
+  // Si peso actual ingresado, guardar como pesaje
+  if(b.pesoAct&&b.fechaPeso){
+    const pe=pesajes.find(p=>p.bovinoId===b.id&&p.fecha===b.fechaPeso);
+    if(!pe){
+      const np={id:uid(),bovinoId:b.id,peso:parseFloat(b.pesoAct),fecha:b.fechaPeso,notas:'Pesaje inicial',cAt:new Date().toISOString()};
+      await putRecord('pesajes',np);pesajes.push(np);
+    }
+  }
+  await putRecord('bovinos',b);
+  if(editId){const i=bovinos.findIndex(x=>x.id===editId);bovinos[i]=b;}
+  else bovinos.push(b);
+  cerrarOv('ovBov');renderLista();updateStats();
+  toast(editId?'✅ Registro actualizado':'✅ Bovino agregado');editId=null;
+}
+
+async function eliminarBovino(){
+  if(!confirm('¿Eliminar este bovino y todos sus registros?'))return;
+  const vIds=vacunas.filter(v=>v.bovinoId===editId).map(v=>v.id);
+  const pIds=pesajes.filter(p=>p.bovinoId===editId).map(p=>p.id);
+  const gIds=gastos.filter(g=>g.bovinoId===editId).map(g=>g.id);
+  for(const id of [...vIds,...pIds,...gIds]){
+    if(vIds.includes(id)) await deleteRecord('vacunas',id);
+    if(pIds.includes(id)) await deleteRecord('pesajes',id);
+    if(gIds.includes(id)) await deleteRecord('gastos',id);
+  }
+  vacunas=vacunas.filter(v=>v.bovinoId!==editId);
+  pesajes=pesajes.filter(p=>p.bovinoId!==editId);
+  gastos=gastos.filter(g=>g.bovinoId!==editId);
+  await deleteRecord('bovinos',editId);
+  bovinos=bovinos.filter(b=>b.id!==editId);
+  cerrarOv('ovBov');mostrarVista('lista');renderLista();updateStats();
+  toast('🗑️ Registro eliminado');editId=null;
+}
+
+// ================================================================
+// DETALLE
+// ================================================================
+function verDetalle(id){
+  const b=bovinos.find(x=>x.id===id);if(!b)return;
+  const em=b.sexo==='hembra'?'🐄':b.sexo==='macho'?'🐂':'🐮';
+  const e=edad(b.fechaNac);
+  const f=(l,v,big=false)=>v?`<div class="dc"><div class="dl">${l}</div><div class="dv${big?' big':''}">${v}</div></div>`:'';
+  const ff=(l,v)=>v?`<div class="dc full"><div class="dl">${l}</div><div class="dv">${v}</div></div>`:'';
+  const fotoD=b.foto?`<img class="det-foto" src="${b.foto}" alt="">`:`<div class="det-foto-ph">${em}</div>`;
+  // Calcular rentabilidad
+  const gc=gastos.filter(g=>g.bovinoId===b.id).reduce((s,g)=>s+parseFloat(g.monto||0),0);
+  const inv=parseFloat(b.precC||0)+gc;
+  const gan=b.precV?parseFloat(b.precV)-inv:null;
+  document.getElementById('vDetalle').innerHTML=`
+    <div class="det-hdr">
+      ${fotoD}
+      <div class="det-info">
+        <div class="det-row">
+          <button class="det-back" onclick="mostrarVista('lista')">←</button>
+          <div class="det-av">${em}</div>
+          <div><div class="det-arete">${b.arete}</div><div class="det-nom">${b.nombre||'Sin nombre'} · ${b.estado||'activo'}</div></div>
+          <button class="btn-edt" onclick="abrirForm('${b.id}')">✏️ Editar</button>
+        </div>
+      </div>
+      <div class="det-tabs">
+        <button class="dt on" onclick="dTab(0,this)">📋 Info</button>
+        <button class="dt" onclick="dTab(1,this)">💉 Vacunas</button>
+        <button class="dt" onclick="dTab(2,this)">⚖️ Pesajes</button>
+        <button class="dt" onclick="dTab(3,this)">💸 Gastos</button>
+        <button class="dt" onclick="dTab(4,this)">🔬 Repro</button>
+        <button class="dt" onclick="dTab(5,this)">💰 Econ.</button>
+      </div>
+    </div>
+    <div class="det-scroll">
+      <div id="dp-0" class="det-body"><div class="dgrid">
+        ${f('Arete / ID',b.arete,true)}${f('Nombre',b.nombre)}
+        ${f('Sexo',b.sexo==='hembra'?'♀ Hembra':b.sexo==='macho'?'♂ Macho':'🐮 Ternero')}${f('Estado',b.estado||'Activo')}
+        ${f('Raza',b.raza||b.razaDet)}${f('Color',b.color)}
+        ${f('Edad',e)}${f('Peso Actual',b.pesoAct?fmtPeso(b.pesoAct):null,true)}
+        ${f('Cond. Corporal',b.cc)}${f('Lote / Potrero',b.lote)}
+        ${f('Alimentación',b.alim)}${f('Suplemento',b.supl)}
+        ${f('Madre',b.madre)}${f('Padre / Toro',b.padre)}
+        ${ff('Observaciones',b.obs)}
+      </div></div>
+      <div id="dp-1" class="det-body" style="display:none">
+        <button class="vadd" onclick="abrirVacModal('${b.id}')">➕ Agregar Vacuna / Tratamiento</button>
+        <div id="vl-${b.id}" style="margin-top:10px">${renderVacList(b.id)}</div>
+      </div>
+      <div id="dp-2" class="det-body" style="display:none">
+        <button class="vadd" onclick="abrirPesoModal('${b.id}')">Registrar Pesaje</button>
+        ${renderGraficaPeso(b.id)}
+        <div id="pl-${b.id}" style="margin-top:10px">${renderPesoList(b.id)}</div>
+      </div>
+      <div id="dp-3" class="det-body" style="display:none">
+        <button class="vadd" style="background:var(--naranjap);color:var(--naranja);border-color:#f97316" onclick="abrirGastoModal('${b.id}')">➕ Registrar Gasto</button>
+        <div id="gl-${b.id}" style="margin-top:10px">${renderGastoList(b.id)}</div>
+      </div>
+      <div id="dp-4" class="det-body" style="display:none"><div class="dgrid">
+        ${f('Estado Reproductivo',b.estR,true)}${f('Propósito',b.prop)}
+        ${f('Prod. Leche',b.leche?b.leche+' lts/día':null)}${f('Nº de Partos',b.nP)}
+        ${f('Último Parto',b.ultP)}${f('Parto Probable',b.pPrb)}
+        ${f('Última Monta',b.ultM)}${f('Tipo de Monta',b.monta)}
+        ${ff('Historial Médico',b.enf)}
+      </div></div>
+      <div id="dp-5" class="det-body" style="display:none"><div class="dgrid">
+        ${f('Precio Compra',fmt$(b.precC))}${f('Gastos Acumulados',gc>0?fmt$(gc):null)}
+        ${f('Inversión Total',fmt$(inv),true)}
+        ${b.precV?f('Precio Venta',fmt$(b.precV),true):''}
+        ${gan!==null?f('Ganancia / Pérdida',`<span style="color:${gan>=0?'var(--verde)':'var(--rojo)'};font-weight:700">${gan>=0?'+':''}${fmt$(gan)}</span>`,false):''}
+        ${f('Valor Actual',fmt$(b.valA))}${f('Comprador',b.comp)}
+        ${f('Proveedor',b.prov)}${f('Registro Oficial',b.regOf)}
+      </div></div>
+    </div>`;
+  mostrarVista('detalle');
+}
+
+function dTab(i,btn){
+  for(let j=0;j<6;j++){const el=document.getElementById('dp-'+j);if(el)el.style.display=j===i?'block':'none';}
+  document.querySelectorAll('.dt').forEach((b,x)=>b.classList.toggle('on',x===i));
+}
+
+// ================================================================
+// VACUNAS
+// ================================================================
+function renderVacList(bid){
+  const vl=vacunas.filter(v=>v.bovinoId===bid).sort((a,b)=>new Date(b.fecha)-new Date(a.fecha));
+  if(!vl.length)return`<div class="vempty"><div style="font-size:2rem;opacity:.3">💉</div><p style="margin-top:6px">Sin vacunas registradas</p></div>`;
+  const hm=new Date().setHours(0,0,0,0);
+  return vl.map(v=>{
+    let pt='',pc='ok';
+    if(v.fecha&&v.periodo){
+      const d=Math.round((new Date(v.fecha).setHours(0,0,0,0)+v.periodo*86400000-hm)/86400000);
+      if(d<0){pt=`⚠️ Vencida hace ${Math.abs(d)}d`;pc='l';}
+      else if(d===0){pt='🔴 ¡Hoy!';pc='l';}
+      else if(d<=30){pt=`🟡 En ${d} días`;pc='w';}
+      else pt=`✅ En ${d} días`;
+    }
+    const nom=v.nombre||(v.tipo||'');
+    return `<div class="vac-item">
+      <div class="vi-ico">💉</div>
+      <div class="vi-inf">
+        <div class="vi-nom">${nom}</div>
+        <div class="vi-dat">📅 ${v.fecha||'—'}${v.dosis?' · '+v.dosis:''}</div>
+        ${v.vet?`<div class="vi-dat">👤 ${v.vet}</div>`:''}
+        ${v.notas?`<div class="vi-dat">📝 ${v.notas}</div>`:''}
+        ${pt?`<span class="vi-prox ${pc}">${pt}</span>`:''}
+      </div>
+      <div class="vi-btns">
+        <button class="vedit" onclick="abrirVacModal('${bid}','${v.id}')">✏️</button>
+        <button class="vdel" onclick="eliminarVacuna('${v.id}','${bid}')">🗑️</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+let editVacId2=null;
+function abrirVacModal(bid,vacId=null){
+  vacBovId=bid;editVacId2=vacId;
+  document.getElementById('vacTit').textContent=vacId?'✏️ Editar Vacuna':'💉 Registrar Vacuna';
+  document.getElementById('vacSave').textContent=vacId?'💾 Guardar Cambios':'💉 Registrar Vacuna';
+  if(vacId){
+    const v=vacunas.find(x=>x.id===vacId);if(!v)return;
+    document.getElementById('vf-tipo').value=v.tipo||'';
+    document.getElementById('vf-nom').value=v.nombre||'';
+    document.getElementById('vf-fecha').value=v.fecha||'';
+    document.getElementById('vf-per').value=v.periodo||'';
+    document.getElementById('vf-dosis').value=v.dosis||'';
+    document.getElementById('vf-vet').value=v.vet||'';
+    document.getElementById('vf-notas').value=v.notas||'';
+  } else {
+    document.getElementById('vf-fecha').value=hoy();
+    document.getElementById('vf-tipo').selectedIndex=0;
+    ['vf-nom','vf-per','vf-dosis','vf-vet','vf-notas'].forEach(i=>document.getElementById(i).value='');
+  }
+  document.getElementById('ovVac').classList.add('on');
+}
+
+async function guardarVacuna(){
+  const tipo=document.getElementById('vf-tipo').value;
+  const nom=document.getElementById('vf-nom').value.trim();
+  const fecha=document.getElementById('vf-fecha').value;
+  if(!tipo&&!nom){toast('⚠️ Selecciona o escribe el tipo');return;}
+  if(!fecha){toast('⚠️ La fecha es requerida');return;}
+  const v={
+    id:editVacId2||uid(),bovinoId:vacBovId,tipo:tipo||null,
+    nombre:nom||(tipo==='otro'?'':tipo)||nom,
+    fecha,periodo:parseInt(document.getElementById('vf-per').value)||null,
+    dosis:document.getElementById('vf-dosis').value,
+    vet:document.getElementById('vf-vet').value,
+    notas:document.getElementById('vf-notas').value,
+    uAt:new Date().toISOString()
+  };
+  await putRecord('vacunas',v);
+  if(editVacId2){const i=vacunas.findIndex(x=>x.id===editVacId2);vacunas[i]=v;}
+  else vacunas.push(v);
+  cerrarOv('ovVac');updateStats();
+  const lel=document.getElementById('vl-'+vacBovId);
+  if(lel)lel.innerHTML=renderVacList(vacBovId);
+  toast(editVacId2?'✅ Vacuna actualizada':'💉 Vacuna registrada');
+  editVacId2=null;
+}
+
+async function eliminarVacuna(vid,bid){
+  if(!confirm('¿Eliminar este registro?'))return;
+  await deleteRecord('vacunas',vid);
+  vacunas=vacunas.filter(v=>v.id!==vid);updateStats();
+  const lel=document.getElementById('vl-'+bid);if(lel)lel.innerHTML=renderVacList(bid);
+  toast('🗑️ Eliminado');
+}
+
+// ================================================================
+// PESAJES
+// ================================================================
+function renderPesoList(bid){
+  const pl=pesajes.filter(p=>p.bovinoId===bid).sort((a,b)=>new Date(b.fecha)-new Date(a.fecha));
+  if(!pl.length)return`<div class="vempty"><div style="font-size:2rem;opacity:.3">⚖️</div><p style="margin-top:6px">Sin pesajes registrados</p></div>`;
+  return pl.map((p,i)=>{
+    const prev=pl[i+1];
+    let diffHtml='';
+    if(prev){
+      const diff=p.peso-prev.peso;
+      const bg=diff>=0?'var(--verdep)':'var(--rojop)';
+      const tc=diff>=0?'var(--verde)':'var(--rojo)';
+      diffHtml=`<span class="peso-diff" style="background:${bg};color:${tc}">${diff>=0?'+':''}${diff.toFixed(1)} kg</span>`;
+    }
+    return `<div class="peso-item">
+      <div class="peso-val">${fmtPeso(p.peso)}</div>
+      <div class="peso-inf">
+        <div class="peso-fecha">${fmtFecha(p.fecha)}</div>
+        ${p.notas?`<div class="peso-fecha" style="margin-top:2px">📝 ${p.notas}</div>`:''}
+        ${diffHtml}
+      </div>
+      <button class="peso-del" onclick="eliminarPesaje('${p.id}','${bid}')">🗑️</button>
+    </div>`;
+  }).join('');
+}
+
+function abrirPesoModal(bid){
+  pesoBovId=bid;
+  document.getElementById('pf-peso').value='';
+  document.getElementById('pf-fecha').value=hoy();
+  document.getElementById('pf-notas').value='';
+  document.getElementById('ovPeso').classList.add('on');
+}
+
+async function guardarPesaje(){
+  const peso=document.getElementById('pf-peso').value;
+  const fecha=document.getElementById('pf-fecha').value;
+  if(!peso){toast('⚠️ El peso es requerido');return;}
+  if(!fecha){toast('⚠️ La fecha es requerida');return;}
+  const p={id:uid(),bovinoId:pesoBovId,peso:parseFloat(peso),fecha,notas:document.getElementById('pf-notas').value,cAt:new Date().toISOString()};
+  await putRecord('pesajes',p);pesajes.push(p);
+  // Actualizar peso actual del bovino
+  const b=bovinos.find(x=>x.id===pesoBovId);
+  if(b){b.pesoAct=peso;b.fechaPeso=fecha;await putRecord('bovinos',b);}
+  cerrarOv('ovPeso');
+  const lel=document.getElementById('pl-'+pesoBovId);if(lel)lel.innerHTML=renderPesoList(pesoBovId);
+  toast('⚖️ Pesaje registrado');
+}
+
+async function eliminarPesaje(pid,bid){
+  if(!confirm('¿Eliminar este pesaje?'))return;
+  await deleteRecord('pesajes',pid);
+  pesajes=pesajes.filter(p=>p.id!==pid);
+  const lel=document.getElementById('pl-'+bid);if(lel)lel.innerHTML=renderPesoList(bid);
+  toast('🗑️ Eliminado');
+}
+
+// ================================================================
+// GASTOS
+// ================================================================
+const gastoIconos={'Veterinario / Consulta':'🩺','Medicamento':'💊','Vacuna':'💉','Alimentación / Suplemento':'🌾','Transporte':'🚛','Inseminación':'🔬','Herraje / Marcado':'🔨','Otros':'📌'};
+
+function renderGastoList(bid){
+  const gl=gastos.filter(g=>g.bovinoId===bid).sort((a,b)=>new Date(b.fecha)-new Date(a.fecha));
+  if(!gl.length)return`<div class="vempty"><div style="font-size:2rem;opacity:.3">💸</div><p style="margin-top:6px">Sin gastos registrados</p></div>`;
+  const total=gl.reduce((s,g)=>s+parseFloat(g.monto||0),0);
+  return `<div style="background:var(--naranjap);border-radius:11px;padding:10px 13px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between">
+    <span style="font-size:.72rem;color:var(--naranja);font-weight:700">TOTAL GASTOS</span>
+    <span style="font-family:'Lora',serif;font-size:1.1rem;font-weight:700;color:var(--naranja)">${fmt$(total)}</span>
+  </div>`+
+  gl.map(g=>`<div class="gasto-item">
+    <div class="gasto-ico">${gastoIconos[g.categoria]||'📌'}</div>
+    <div class="gasto-inf">
+      <div class="gasto-nom">${g.descripcion}</div>
+      <div class="gasto-det">${g.categoria||'—'} · 📅 ${g.fecha}</div>
+      ${g.notas?`<div class="gasto-det">📝 ${g.notas}</div>`:''}
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px">
+      <span class="gasto-monto">${fmt$(g.monto)}</span>
+      <button class="gasto-del" onclick="eliminarGasto('${g.id}','${bid}')">🗑️</button>
+    </div>
+  </div>`).join('');
+}
+
+function abrirGastoModal(bid,gid=null){
+  gastoBovId=bid;editGastoId=gid;
+  document.getElementById('gastoTit').textContent=gid?'✏️ Editar Gasto':'💸 Registrar Gasto';
+  document.getElementById('gastoSave').textContent=gid?'💾 Guardar':'💸 Registrar Gasto';
+  if(gid){
+    const g=gastos.find(x=>x.id===gid);if(!g)return;
+    document.getElementById('gf-cat').value=g.categoria||'';
+    document.getElementById('gf-desc').value=g.descripcion||'';
+    document.getElementById('gf-monto').value=g.monto||'';
+    document.getElementById('gf-fecha').value=g.fecha||'';
+    document.getElementById('gf-notas').value=g.notas||'';
+  } else {
+    document.getElementById('gf-cat').selectedIndex=0;
+    ['gf-desc','gf-monto','gf-notas'].forEach(i=>document.getElementById(i).value='');
+    document.getElementById('gf-fecha').value=hoy();
+  }
+  document.getElementById('ovGasto').classList.add('on');
+}
+
+async function guardarGasto(){
+  const desc=document.getElementById('gf-desc').value.trim();
+  const monto=document.getElementById('gf-monto').value;
+  const fecha=document.getElementById('gf-fecha').value;
+  if(!desc){toast('⚠️ La descripción es requerida');return;}
+  if(!monto){toast('⚠️ El monto es requerido');return;}
+  const g={id:editGastoId||uid(),bovinoId:gastoBovId,
+    categoria:document.getElementById('gf-cat').value,
+    descripcion:desc,monto:parseFloat(monto),fecha,
+    notas:document.getElementById('gf-notas').value,
+    uAt:new Date().toISOString()
+  };
+  await putRecord('gastos',g);
+  if(editGastoId){const i=gastos.findIndex(x=>x.id===editGastoId);gastos[i]=g;}
+  else gastos.push(g);
+  cerrarOv('ovGasto');
+  const lel=document.getElementById('gl-'+gastoBovId);if(lel)lel.innerHTML=renderGastoList(gastoBovId);
+  toast(editGastoId?'✅ Gasto actualizado':'💸 Gasto registrado');
+  editGastoId=null;
+}
+
+async function eliminarGasto(gid,bid){
+  if(!confirm('¿Eliminar este gasto?'))return;
+  await deleteRecord('gastos',gid);gastos=gastos.filter(g=>g.id!==gid);
+  const lel=document.getElementById('gl-'+bid);if(lel)lel.innerHTML=renderGastoList(bid);
+  toast('🗑️ Eliminado');
+}
+
+// ================================================================
+// VENTAS
+// ================================================================
+function renderVentas(){
+  const vendidos=bPerfil().filter(b=>b.estado==='vendido'&&b.precV);
+  const c=document.getElementById('listaVentas');
+  const r=document.getElementById('resVentas');
+  if(!vendidos.length){
+    r.innerHTML='';
+    c.innerHTML=`<div class="empty-l"><div style="font-size:2.5rem;opacity:.2">💰</div><h3>Sin ventas registradas</h3><p>Registra un animal como "Vendido" y agrega precio de compra y venta</p></div>`;
+    return;
+  }
+  let totVenta=0,totInv=0,totGan=0;
+  const items=vendidos.map(b=>{
+    const gc=gastos.filter(g=>g.bovinoId===b.id).reduce((s,g)=>s+parseFloat(g.monto||0),0);
+    const compra=parseFloat(b.precC||0);
+    const venta=parseFloat(b.precV||0);
+    const inv=compra+gc;
+    const gan=venta-inv;
+    totVenta+=venta;totInv+=inv;totGan+=gan;
+    return{b,compra,gc,inv,venta,gan};
+  }).sort((a,b2)=>new Date(b2.b.fechaV||0)-new Date(a.b.fechaV||0));
+
+  r.innerHTML=`<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px">
+    <div class="rcard"><div class="rn" style="font-size:1.2rem;color:var(--v)">${fmt$(totVenta)}</div><div class="rl">Total vendido</div></div>
+    <div class="rcard"><div class="rn" style="font-size:1.2rem;color:var(--naranja)">${fmt$(totInv)}</div><div class="rl">Total invertido</div></div>
+    <div class="rcard"><div class="rn" style="font-size:1.2rem;color:${totGan>=0?'var(--verde)':'var(--rojo)'}">${totGan>=0?'+':''}${fmt$(totGan)}</div><div class="rl">${totGan>=0?'Ganancia':'Pérdida'}</div></div>
+  </div>`;
+
+  c.innerHTML=items.map(({b,compra,gc,inv,venta,gan})=>`
+    <div class="venta-card ${gan<0?'perdida':''}" onclick="verDetalle('${b.id}')">
+      <div class="vc-top">
+        <div>
+          <div class="vc-arete">${b.arete} ${b.nombre?'· '+b.nombre:''}</div>
+          <div class="vc-nom">${b.raza||'—'} · ${b.fechaV||'—'} · ${b.comp||'—'}</div>
+        </div>
+        <div class="vc-gan ${gan>=0?'g':'p'}">${gan>=0?'+':''}${fmt$(gan)}</div>
+      </div>
+      <div class="vc-grid">
+        <div class="vc-cell"><div class="vc-cl">Compra</div><div class="vc-cv">${fmt$(compra)}</div></div>
+        <div class="vc-cell"><div class="vc-cl">Gastos</div><div class="vc-cv" style="color:var(--naranja)">${fmt$(gc)}</div></div>
+        <div class="vc-cell"><div class="vc-cl">Venta</div><div class="vc-cv" style="color:var(--v)">${fmt$(venta)}</div></div>
+      </div>
+    </div>`).join('');
+}
+
+// ================================================================
+// ALERTAS
+// ================================================================
+function renderAlertas(){
+  const al=getAlertas();
+  const c=document.getElementById('alertasBody');
+  if(!al.length){c.innerHTML=`<div style="text-align:center;padding:44px 20px;color:var(--gris)"><div style="font-size:3rem">✅</div><div style="font-weight:700;font-size:1rem;margin:10px 0 5px;color:#374151">¡Todo al día!</div><div style="font-size:.82rem">Sin vacunas por vencer en los próximos 30 días</div></div>`;return;}
+  const venc=al.filter(a=>a.diff<0),urg=al.filter(a=>a.diff>=0&&a.diff<=7),prox=al.filter(a=>a.diff>7);
+  const bloque=(tit,col,items)=>{
+    if(!items.length)return'';
+    return`<div class="ap"><div class="as-t" style="color:${col}">${tit} (${items.length})</div>
+    ${items.map(a=>{
+      const nom=a.v.nombre||(a.v.tipo||'');
+      const dt=a.diff<0?`Vencida hace ${Math.abs(a.diff)}d`:a.diff===0?'¡Hoy!':a.diff===1?'Mañana':`En ${a.diff}d`;
+      const bg=a.diff<0?'var(--rojop)':a.diff<=7?'var(--naranjap)':'var(--amarillop)';
+      const tc=a.diff<0?'var(--rojo)':a.diff<=7?'var(--naranja)':'var(--amarillo)';
+      return`<div class="ai" onclick="verDetalle('${a.b?.id}')">
+        <div class="ai-ico" style="background:${bg}">💉</div>
+        <div style="flex:1"><div class="ai-t">${nom}</div><div class="ai-s">${a.b?a.b.arete+(a.b.nombre?' — '+a.b.nombre:''):'—'} · ${a.v.fecha||'—'}</div></div>
+        <span class="ai-d" style="background:${bg};color:${tc}">${dt}</span>
+      </div>`;
+    }).join('')}</div>`;
+  };
+  c.innerHTML=bloque('🔴 VENCIDAS','var(--rojo)',venc)+bloque('🟠 URGENTE — Esta semana','var(--naranja)',urg)+bloque('🟡 PRÓXIMAS — Este mes','var(--amarillo)',prox);
+}
+
+// ================================================================
+// RESUMEN
+// ================================================================
+function renderResumen(){
+  const bp=bPerfil(),act=bp.filter(b=>!b.estado||b.estado==='activo');
+  document.getElementById('r-t').textContent=act.length;
+  document.getElementById('r-h').textContent=act.filter(b=>b.sexo==='hembra').length;
+  document.getElementById('r-t').textContent=act.filter(b=>!b.estado||b.estado==='activo').length;
+  document.getElementById('r-h').textContent=act.filter(b=>b.sexo==='hembra').length;
+  document.getElementById('r-m').textContent=act.filter(b=>b.sexo==='macho').length;
+  document.getElementById('r-te').textContent=act.filter(b=>b.sexo==='ternero').length;
+  const preg=act.filter(b=>b.estR==='Preñada').length;
+  const vend=bp.filter(b=>b.estado==='vendido').length;
+  const bids=new Set(bp.map(b=>b.id));
+  const totalGastos=gastos.filter(g=>bids.has(g.bovinoId)).reduce((s,g)=>s+parseFloat(g.monto||0),0);
+  const vendidos=bp.filter(b=>b.estado==='vendido'&&b.precV);
+  const ganTotal=vendidos.reduce((s,b)=>{
+    const gc=gastos.filter(g=>g.bovinoId===b.id).reduce((s2,g)=>s2+parseFloat(g.monto||0),0);
+    return s+(parseFloat(b.precV||0)-parseFloat(b.precC||0)-gc);
+  },0);
+  const cp=act.filter(b=>b.pesoAct),pp=cp.length?fmtPeso(cp.reduce((s,b)=>s+parseFloat(b.pesoAct),0)/cp.length):'—';
+  const razas={};act.forEach(b=>{if(b.raza)razas[b.raza]=(razas[b.raza]||0)+1;});
+  const rh=Object.entries(razas).sort((a,b)=>b[1]-a[1]).slice(0,6).map(([r,n])=>`<span class="chip">${r}: ${n}</span>`).join('');
+  document.getElementById('resExtra').innerHTML=`
+    <div style="background:#fff;border-radius:14px;padding:13px;box-shadow:var(--sombra);margin-bottom:10px">
+      <div style="font-weight:700;font-size:.86rem;color:var(--v);margin-bottom:10px">Estadísticas</div>
+      <div class="dgrid">
+        <div class="dc"><div class="dl">Preñadas</div><div class="dv big">${preg}</div></div>
+        <div class="dc"><div class="dl">Peso Promedio</div><div class="dv big">${pp}</div></div>
+        <div class="dc"><div class="dl">Vendidos</div><div class="dv">${vend}</div></div>
+        <div class="dc"><div class="dl">Total Gastos</div><div class="dv" style="color:var(--naranja)">${fmt$(totalGastos)}</div></div>
+        <div class="dc"><div class="dl">Gan. Acumulada</div><div class="dv" style="color:${ganTotal>=0?'var(--verde)':'var(--rojo)'};font-weight:700">${ganTotal>=0?'+':''}${fmt$(ganTotal)}</div></div>
+        <div class="dc"><div class="dl">Alertas</div><div class="dv" style="color:var(--rojo)">${getAlertas().length}</div></div>
+        <div class="dc"><div class="dl">Vacunas Reg.</div><div class="dv">${vacunas.filter(v=>bids.has(v.bovinoId)).length}</div></div>
+        <div class="dc"><div class="dl">Pesajes Reg.</div><div class="dv">${pesajes.filter(p=>bids.has(p.bovinoId)).length}</div></div>
+      </div>
+    </div>
+    ${rh?`<div style="background:#fff;border-radius:14px;padding:13px;box-shadow:var(--sombra)"><div style="font-weight:700;font-size:.86rem;color:var(--v);margin-bottom:10px">Razas en el Hato</div><div class="chips">${rh}</div></div>`:''}`;
+  renderSalud();
+}
+
+// ================================================================
+// FUENTES Y TEMAS
+// ================================================================
+function setFuente(f,el){
+  document.querySelectorAll('.font-opt').forEach(x=>x.classList.remove('on'));
+  el.classList.add('on');
+  document.body.className=document.body.className.replace(/fuente-\w+/g,'').trim();
+  if(f!=='default') document.body.classList.add('fuente-'+f);
+  cfg.fuente=f;
+  localStorage.setItem(CFG_KEY,JSON.stringify(cfg));
+  toast('Tipografía aplicada');
+}
+
+function setTema(t,el){
+  document.querySelectorAll('.tema-opt').forEach(x=>x.classList.remove('on'));
+  el.classList.add('on');
+  document.body.className=document.body.className.replace(/tema-\w+/g,'').trim();
+  if(t!=='natural') document.body.classList.add('tema-'+t);
+  // border del tema seleccionado
+  const cols={natural:'#2d7a3e',oscuro:'#4b5563',tierra:'#8b4d2a'};
+  el.style.borderColor=cols[t]||'#2d7a3e';
+  cfg.tema=t;
+  localStorage.setItem(CFG_KEY,JSON.stringify(cfg));
+}
+
+function aplicarFuenteYTema(){
+  // Fuente — aplicar al body
+  document.body.className=document.body.className.replace(/fuente-\w+|tema-\w+/g,'').trim();
+  if(cfg.fuente&&cfg.fuente!=='default') document.body.classList.add('fuente-'+cfg.fuente);
+  if(cfg.tema&&cfg.tema!=='natural') document.body.classList.add('tema-'+cfg.tema);
+  // Marcar selects solo si existen (están en la vista Config que puede no estar visible)
+  const fKey='fo-'+(cfg.fuente||'default');
+  const tKey='to-'+(cfg.tema||'natural');
+  document.querySelectorAll('.font-opt').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('.tema-opt').forEach(x=>x.classList.remove('on'));
+  const fo=document.getElementById(fKey);if(fo)fo.classList.add('on');
+  const to=document.getElementById(tKey);if(to)to.classList.add('on');
+}
+
+// ================================================================
+// DASHBOARD SALUD DEL HATO
+// ================================================================
+function renderSalud(){
+  const bp=bPerfil();
+  const act=bp.filter(b=>!b.estado||b.estado==='activo');
+  if(!act.length){
+    document.getElementById('saludNum').textContent='—';
+    document.getElementById('saludLabel').textContent='Sin animales';
+    document.getElementById('saludDesc').textContent='Agrega animales para ver el índice';
+    return;
+  }
+  const total=act.length;
+  const bids=new Set(act.map(b=>b.id));
+  const hoyDate=new Date();
+
+  // 1. % vacunados al día (sin vacunas vencidas)
+  const conVacVencida=new Set();
+  vacunas.filter(v=>bids.has(v.bovinoId)).forEach(v=>{
+    if(v.proxFecha){
+      const diff=Math.ceil((new Date(v.proxFecha)-hoyDate)/(1000*60*60*24));
+      if(diff<0) conVacVencida.add(v.bovinoId);
+    }
+  });
+  const vacOk=total-conVacVencida.size;
+  const pVac=Math.round((vacOk/total)*100);
+
+  // 2. Condición corporal promedio (escala 1-5, llevado a %)
+  const conCC=act.filter(b=>b.cc);
+  const pCC=conCC.length?Math.round((conCC.reduce((s,b)=>s+parseFloat(b.cc),0)/conCC.length/5)*100):50;
+
+  // 3. Sin alertas activas
+  const conAlerta=new Set(getAlertas().map(a=>a.bovinoId));
+  const sinAlerta=total-conAlerta.size;
+  const pAl=Math.round((sinAlerta/total)*100);
+
+  // 4. Pesajes en últimos 90 días
+  const hace90=new Date();hace90.setDate(hace90.getDate()-90);
+  const conPeso=new Set(pesajes.filter(p=>bids.has(p.bovinoId)&&new Date(p.fecha)>hace90).map(p=>p.bovinoId));
+  const pPe=Math.round((conPeso.size/total)*100);
+
+  // Score total ponderado
+  const score=Math.round(pVac*0.35+pCC*0.25+pAl*0.25+pPe*0.15);
+
+  // Actualizar barras
+  const setBar=(id,val,vid)=>{
+    const el=document.getElementById(id),vel=document.getElementById(vid);
+    if(el)el.style.width=val+'%';
+    if(vel)vel.textContent=val+'%';
+  };
+  setBar('sb-vac',pVac,'sv-vac');
+  setBar('sb-cc',pCC,'sv-cc');
+  setBar('sb-al',pAl,'sv-al');
+  setBar('sb-pe',pPe,'sv-pe');
+
+  // Ring SVG
+  const circ=2*Math.PI*31;
+  const arc=document.getElementById('saludArc');
+  if(arc){
+    const dash=(score/100)*circ;
+    arc.style.strokeDasharray=`${dash} ${circ}`;
+    arc.style.stroke=score>=80?'#4caf65':score>=60?'#f59e0b':'#f87171';
+  }
+
+  // Texto
+  document.getElementById('saludNum').textContent=score;
+  const labels=[
+    [80,'Excelente','El hato está en óptimas condiciones'],
+    [65,'Muy bueno','Condición general buena con detalles menores'],
+    [50,'Regular','Hay oportunidades de mejora importantes'],
+    [0,'Crítico','Se requiere atención urgente en el hato']
+  ];
+  const [,lbl,desc]=labels.find(([min])=>score>=min);
+  document.getElementById('saludLabel').textContent=lbl;
+  document.getElementById('saludDesc').textContent=desc;
+}
+
+// ================================================================
+// GRÁFICA DE PESO SVG
+// ================================================================
+function renderGraficaPeso(bid){
+  const pl=pesajes.filter(p=>p.bovinoId===bid).sort((a,b)=>new Date(a.fecha)-new Date(b.fecha));
+  if(pl.length<2) return '';
+  const vals=pl.map(p=>parseFloat(p.peso));
+  const min=Math.min(...vals),max=Math.max(...vals);
+  const rng=max-min||1;
+  const W=280,H=70,pad=6;
+  const pts=pl.map((p,i)=>{
+    const x=pad+i*(W-pad*2)/(pl.length-1);
+    const y=H-pad-(vals[i]-min)/rng*(H-pad*2);
+    return{x,y,v:vals[i],d:p.fecha};
+  });
+  const path=pts.map((p,i)=>i===0?`M${p.x},${p.y}`:`L${p.x},${p.y}`).join(' ');
+  const area=`${path} L${pts[pts.length-1].x},${H} L${pts[0].x},${H} Z`;
+  const dots=pts.map(p=>`<circle cx="${p.x}" cy="${p.y}" r="3.5" fill="var(--v2)" stroke="#fff" stroke-width="1.5"/>`).join('');
+  return `<div class="peso-chart-wrap">
+    <div class="peso-chart-t">Evolución de peso</div>
+    <svg class="peso-chart-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">
+      <defs><linearGradient id="wg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--v2)" stop-opacity=".18"/><stop offset="100%" stop-color="var(--v2)" stop-opacity="0"/></linearGradient></defs>
+      <path d="${area}" fill="url(#wg)"/>
+      <path d="${path}" fill="none" stroke="var(--v2)" stroke-width="2" stroke-linejoin="round"/>
+      ${dots}
+    </svg>
+    <div style="display:flex;justify-content:space-between;margin-top:4px">
+      <span style="font-size:.58rem;color:var(--gris)">${fmtFecha(pts[0].d)}</span>
+      <span style="font-size:.58rem;color:var(--v);font-weight:700">${fmtPeso(vals[vals.length-1])}</span>
+      <span style="font-size:.58rem;color:var(--gris)">${fmtFecha(pts[pts.length-1].d)}</span>
+    </div>
+  </div>`;
+}
+
+// ================================================================
+// REGISTRO RÁPIDO
+// ================================================================
+function toggleRQ(){
+  const m=document.getElementById('rqModal');
+  m.classList.toggle('on');
+  if(m.classList.contains('on')) document.getElementById('rq-arete').focus();
+}
+
+async function guardarRapido(){
+  const arete=document.getElementById('rq-arete').value.trim();
+  const sexo=document.getElementById('rq-sexo').value;
+  if(!arete){toast('El arete es obligatorio');return;}
+  if(!sexo){toast('Selecciona el sexo');return;}
+  const dup=bPerfil().find(b=>b.arete===arete);
+  if(dup){toast('Arete ya registrado');return;}
+  const peso=document.getElementById('rq-peso').value;
+  const b={
+    id:uid(),perfilId:perfilActivo?.id,
+    arete,sexo,estado:'activo',
+    raza:document.getElementById('rq-raza').value.trim(),
+    lote:document.getElementById('rq-lote').value.trim(),
+    pesoAct:peso?parseFloat(peso):null,
+    fechaIngreso:hoy(),uAt:new Date().toISOString()
+  };
+  await putRecord('bovinos',b);
+  bovinos.push(b);
+  ['rq-arete','rq-peso','rq-raza','rq-lote'].forEach(i=>document.getElementById(i).value='');
+  document.getElementById('rq-sexo').selectedIndex=0;
+  document.getElementById('rqModal').classList.remove('on');
+  renderLista();updateStats();
+  toast('Animal registrado');
+}
+
+// ================================================================
+// RESUMEN (extendido con salud)
+// ================================================================
+async function exportJSON(){
+  const bp=bPerfil(),bids=new Set(bp.map(b=>b.id));
+  const d={app:'GanaderíaPRO',v:5,fecha:new Date().toISOString(),perfil:perfilActivo,
+    bovinos:bp,vacunas:vacunas.filter(v=>bids.has(v.bovinoId)),
+    pesajes:pesajes.filter(p=>bids.has(p.bovinoId)),
+    gastos:gastos.filter(g=>bids.has(g.bovinoId))};
+  dl(JSON.stringify(d,null,2),'application/json',`ganado_${(perfilActivo?.nombre||'respaldo').replace(/\s/g,'_')}_${hoy()}.json`);
+  toast('💾 Respaldo descargado');
+}
+
+function exportCSV(){
+  const h=['Arete','Nombre','Sexo','Estado','Raza','FechaNac','PesoActual','Lote','EstadoRepro','NumPartos','Proposito','PrecioCompra','ValorActual','PrecioVenta','FechaVenta','Comprador'];
+  const r=bPerfil().map(b=>[b.arete,b.nombre,b.sexo,b.estado,b.raza,b.fechaNac,b.pesoAct,b.lote,b.estR,b.nP,b.prop,b.precC,b.valA,b.precV,b.fechaV,b.comp].map(v=>`"${v||''}"`).join(','));
+  dl('\uFEFF'+[h.join(','),...r].join('\n'),'text/csv;charset=utf-8',`ganado_${hoy()}.csv`);
+  toast('📊 CSV exportado');
+}
+
+function dl(content,type,name){
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([content],{type}));
+  a.download=name;a.click();
+}
+
+async function importJSON(e){
+  const file=e.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=async ev=>{
+    try{
+      const d=JSON.parse(ev.target.result);
+      if(!d.bovinos||!Array.isArray(d.bovinos))throw new Error('Formato inválido');
+
+      // Restaurar perfil del respaldo si existe
+      let pid=null;
+      if(d.perfil&&d.perfil.id){
+        const perfilExistente=perfiles.find(p=>p.id===d.perfil.id);
+        if(!perfilExistente){
+          // El perfil no existe en este navegador — lo restauramos
+          await putRecord('perfiles',d.perfil);
+          perfiles.push(d.perfil);
+        }
+        pid=d.perfil.id;
+      } else if(perfilActivo){
+        pid=perfilActivo.id;
+      } else {
+        toast('⚠️ Crea un perfil primero');return;
+      }
+
+      const nombrePerfil=d.perfil?.nombre||perfilActivo?.nombre||'respaldo';
+      if(!confirm(`¿Restaurar ${d.bovinos.length} animales del perfil "${nombrePerfil}"?`))return;
+
+      // Importar todos los datos manteniendo el perfilId original
+      for(const b of d.bovinos){b.perfilId=pid;await putRecord('bovinos',b);}
+      for(const v of (d.vacunas||[]))await putRecord('vacunas',v);
+      for(const p of (d.pesajes||[]))await putRecord('pesajes',p);
+      for(const g of (d.gastos||[]))await putRecord('gastos',g);
+
+      // Recargar todo y seleccionar el perfil restaurado
+      [bovinos,vacunas,perfiles,pesajes,gastos]=await Promise.all([
+        getAll('bovinos'),getAll('vacunas'),getAll('perfiles'),getAll('pesajes'),getAll('gastos')
+      ]);
+      seleccionarPerfil(pid,false);
+      // Cerrar pantalla de perfiles si estaba abierta
+      document.getElementById('pantallaPerfiles').classList.remove('on');
+      toast(`✅ ${d.bovinos.length} animales restaurados`);
+    }catch(err){toast('❌ Archivo inválido: '+(err.message||''));}
+  };
+  reader.readAsText(file);e.target.value='';
+}
+
+async function borrarTodo(){
+  if(!confirm(`⚠️ ¿Eliminar TODOS los datos del perfil "${perfilActivo?.nombre||''}"?`))return;
+  if(!confirm('⚠️ Confirmación final. Irreversible.'))return;
+  const bids=bPerfil().map(b=>b.id);
+  for(const bid of bids){
+    for(const v of vacunas.filter(x=>x.bovinoId===bid))await deleteRecord('vacunas',v.id);
+    for(const p of pesajes.filter(x=>x.bovinoId===bid))await deleteRecord('pesajes',p.id);
+    for(const g of gastos.filter(x=>x.bovinoId===bid))await deleteRecord('gastos',g.id);
+    await deleteRecord('bovinos',bid);
+  }
+  bovinos=bovinos.filter(b=>b.perfilId!==perfilActivo?.id);
+  vacunas=vacunas.filter(v=>!bids.includes(v.bovinoId));
+  pesajes=pesajes.filter(p=>!bids.includes(p.bovinoId));
+  gastos=gastos.filter(g=>!bids.includes(g.bovinoId));
+  renderLista();updateStats();toast('🗑️ Datos eliminados');
+}
+
+// ================================================================
+// UTILS
+// ================================================================
+function cerrarOv(id){document.getElementById(id).classList.remove('on');}
+function csiO(id,e){if(e.target===document.getElementById(id))cerrarOv(id);}
+function toast(m){
+  const el=document.getElementById('toast');
+  el.textContent=m;el.classList.add('on');
+  setTimeout(()=>el.classList.remove('on'),2800);
+}
+</script>
+</body>
+</html>
