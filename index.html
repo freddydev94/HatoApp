@@ -442,7 +442,60 @@ body.tema-oscuro .rq-modal{background:#1f2937;}
 .rq-inp:focus{border-color:var(--v2);}
 .rq-save{width:100%;background:linear-gradient(135deg,var(--v),var(--v2));color:#fff;border:none;border-radius:9px;padding:10px;font-family:inherit;font-size:.82rem;font-weight:700;cursor:pointer;}
 
-@keyframes spin{to{transform:rotate(360deg)}}
+/* ── POTREROS ── */
+.pot-card{background:#fff;border-radius:var(--r);padding:14px 16px;margin-bottom:10px;box-shadow:var(--sombra);cursor:pointer;transition:transform .15s;}
+.pot-card:active{transform:scale(.98);}
+body.tema-oscuro .pot-card{background:#1f2937;}
+.pot-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.pot-nom{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:700;color:var(--v);}
+body.tema-oscuro .pot-nom{color:#81e09a;}
+.pot-badge{background:var(--vp);color:var(--v);font-size:.62rem;font-weight:700;padding:3px 9px;border-radius:20px;}
+.pot-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px;}
+.pot-stat{background:var(--gris3);border-radius:8px;padding:6px 8px;text-align:center;}
+body.tema-oscuro .pot-stat{background:#374151;}
+.pot-stat-n{font-size:.95rem;font-weight:700;color:var(--v);}
+body.tema-oscuro .pot-stat-n{color:#81e09a;}
+.pot-stat-l{font-size:.55rem;color:var(--gris);text-transform:uppercase;letter-spacing:.5px;}
+.pot-inf{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px;}
+.pot-tag{background:var(--gris3);border-radius:6px;padding:3px 8px;font-size:.65rem;color:var(--gris);}
+body.tema-oscuro .pot-tag{background:#374151;}
+.pot-acciones{display:flex;gap:6px;flex-wrap:wrap;}
+.pot-btn{flex:1;min-width:80px;background:var(--vp);color:var(--v);border:1.5px solid var(--v2);border-radius:9px;padding:7px 6px;font-family:inherit;font-size:.68rem;font-weight:700;cursor:pointer;text-align:center;}
+body.tema-oscuro .pot-btn{background:#2d3748;color:#81e09a;border-color:#4caf65;}
+.pot-btn.danger{background:var(--rojop);color:var(--rojo);border-color:#fca5a5;}
+.pot-btn.naranja{background:var(--naranjap);color:var(--naranja);border-color:#fdba74;}
+.pot-add-btn{width:100%;background:linear-gradient(135deg,var(--v),var(--v2));color:#fff;border:none;border-radius:var(--r);padding:14px;font-family:inherit;font-size:.9rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:12px;}
+/* Modal potrero */
+.pot-ov{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:500;display:none;align-items:flex-end;}
+.pot-ov.on{display:flex;}
+.pot-mdl{background:#fff;border-radius:24px 24px 0 0;width:100%;max-height:92vh;overflow-y:auto;padding-bottom:24px;}
+body.tema-oscuro .pot-mdl{background:#1f2937;}
+.pot-mdl-h{background:linear-gradient(135deg,var(--v),var(--v2));padding:16px 20px;border-radius:24px 24px 0 0;display:flex;align-items:center;justify-content:space-between;}
+.pot-mdl-t{color:#fff;font-size:1rem;font-weight:700;}
+/* Modal acción masiva */
+.am-ov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:600;display:none;align-items:center;justify-content:center;padding:20px;}
+.am-ov.on{display:flex;}
+.am-mdl{background:#fff;border-radius:20px;width:100%;max-width:360px;overflow:hidden;}
+body.tema-oscuro .am-mdl{background:#1f2937;}
+.am-hdr{background:linear-gradient(135deg,var(--v),var(--v2));padding:14px 18px;display:flex;align-items:center;justify-content:space-between;}
+.am-t{color:#fff;font-size:.9rem;font-weight:700;}
+.am-body{padding:14px 18px;}
+.am-animales{max-height:180px;overflow-y:auto;margin-bottom:12px;border:1px solid #e2e8f0;border-radius:10px;}
+body.tema-oscuro .am-animales{border-color:#374151;}
+.am-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border-bottom:1px solid #f1f5f9;font-size:.8rem;}
+body.tema-oscuro .am-item{border-color:#374151;color:#f3f4f6;}
+.am-item:last-child{border-bottom:none;}
+.am-chk{width:16px;height:16px;accent-color:var(--v2);cursor:pointer;}
+.am-save{width:100%;background:linear-gradient(135deg,var(--v),var(--v2));color:#fff;border:none;border-radius:10px;padding:12px;font-family:inherit;font-size:.88rem;font-weight:700;cursor:pointer;margin-top:4px;}
+/* Vista detalle potrero */
+#vPotrero{padding:0;}
+.pot-det-hdr{background:linear-gradient(150deg,var(--v),var(--v2));padding:16px;color:#fff;position:sticky;top:0;z-index:10;}
+.pot-det-nom{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;letter-spacing:-.5px;}
+.pot-det-sub{font-size:.7rem;opacity:.65;margin-top:2px;}
+.pot-det-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:12px;}
+.pds{background:rgba(255,255,255,.12);border-radius:10px;padding:8px;text-align:center;}
+.pds-n{font-size:1.1rem;font-weight:700;}
+.pds-l{font-size:.52rem;opacity:.65;text-transform:uppercase;letter-spacing:.5px;}
 .acard,.vac-item,.peso-item,.gasto-item,.venta-card{animation:fi .18s ease both;}
 </style>
 </head>
@@ -484,7 +537,14 @@ body.tema-oscuro .rq-modal{background:#1f2937;}
 </svg>
 <div id="pantallaPerfiles">
   <div class="pp-top">
-    <svg width="48" height="48" style="opacity:.85;margin-bottom:10px" viewBox="0 0 24 24" fill="none" stroke="#81e09a" stroke-width="1.4"><use href="#ic-cow"/></svg>
+    <div style="display:flex;flex-direction:column;align-items:center;margin-bottom:10px;">
+      <div style="display:flex;align-items:baseline;gap:0;line-height:1;">
+        <span style="font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:700;color:#fff;letter-spacing:-2px;">Hato</span>
+        <span style="font-family:'Outfit',sans-serif;font-size:.8rem;font-weight:300;color:#81e09a;letter-spacing:6px;margin-left:3px;align-self:flex-end;margin-bottom:5px;">APP</span>
+      </div>
+      <div style="width:70px;height:1px;background:linear-gradient(90deg,transparent,rgba(129,224,154,.5),transparent);margin:5px 0 4px;"></div>
+      <div style="font-family:'Outfit',sans-serif;font-size:.48rem;font-weight:600;letter-spacing:5px;color:rgba(255,255,255,.35);text-transform:uppercase;">Gestión Ganadera</div>
+    </div>
     <div style="display:flex;flex-direction:column;align-items:center;">
       <div style="display:flex;align-items:baseline;gap:0;line-height:1;">
         <span style="font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:700;color:#fff;letter-spacing:-2px;">Hato</span>
@@ -685,6 +745,142 @@ body.tema-oscuro .rq-modal{background:#1f2937;}
   </div>
 </div>
 
+<!-- POTREROS -->
+<div class="vista" id="vPotreros">
+  <div class="vtit">Potreros / Lotes</div>
+  <button class="pot-add-btn" onclick="abrirModalPotrero()">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><use href="#ic-plus"/></svg>
+    Nuevo Potrero / Lote
+  </button>
+  <div id="listaPotreros"></div>
+</div>
+
+<!-- DETALLE POTRERO -->
+<div class="vista" id="vPotrero">
+  <div class="pot-det-hdr" id="potDetHdr">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+      <button onclick="mostrarVista('potreros')" style="background:rgba(255,255,255,.15);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><use href="#ic-back"/></svg>
+      </button>
+      <div>
+        <div class="pot-det-nom" id="pdNom">Potrero</div>
+        <div class="pot-det-sub" id="pdSub">—</div>
+      </div>
+      <button onclick="editarPotrero(currentPotId)" style="background:rgba(255,255,255,.15);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;margin-left:auto;flex-shrink:0">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><use href="#ic-edit"/></svg>
+      </button>
+    </div>
+    <div class="pot-det-stats">
+      <div class="pds"><div class="pds-n" id="pd-total">0</div><div class="pds-l">Animales</div></div>
+      <div class="pds"><div class="pds-n" id="pd-cap">—</div><div class="pds-l">Capacidad</div></div>
+      <div class="pds"><div class="pds-n" id="pd-ha">—</div><div class="pds-l">Hectáreas</div></div>
+      <div class="pds"><div class="pds-n" id="pd-dias">—</div><div class="pds-l">Días ocup.</div></div>
+    </div>
+  </div>
+  <div style="padding:12px">
+    <!-- Acciones masivas -->
+    <div style="background:#fff;border-radius:var(--r);padding:12px;margin-bottom:10px;box-shadow:var(--sombra);" id="pdAccionesWrap">
+      <div style="font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--gris);margin-bottom:8px">Acciones masivas al lote</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px" id="pdAcciones"></div>
+    </div>
+    <!-- Info potrero -->
+    <div style="background:#fff;border-radius:var(--r);padding:12px;margin-bottom:10px;box-shadow:var(--sombra);" id="pdInfo"></div>
+    <!-- Lista animales -->
+    <div style="font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--gris);margin-bottom:8px" id="pdAnimTit">Animales en este potrero</div>
+    <div id="pdAnimales"></div>
+  </div>
+</div>
+
+<!-- MODAL NUEVO/EDITAR POTRERO -->
+<div class="pot-ov" id="ovPotrero" onclick="if(event.target===this)cerrarOv('ovPotrero')">
+<div class="pot-mdl">
+  <div class="pot-mdl-h">
+    <span class="pot-mdl-t" id="potMTit">Nuevo Potrero</span>
+    <button class="mx" onclick="cerrarOv('ovPotrero')">✕</button>
+  </div>
+  <div style="padding:12px">
+    <div class="msec">
+      <div class="campo"><label>Nombre del Potrero <span class="req">*</span></label><input id="pot-nom" placeholder="Ej: Potrero Norte, Lote A..."></div>
+      <div class="crow">
+        <div class="campo"><label>Hectáreas</label><input type="number" id="pot-ha" placeholder="0" min="0" step="0.1"></div>
+        <div class="campo"><label>Capacidad (animales)</label><input type="number" id="pot-cap" placeholder="0" min="0"></div>
+      </div>
+      <div class="campo"><label>Tipo de pasto</label>
+        <select id="pot-pasto">
+          <option value="">Seleccionar...</option>
+          <option>Estrella africana</option>
+          <option>Buffel</option>
+          <option>Insurgente</option>
+          <option>Pangola</option>
+          <option>Bermuda</option>
+          <option>Brizantha</option>
+          <option>Mulato</option>
+          <option>Zacate nativo</option>
+          <option>Sorgo forrajero</option>
+          <option>Mezcla de pastos</option>
+          <option>Rastrojo</option>
+          <option>Agostadero natural</option>
+        </select>
+      </div>
+      <div class="campo"><label>Condición actual</label>
+        <select id="pot-cond">
+          <option value="">Seleccionar...</option>
+          <option>Excelente — cobertura +80%</option>
+          <option>Buena — cobertura 60-80%</option>
+          <option>Regular — cobertura 40-60%</option>
+          <option>Mala — cobertura -40%</option>
+          <option>En descanso / Recuperación</option>
+        </select>
+      </div>
+      <div class="crow">
+        <div class="campo"><label>Fecha de entrada actual</label><input type="date" id="pot-entrada"></div>
+        <div class="campo"><label>Último descanso</label><input type="date" id="pot-ultDesc"></div>
+      </div>
+      <div class="campo"><label>Fuente de agua</label>
+        <select id="pot-agua">
+          <option value="">Seleccionar...</option>
+          <option>Presa / Represa</option>
+          <option>Pozo / Aguaje</option>
+          <option>Río / Arroyo</option>
+          <option>Bebedero artificial</option>
+          <option>Tanque elevado</option>
+          <option>Sin agua permanente</option>
+        </select>
+      </div>
+      <div class="campo" style="border:none"><label>Notas</label><textarea id="pot-notas" placeholder="Observaciones del potrero..."></textarea></div>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:12px">
+      <button id="potBtnDel" style="display:none;background:var(--rojop);color:var(--rojo);border:none;border-radius:12px;padding:13px 14px;font-family:inherit;font-size:.88rem;font-weight:700;cursor:pointer" onclick="eliminarPotrero()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#ic-trash"/></svg>
+      </button>
+      <button class="psave" style="flex:1" onclick="guardarPotrero()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" style="vertical-align:middle;margin-right:5px"><use href="#ic-save"/></svg>Guardar Potrero
+      </button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- MODAL ACCIÓN MASIVA -->
+<div class="am-ov" id="ovAccionMasiva">
+<div class="am-mdl">
+  <div class="am-hdr">
+    <span class="am-t" id="amTit">Acción masiva</span>
+    <button class="mx" onclick="cerrarOv('ovAccionMasiva')">✕</button>
+  </div>
+  <div class="am-body">
+    <div id="amCampos"></div>
+    <div style="font-size:.72rem;color:var(--gris);margin-bottom:6px;font-weight:600">Aplicar a:</div>
+    <div style="display:flex;gap:6px;margin-bottom:8px">
+      <button onclick="selTodosAM(true)" style="flex:1;background:var(--vp);color:var(--v);border:1.5px solid var(--v2);border-radius:8px;padding:6px;font-size:.72rem;font-weight:700;cursor:pointer">Todos</button>
+      <button onclick="selTodosAM(false)" style="flex:1;background:var(--gris3);color:var(--gris);border:1.5px solid #e2e8f0;border-radius:8px;padding:6px;font-size:.72rem;font-weight:700;cursor:pointer">Ninguno</button>
+    </div>
+    <div class="am-animales" id="amAnimales"></div>
+    <button class="am-save" onclick="aplicarAccionMasiva()">Aplicar a seleccionados</button>
+  </div>
+</div>
+</div>
+
 <!-- CONFIGURACIÓN -->
 <div class="vista" id="vConfig">
   <div class="vtit">Configuración</div>
@@ -871,7 +1067,7 @@ body.tema-oscuro .rq-modal{background:#1f2937;}
       <div class="acerca-ico" style="background:var(--amarillop);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--amarillo)" stroke-width="1.8"><use href="#ic-calendar"/></svg></div>
       <div>
         <div class="acerca-lbl">Año</div>
-        <div class="acerca-val">2025</div>
+        <div class="acerca-val">2026</div>
       </div>
     </div>
   </div>
@@ -902,8 +1098,7 @@ body.tema-oscuro .rq-modal{background:#1f2937;}
   </div>
 
   <div class="acerca-footer">
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="1.4" style="margin-bottom:8px"><use href="#ic-cow"/></svg>
-    <div style="font-family:'Cormorant Garamond',serif;font-size:.85rem;color:rgba(0,0,0,.25);letter-spacing:1px;">HatoApp Ganadero © 2025 GNet</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:.85rem;color:rgba(0,0,0,.25);letter-spacing:1px;">HatoApp Ganadero © 2026 GNet</div>
     <div style="font-size:.6rem;color:rgba(0,0,0,.18);margin-top:3px;letter-spacing:2px;">FreddyDev — Todos los derechos reservados</div>
   </div>
 </div>
@@ -944,8 +1139,8 @@ body.tema-oscuro .rq-modal{background:#1f2937;}
   <button class="nb on" id="n-lista" onclick="mostrarVista('lista')">
     <svg viewBox="0 0 24 24"><use href="#ic-list"/></svg>Hato
   </button>
-  <button class="nb" id="n-ventas" onclick="mostrarVista('ventas')">
-    <svg viewBox="0 0 24 24"><use href="#ic-dollar"/></svg>Ventas
+  <button class="nb" id="n-potreros" onclick="mostrarVista('potreros')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Potreros
   </button>
   <button class="nb" id="n-alertas" onclick="mostrarVista('alertas')">
     <svg viewBox="0 0 24 24"><use href="#ic-bell"/></svg>Alertas
@@ -954,11 +1149,11 @@ body.tema-oscuro .rq-modal{background:#1f2937;}
   <button class="nb" id="n-resumen" onclick="mostrarVista('resumen')">
     <svg viewBox="0 0 24 24"><use href="#ic-chart"/></svg>Resumen
   </button>
+  <button class="nb" id="n-ventas" onclick="mostrarVista('ventas')">
+    <svg viewBox="0 0 24 24"><use href="#ic-dollar"/></svg>Ventas
+  </button>
   <button class="nb" id="n-config" onclick="mostrarVista('config')">
     <svg viewBox="0 0 24 24"><use href="#ic-settings"/></svg>Config
-  </button>
-  <button class="nb" id="n-acerca" onclick="mostrarVista('acerca')">
-    <svg viewBox="0 0 24 24"><use href="#ic-info"/></svg>Acerca
   </button>
 </nav>
 
@@ -999,6 +1194,21 @@ body.tema-oscuro .rq-modal{background:#1f2937;}
     <div class="msec"><div class="msec-t">🏷️ Identificación</div>
       <div class="campo"><label>Arete / ID <span class="req">*</span></label><input id="f-arete" placeholder="Ej: BOV-001" maxlength="30"></div>
       <div class="campo"><label>Nombre / Apodo</label><input id="f-nombre" placeholder="Ej: La Pintada"></div>
+      <div class="campo"><label>Fierro / Marcaje</label>
+        <div style="display:flex;gap:8px;align-items:flex-start;flex-wrap:wrap">
+          <input id="f-fierro" placeholder="Ej: FHJ, Flor de lis..." style="flex:1;min-width:120px;border:1.5px solid #e2e8f0;border-radius:10px;padding:9px 12px;font-family:inherit;font-size:.85rem;outline:none">
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <button type="button" class="foto-src-btn" style="white-space:nowrap" onclick="document.getElementById('fierroCam').click()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#ic-camera"/></svg> Foto fierro</button>
+            <button type="button" class="foto-src-btn" style="white-space:nowrap" onclick="document.getElementById('fierroGal').click()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#ic-image"/></svg> Galería</button>
+          </div>
+        </div>
+        <input type="file" id="fierroCam" accept="image/*" capture="environment" onchange="cargarFierro(event)" style="display:none">
+        <input type="file" id="fierroGal" accept="image/*" onchange="cargarFierro(event)" style="display:none">
+        <div id="fierroPreview" style="display:none;margin-top:8px;position:relative;display:none">
+          <img id="fierroImg" style="width:100%;max-height:100px;object-fit:contain;border-radius:8px;border:1.5px solid #e2e8f0;background:#f8f9fa" alt="Fierro">
+          <button type="button" onclick="quitarFierro()" style="position:absolute;top:4px;right:4px;background:var(--rojop);color:var(--rojo);border:none;border-radius:6px;padding:2px 7px;font-size:.7rem;cursor:pointer">✕</button>
+        </div>
+      </div>
       <div class="campo"><label>Sexo <span class="req">*</span></label>
         <div class="rg">
           <div class="ro" id="o-hembra" onclick="rad('sexo','hembra')">♀ Hembra</div>
@@ -1060,12 +1270,79 @@ body.tema-oscuro .rq-modal{background:#1f2937;}
   </div>
   <!-- Tab 2 Manejo -->
   <div id="tp-2" style="display:none">
-    <div class="msec"><div class="msec-t">📍 Ubicación</div>
-      <div class="crow"><div class="campo"><label>Lote / Potrero</label><input id="f-lote" placeholder="Ej: Potrero 3"></div><div class="campo"><label>Grupo de Manejo</label><input id="f-grupo" placeholder="Ej: Vacas preñadas"></div></div>
+    <div class="msec"><div class="msec-t">📍 Ubicación actual</div>
+      <div class="crow">
+        <div class="campo"><label>Potrero / Lote</label>
+          <select id="f-lote">
+            <option value="">Sin asignar</option>
+          </select>
+        </div>
+        <div class="campo"><label>Grupo de Manejo</label><input id="f-grupo" placeholder="Ej: Vacas paridas"></div>
+      </div>
+      <div class="crow">
+        <div class="campo"><label>Fecha entrada al potrero</label><input type="date" id="f-entPot"></div>
+        <div class="campo"><label>Días en potrero</label><input type="number" id="f-diasPot" placeholder="0" min="0"></div>
+      </div>
+      <div class="campo" style="border:none"><label>Potrero anterior</label><input id="f-potAnt" placeholder="Nombre del potrero anterior"></div>
     </div>
-    <div class="msec" style="margin-bottom:12px"><div class="msec-t">🌾 Alimentación</div>
-      <div class="campo"><label>Tipo de Alimentación</label><select id="f-alim"><option value="">Seleccionar...</option><option>Pastoreo extensivo</option><option>Pastoreo rotacional</option><option>Estabulado completo</option><option>Semi-estabulado</option><option>Pastoreo + suplemento</option></select></div>
-      <div class="campo" style="border:none"><label>Suplemento / Concentrado</label><input id="f-supl" placeholder="Ej: Maíz 2kg/día"></div>
+
+    <div class="msec"><div class="msec-t">🌾 Alimentación y Pastoreo</div>
+      <div class="campo"><label>Sistema de pastoreo</label>
+        <select id="f-alim">
+          <option value="">Seleccionar...</option>
+          <option>Pastoreo extensivo libre</option>
+          <option>Pastoreo rotacional</option>
+          <option>Pastoreo intensivo</option>
+          <option>Semi-estabulado</option>
+          <option>Estabulado completo</option>
+          <option>Silvopastoreo</option>
+        </select>
+      </div>
+      <div class="campo"><label>Condición del agostadero</label>
+        <select id="f-condPast">
+          <option value="">Seleccionar...</option>
+          <option>Excelente — cobertura &gt;80%</option>
+          <option>Buena — cobertura 60-80%</option>
+          <option>Regular — cobertura 40-60%</option>
+          <option>Mala — cobertura &lt;40%</option>
+          <option>Agostado / Sobre pastoreado</option>
+        </select>
+      </div>
+      <div class="campo"><label>Suplemento / Concentrado</label><input id="f-supl" placeholder="Ej: Maíz rolado 3kg/día"></div>
+      <div class="campo"><label>Mineralización</label>
+        <select id="f-mineral">
+          <option value="">Seleccionar...</option>
+          <option>Sal común ad libitum</option>
+          <option>Sal mineral completa</option>
+          <option>Sal mineralizada + vitaminas</option>
+          <option>Sin mineralización</option>
+        </select>
+      </div>
+      <div class="campo" style="border:none"><label>Fuente de agua</label>
+        <select id="f-agua">
+          <option value="">Seleccionar...</option>
+          <option>Presa / Represa</option>
+          <option>Pozo / Aguaje</option>
+          <option>Río / Arroyo</option>
+          <option>Bebedero artificial</option>
+          <option>Tanque elevado</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="msec"><div class="msec-t">🪣 Sanidad e Higiene</div>
+      <div class="crow">
+        <div class="campo"><label>Último baño garrapaticida</label><input type="date" id="f-ultBano"></div>
+        <div class="campo"><label>Próximo baño</label><input type="date" id="f-proxBano"></div>
+      </div>
+      <div class="crow">
+        <div class="campo"><label>Último descorne</label><input type="date" id="f-ultDesc"></div>
+        <div class="campo"><label>Último arreglo de pezuñas</label><input type="date" id="f-ultPez"></div>
+      </div>
+    </div>
+
+    <div class="msec" style="margin-bottom:12px"><div class="msec-t">📋 Observaciones de manejo</div>
+      <div class="campo" style="border:none"><label>Notas de manejo</label><textarea id="f-obsManejo" placeholder="Ej: Animal dominante, requiere manejo especial, tendencia a escapar..."></textarea></div>
     </div>
   </div>
   <!-- Tab 3 Económico -->
@@ -1164,7 +1441,7 @@ let db=null;
 
 function initDB(){
   return new Promise((res,rej)=>{
-    const req=indexedDB.open(DB_NAME,3);
+    const req=indexedDB.open(DB_NAME,4);
     req.onupgradeneeded=e=>{
       const d=e.target.result;
       if(!d.objectStoreNames.contains('perfiles')) d.createObjectStore('perfiles',{keyPath:'id'});
@@ -1183,6 +1460,13 @@ function initDB(){
       if(!d.objectStoreNames.contains('gastos')){
         const gs=d.createObjectStore('gastos',{keyPath:'id'});
         gs.createIndex('bovinoId','bovinoId',{unique:false});
+      }
+      if(!d.objectStoreNames.contains('potreros')){
+        d.createObjectStore('potreros',{keyPath:'id'});
+      }
+      if(!d.objectStoreNames.contains('accionesMasivas')){
+        const as=d.createObjectStore('accionesMasivas',{keyPath:'id'});
+        as.createIndex('potreroId','potreroId',{unique:false});
       }
     };
     req.onsuccess=e=>{db=e.target.result;res(db);};
@@ -1222,22 +1506,25 @@ function clearStore(store){
 // ================================================================
 // Estado
 // ================================================================
-let bovinos=[],vacunas=[],perfiles=[],pesajes=[],gastos=[];
+let bovinos=[],vacunas=[],perfiles=[],pesajes=[],gastos=[],potreros=[],accionesMasivas=[];
 let editId=null,vacBovId=null,editVacId=null;
 let pesoBovId=null,gastoBovId=null,editGastoId=null;
+let editPotId=null,currentPotId=null,amAccion=null,amPotId=null;
 let filtroAct='todos';
 let rads={sexo:null,estado:'activo'};
-let fotoAnimalB64=null,fotoPerfilB64=null;
+let fotoAnimalB64=null,fotoPerfilB64=null,fierroB64=null;
 let editPerfilId=null,perfilActivo=null;
 let pwaPrompt=null;
 // Crop state
 let cropImgSrc=null,cropOffX=0,cropOffY=0,cropScale=1,cropTarget=null;
 let cropDrag=false,cropStartX=0,cropStartY=0,cropStartOX=0,cropStartOY=0;
 
-const FC=['arete','nombre','fechaNac','fechaIngreso','raza','razaDet','color','senas',
+const FC=['arete','nombre','fierro','fechaNac','fechaIngreso','raza','razaDet','color','senas',
   'proc','prov','madre','padre','regOf','pesoNac','pesoAct','fechaPeso','cc','obs',
   'estR','prop','leche','ultP','nP','ultM','pPrb','monta','enf',
-  'lote','grupo','alim','supl','precC','valA','precV','fechaV','comp'];
+  'lote','grupo','entPot','diasPot','potAnt','condPast','mineral','agua',
+  'ultBano','proxBano','ultDespar','prodDespar','ultDesc','ultPez','obsManejo',
+  'alim','supl','precC','valA','precV','fechaV','comp'];
 
 const hoy=()=>new Date().toISOString().split('T')[0];
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).substr(2,5);
@@ -1334,8 +1621,8 @@ async function init(){
     log('Paso 2: cargando configuración...');
     cargarConfig();
     log('Paso 3: leyendo datos...');
-    [bovinos,vacunas,perfiles,pesajes,gastos]=await Promise.all([
-      getAll('bovinos'),getAll('vacunas'),getAll('perfiles'),getAll('pesajes'),getAll('gastos')
+    [bovinos,vacunas,perfiles,pesajes,gastos,potreros,accionesMasivas]=await Promise.all([
+      getAll('bovinos'),getAll('vacunas'),getAll('perfiles'),getAll('pesajes'),getAll('gastos'),getAll('potreros'),getAll('accionesMasivas')
     ]);
     log('Paso 4: inicializando formularios...');
     const fe=document.getElementById('f-fechaIngreso');if(fe)fe.value=hoy();
@@ -1409,6 +1696,7 @@ function seleccionarPerfil(id,cerrar=true){
   else hf.textContent=perfilActivo.emoji||'🐄';
   if(cerrar) document.getElementById('pantallaPerfiles').classList.remove('on');
   renderLista();updateStats();
+  actualizarSelectorPotreros();
   const rqb=document.getElementById('rqBtn');if(rqb)rqb.classList.add('vis');
 }
 
@@ -1680,15 +1968,15 @@ function mostrarVista(v){
   document.getElementById('mainHdr').style.display=esD?'none':'';
   document.getElementById('mainNav').style.display=esD?'none':'';
   document.getElementById('fabBtn').style.display=v==='lista'?'flex':'none';
-  const mv={lista:'vLista',detalle:'vDetalle',ventas:'vVentas',alertas:'vAlertas',resumen:'vResumen',config:'vConfig',acerca:'vAcerca'};
-  const mn={lista:'n-lista',ventas:'n-ventas',alertas:'n-alertas',resumen:'n-resumen',config:'n-config',acerca:'n-acerca'};
+  const mv={lista:'vLista',detalle:'vDetalle',ventas:'vVentas',alertas:'vAlertas',resumen:'vResumen',config:'vConfig',acerca:'vAcerca',potreros:'vPotreros',potrero:'vPotrero'};
+  const mn={lista:'n-lista',ventas:'n-ventas',alertas:'n-alertas',resumen:'n-resumen',config:'n-config',potreros:'n-potreros'};
   if(mv[v]) document.getElementById(mv[v]).classList.add('on');
   if(mn[v]) document.getElementById(mn[v]).classList.add('on');
   if(v==='alertas') renderAlertas();
   if(v==='resumen') renderResumen();
   if(v==='ventas') renderVentas();
   if(v==='config') renderConfigPreview();
-  // Botón registro rápido solo en vista lista
+  if(v==='potreros') renderPotreros();
   const rqb=document.getElementById('rqBtn');
   if(rqb) rqb.classList.toggle('vis',v==='lista');
   if(v!=='lista'){const m=document.getElementById('rqModal');if(m)m.classList.remove('on');}
@@ -1788,7 +2076,8 @@ function calcParto(){
 }
 
 function abrirForm(id=null){
-  editId=id;fotoAnimalB64=null;limpiarForm();
+  editId=id;fotoAnimalB64=null;fierroB64=null;limpiarForm();
+  actualizarSelectorPotreros();
   mTab(0,document.querySelectorAll('.mtab')[0]);
   document.getElementById('btnDel').style.display=id?'block':'none';
   if(id){
@@ -1797,8 +2086,14 @@ function abrirForm(id=null){
     FC.forEach(c=>{const el=document.getElementById('f-'+c);if(el&&b[c]!==undefined)el.value=b[c];});
     if(b.sexo)rad('sexo',b.sexo);if(b.estado)rad('estado',b.estado);
     if(b.foto){fotoAnimalB64=b.foto;mostrarFotoAnimal(b.foto);}
+    if(b.fierroFoto){
+      fierroB64=b.fierroFoto;
+      const prev=document.getElementById('fierroPreview');
+      const im=document.getElementById('fierroImg');
+      if(prev&&im){im.src=fierroB64;prev.style.display='block';}
+    }
   } else {
-    document.getElementById('mTit').textContent='🐄 Nuevo Bovino';
+    document.getElementById('mTit').textContent='Nuevo Bovino';
     document.getElementById('f-fechaIngreso').value=hoy();
     rads={sexo:null,estado:'activo'};rad('estado','activo');
   }
@@ -1817,6 +2112,11 @@ function limpiarForm(){
   document.getElementById('fotoActions').style.display='none';
   document.getElementById('fotoBtns').style.display='flex';
   fotoAnimalB64=null;
+  fierroB64=null;
+  const prev=document.getElementById('fierroPreview');
+  const im=document.getElementById('fierroImg');
+  if(prev)prev.style.display='none';
+  if(im)im.src='';
 }
 
 function cargarFotoAnimal(e){
@@ -1856,6 +2156,38 @@ function quitarFoto(){
   document.getElementById('fotoBtns').style.display='flex';
 }
 
+function cargarFierro(e){
+  const file=e.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    const img=new Image();
+    img.onload=()=>{
+      const canvas=document.createElement('canvas');
+      const max=600;
+      let w=img.width,h=img.height;
+      if(w>max){h=h*(max/w);w=max;}
+      if(h>max){w=w*(max/h);h=max;}
+      canvas.width=w;canvas.height=h;
+      canvas.getContext('2d').drawImage(img,0,0,w,h);
+      fierroB64=canvas.toDataURL('image/jpeg',0.8);
+      const prev=document.getElementById('fierroPreview');
+      const im=document.getElementById('fierroImg');
+      if(prev&&im){im.src=fierroB64;prev.style.display='block';}
+    };
+    img.src=ev.target.result;
+  };
+  reader.readAsDataURL(file);
+  e.target.value='';
+}
+
+function quitarFierro(){
+  fierroB64=null;
+  const prev=document.getElementById('fierroPreview');
+  const im=document.getElementById('fierroImg');
+  if(prev)prev.style.display='none';
+  if(im)im.src='';
+}
+
 async function guardarBovino(){
   const arete=(document.getElementById('f-arete').value||'').trim();
   if(!arete){toast('⚠️ El arete es requerido');return;}
@@ -1865,6 +2197,7 @@ async function guardarBovino(){
   FC.forEach(c=>{const el=document.getElementById('f-'+c);if(el)b[c]=el.value;});
   b.sexo=rads.sexo;b.estado=rads.estado||'activo';
   b.foto=fotoAnimalB64||null;
+  b.fierroFoto=fierroB64||null;
   b.perfilId=perfilActivo?perfilActivo.id:null;
   b.uAt=new Date().toISOString();
   if(!editId)b.cAt=new Date().toISOString();
@@ -1882,6 +2215,7 @@ async function guardarBovino(){
   cerrarOv('ovBov');renderLista();updateStats();
   toast(editId?'✅ Registro actualizado':'✅ Bovino agregado');editId=null;
 }
+
 
 async function eliminarBovino(){
   if(!confirm('¿Eliminar este bovino y todos sus registros?'))return;
@@ -1939,11 +2273,21 @@ function verDetalle(id){
     <div class="det-scroll">
       <div id="dp-0" class="det-body"><div class="dgrid">
         ${f('Arete / ID',b.arete,true)}${f('Nombre',b.nombre)}
+        ${f('Fierro / Marcaje',b.fierro)}
+        ${b.fierroFoto?`<div class="dc full"><div class="dl">Foto del Fierro</div><div class="dv"><img src="${b.fierroFoto}" style="max-width:180px;max-height:80px;object-fit:contain;border-radius:8px;border:1px solid #e2e8f0;margin-top:4px"></div></div>`:''}
         ${f('Sexo',b.sexo==='hembra'?'♀ Hembra':b.sexo==='macho'?'♂ Macho':'🐮 Ternero')}${f('Estado',b.estado||'Activo')}
         ${f('Raza',b.raza||b.razaDet)}${f('Color',b.color)}
         ${f('Edad',e)}${f('Peso Actual',b.pesoAct?fmtPeso(b.pesoAct):null,true)}
-        ${f('Cond. Corporal',b.cc)}${f('Lote / Potrero',b.lote)}
-        ${f('Alimentación',b.alim)}${f('Suplemento',b.supl)}
+        ${f('Cond. Corporal',b.cc)}${f('Potrero / Lote',b.lote)}
+        ${f('Grupo de Manejo',b.grupo)}${f('Potrero Anterior',b.potAnt)}
+        ${f('Fecha entrada potrero',b.entPot?fmtFecha(b.entPot):null)}${f('Días en potrero',b.diasPot)}
+        ${ff('Sistema de pastoreo',b.alim)}${f('Cond. Agostadero',b.condPast)}
+        ${f('Suplemento',b.supl)}${f('Mineralización',b.mineral)}
+        ${f('Fuente de agua',b.agua)}
+        ${f('Último baño garrapaticida',b.ultBano?fmtFecha(b.ultBano):null)}${f('Próximo baño',b.proxBano?fmtFecha(b.proxBano):null)}
+        ${f('Última desparasitación',b.ultDespar?fmtFecha(b.ultDespar):null)}${f('Producto despar.',b.prodDespar)}
+        ${f('Último descorne',b.ultDesc?fmtFecha(b.ultDesc):null)}${f('Arreglo pezuñas',b.ultPez?fmtFecha(b.ultPez):null)}
+        ${ff('Obs. de manejo',b.obsManejo)}
         ${f('Madre',b.madre)}${f('Padre / Toro',b.padre)}
         ${ff('Observaciones',b.obs)}
       </div></div>
@@ -2589,6 +2933,256 @@ async function borrarTodo(){
   pesajes=pesajes.filter(p=>!bids.includes(p.bovinoId));
   gastos=gastos.filter(g=>!bids.includes(g.bovinoId));
   renderLista();updateStats();toast('🗑️ Datos eliminados');
+}
+
+// ================================================================
+// POTREROS
+// ================================================================
+function potrerosPerfil(){
+  return perfilActivo ? potreros.filter(p=>p.perfilId===perfilActivo.id) : [];
+}
+
+function renderPotreros(){
+  const pp=potrerosPerfil();
+  const c=document.getElementById('listaPotreros');
+  if(!pp.length){
+    c.innerHTML=`<div class="empty-l" style="margin-top:0"><div style="font-size:2.5rem;opacity:.2">🌾</div><h3>Sin potreros registrados</h3><p>Crea tu primer potrero para asignar animales</p></div>`;
+    return;
+  }
+  c.innerHTML=pp.map(p=>{
+    const animales=bPerfil().filter(b=>b.lote===p.nombre&&(!b.estado||b.estado==='activo'));
+    const pct=p.cap?Math.round((animales.length/parseInt(p.cap))*100):null;
+    const condColor=p.cond?.includes('Excelente')?'var(--verde)':p.cond?.includes('Buena')?'var(--v2)':p.cond?.includes('Regular')?'var(--amarillo)':p.cond?.includes('Mala')?'var(--rojo)':'var(--gris)';
+    return `<div class="pot-card" onclick="verDetallePotrero('${p.id}')">
+      <div class="pot-hdr">
+        <div class="pot-nom">${p.nombre}</div>
+        <span class="pot-badge">${animales.length} animal${animales.length!==1?'es':''}</span>
+      </div>
+      <div class="pot-stats">
+        <div class="pot-stat"><div class="pot-stat-n">${p.ha||'—'}</div><div class="pot-stat-l">Hectáreas</div></div>
+        <div class="pot-stat"><div class="pot-stat-n">${p.cap||'—'}</div><div class="pot-stat-l">Capacidad</div></div>
+        <div class="pot-stat"><div class="pot-stat-n" style="color:${pct!=null?(pct>90?'var(--rojo)':pct>70?'var(--amarillo)':'var(--verde)'):'var(--gris)'}">${pct!=null?pct+'%':'—'}</div><div class="pot-stat-l">Ocupación</div></div>
+      </div>
+      <div class="pot-inf">
+        ${p.pasto?`<span class="pot-tag">🌱 ${p.pasto}</span>`:''}
+        ${p.cond?`<span class="pot-tag" style="color:${condColor}">${p.cond.split('—')[0].trim()}</span>`:''}
+        ${p.agua?`<span class="pot-tag">💧 ${p.agua}</span>`:''}
+        ${p.entrada?`<span class="pot-tag">📅 Entrada: ${fmtFecha(p.entrada)}</span>`:''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function verDetallePotrero(pid){
+  const p=potreros.find(x=>x.id===pid);if(!p)return;
+  currentPotId=pid;
+  const animales=bPerfil().filter(b=>b.lote===p.nombre&&(!b.estado||b.estado==='activo'));
+  const hoy2=new Date();
+  const diasOcup=p.entrada?Math.floor((hoy2-new Date(p.entrada))/(1000*60*60*24)):null;
+
+  document.getElementById('pdNom').textContent=p.nombre;
+  document.getElementById('pdSub').textContent=[p.pasto,p.cond?.split('—')[0].trim()].filter(Boolean).join(' · ')||'Sin descripción';
+  document.getElementById('pd-total').textContent=animales.length;
+  document.getElementById('pd-cap').textContent=p.cap||'—';
+  document.getElementById('pd-ha').textContent=p.ha?p.ha+' ha':'—';
+  document.getElementById('pd-dias').textContent=diasOcup!=null?diasOcup+'d':'—';
+
+  // Info del potrero
+  const ff=(l,v)=>v?`<div class="dc"><div class="dl">${l}</div><div class="dv">${v}</div></div>`:'';
+  document.getElementById('pdInfo').innerHTML=`
+    <div style="font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--gris);margin-bottom:8px">Ficha del potrero</div>
+    <div class="dgrid">
+      ${ff('Tipo de pasto',p.pasto)}${ff('Condición',p.cond)}
+      ${ff('Fuente de agua',p.agua)}${ff('Capacidad',p.cap?p.cap+' animales':null)}
+      ${ff('Hectáreas',p.ha?p.ha+' ha':null)}${ff('Carga actual',p.cap?animales.length+'/'+p.cap:animales.length+' animales')}
+      ${ff('Fecha entrada',p.entrada?fmtFecha(p.entrada):null)}${ff('Último descanso',p.ultDesc?fmtFecha(p.ultDesc):null)}
+      ${ff('Notas',p.notas)}
+    </div>`;
+
+  // Acciones masivas — predefinidas + personalizadas
+  const accionesDef=[
+    {id:'bano',label:'Baño garrapaticida',color:''},
+    {id:'mover',label:'Mover a otro potrero',color:'naranja'},
+  ];
+  const accionesCustom=accionesMasivas.filter(a=>a.potreroId===pid);
+  const todasAcciones=[...accionesDef,...accionesCustom.map(a=>({id:a.id,label:a.nombre,color:'',custom:true}))];
+
+  document.getElementById('pdAcciones').innerHTML=
+    todasAcciones.map(a=>`<button class="pot-btn ${a.color}" onclick="abrirAccionMasiva('${pid}','${a.id}','${a.label}')">${a.label}</button>`).join('')+
+    `<button class="pot-btn" style="background:var(--amarillop);color:var(--amarillo);border-color:#fbbf24" onclick="crearAccionPersonalizada('${pid}')">+ Nueva acción</button>`;
+
+  // Lista de animales
+  document.getElementById('pdAnimTit').textContent=`${animales.length} animal${animales.length!==1?'es':''} en este potrero`;
+  document.getElementById('pdAnimales').innerHTML=animales.length?animales.map(b=>`
+    <div class="acard" onclick="verDetalle('${b.id}')" style="margin-bottom:8px;cursor:pointer">
+      <div class="ac-foto">${b.foto?`<img src="${b.foto}" alt="">`:`<span>${b.sexo==='hembra'?'♀':b.sexo==='macho'?'♂':'●'}</span>`}</div>
+      <div class="ac-body">
+        <div class="ac-top">
+          <div><div class="ac-arete">${b.arete}</div><div class="ac-nom">${b.nombre||'—'}</div></div>
+          <span class="badge ${b.sexo==='hembra'?'bh':b.sexo==='macho'?'bm':'bt'}">${b.sexo==='hembra'?'♀ Hembra':b.sexo==='macho'?'♂ Macho':'Ternero'}</span>
+        </div>
+        <div class="ac-inf">${b.raza?`<div class="adi">${b.raza}</div>`:''}${b.pesoAct?`<div class="adi">${fmtPeso(b.pesoAct)}</div>`:''}</div>
+      </div>
+    </div>`).join(''):`<div style="text-align:center;padding:24px;color:var(--gris);font-size:.82rem">Sin animales asignados a este potrero</div>`;
+
+  mostrarVista('potrero');
+}
+
+function abrirModalPotrero(id=null){
+  editPotId=id;
+  document.getElementById('potMTit').textContent=id?'Editar Potrero':'Nuevo Potrero';
+  document.getElementById('potBtnDel').style.display=id?'block':'none';
+  ['pot-nom','pot-ha','pot-cap','pot-notas'].forEach(i=>{const el=document.getElementById(i);if(el)el.value='';});
+  ['pot-pasto','pot-cond','pot-agua'].forEach(i=>{const el=document.getElementById(i);if(el)el.selectedIndex=0;});
+  document.getElementById('pot-entrada').value='';
+  document.getElementById('pot-ultDesc').value='';
+  if(id){
+    const p=potreros.find(x=>x.id===id);if(!p)return;
+    const m={nom:'nombre',ha:'ha',cap:'cap',pasto:'pasto',cond:'cond',agua:'agua',entrada:'entrada',ultDesc:'ultDesc',notas:'notas'};
+    Object.entries(m).forEach(([k,v])=>{const el=document.getElementById('pot-'+k);if(el&&p[v])el.value=p[v];});
+  }
+  document.getElementById('ovPotrero').classList.add('on');
+}
+
+function editarPotrero(id){abrirModalPotrero(id);}
+
+async function guardarPotrero(){
+  const nom=(document.getElementById('pot-nom').value||'').trim();
+  if(!nom){toast('El nombre es obligatorio');return;}
+  const p={
+    id:editPotId||uid(),
+    perfilId:perfilActivo?.id,
+    nombre:nom,
+    ha:document.getElementById('pot-ha').value,
+    cap:document.getElementById('pot-cap').value,
+    pasto:document.getElementById('pot-pasto').value,
+    cond:document.getElementById('pot-cond').value,
+    agua:document.getElementById('pot-agua').value,
+    entrada:document.getElementById('pot-entrada').value,
+    ultDesc:document.getElementById('pot-ultDesc').value,
+    notas:document.getElementById('pot-notas').value,
+    uAt:new Date().toISOString()
+  };
+  await putRecord('potreros',p);
+  if(editPotId){const i=potreros.findIndex(x=>x.id===editPotId);potreros[i]=p;}
+  else potreros.push(p);
+  cerrarOv('ovPotrero');
+  actualizarSelectorPotreros();
+  if(currentPotId===editPotId) verDetallePotrero(editPotId);
+  else renderPotreros();
+  toast(editPotId?'Potrero actualizado':'Potrero creado');
+  editPotId=null;
+}
+
+async function eliminarPotrero(){
+  if(!confirm(`¿Eliminar el potrero "${potreros.find(p=>p.id===editPotId)?.nombre}"? Los animales quedarán sin potrero asignado.`))return;
+  // Desasignar animales
+  const p=potreros.find(x=>x.id===editPotId);
+  if(p){
+    const afectados=bovinos.filter(b=>b.lote===p.nombre&&b.perfilId===perfilActivo?.id);
+    for(const b of afectados){b.lote='';await putRecord('bovinos',b);}
+  }
+  await deleteRecord('potreros',editPotId);
+  potreros=potreros.filter(x=>x.id!==editPotId);
+  cerrarOv('ovPotrero');
+  actualizarSelectorPotreros();
+  mostrarVista('potreros');
+  toast('Potrero eliminado');editPotId=null;
+}
+
+function actualizarSelectorPotreros(){
+  const sel=document.getElementById('f-lote');
+  if(!sel)return;
+  const actual=sel.value;
+  sel.innerHTML='<option value="">Sin asignar</option>'+
+    potrerosPerfil().map(p=>`<option value="${p.nombre}" ${p.nombre===actual?'selected':''}>${p.nombre}${p.cap?' (cap: '+p.cap+')':''}</option>`).join('');
+}
+
+// ── ACCIONES MASIVAS ──
+function abrirAccionMasiva(potId,accionId,accionLabel){
+  amPotId=potId;amAccion={id:accionId,label:accionLabel};
+  const p=potreros.find(x=>x.id===potId);
+  const animales=bPerfil().filter(b=>b.lote===p?.nombre&&(!b.estado||b.estado==='activo'));
+  document.getElementById('amTit').textContent=accionLabel;
+
+  // Campos según tipo de acción
+  let campos='';
+  if(accionId==='bano'){
+    campos=`<div class="campo" style="margin-bottom:10px"><label>Fecha del baño</label><input type="date" id="am-fecha" value="${hoy()}"></div>
+    <div class="campo" style="margin-bottom:10px"><label>Producto garrapaticida</label><input id="am-producto" placeholder="Ej: Amitraz, Cipermetrina..."></div>`;
+  } else if(accionId==='mover'){
+    const otrosPotreros=potrerosPerfil().filter(x=>x.id!==potId);
+    campos=`<div class="campo" style="margin-bottom:10px"><label>Mover a potrero</label>
+      <select id="am-destino">
+        <option value="">Seleccionar destino...</option>
+        ${otrosPotreros.map(x=>`<option value="${x.nombre}">${x.nombre}</option>`).join('')}
+      </select></div>
+    <div class="campo" style="margin-bottom:10px"><label>Fecha de movimiento</label><input type="date" id="am-fecha" value="${hoy()}"></div>`;
+  } else {
+    campos=`<div class="campo" style="margin-bottom:10px"><label>Fecha</label><input type="date" id="am-fecha" value="${hoy()}"></div>
+    <div class="campo" style="margin-bottom:10px"><label>Notas</label><input id="am-notas" placeholder="Observaciones..."></div>`;
+  }
+  document.getElementById('amCampos').innerHTML=campos;
+
+  document.getElementById('amAnimales').innerHTML=animales.map(b=>`
+    <div class="am-item">
+      <input type="checkbox" class="am-chk" id="amc-${b.id}" value="${b.id}" checked>
+      <label for="amc-${b.id}" style="flex:1;cursor:pointer">${b.arete}${b.nombre?' — '+b.nombre:''}</label>
+    </div>`).join('');
+
+  document.getElementById('ovAccionMasiva').classList.add('on');
+}
+
+function selTodosAM(v){
+  document.querySelectorAll('.am-chk').forEach(c=>c.checked=v);
+}
+
+async function aplicarAccionMasiva(){
+  const seleccionados=[...document.querySelectorAll('.am-chk:checked')].map(c=>c.value);
+  if(!seleccionados.length){toast('Selecciona al menos un animal');return;}
+  const fecha=document.getElementById('am-fecha')?.value||hoy();
+  const accionId=amAccion.id;
+
+  if(accionId==='bano'){
+    const prod=document.getElementById('am-producto')?.value||'';
+    for(const bid of seleccionados){
+      const b=bovinos.find(x=>x.id===bid);if(!b)continue;
+      b.ultBano=fecha;b.proxBano='';b.uAt=new Date().toISOString();
+      await putRecord('bovinos',b);
+      // Registrar como vacuna/tratamiento
+      const vac={id:uid(),bovinoId:bid,tipo:'Baño garrapaticida',producto:prod,fecha,proxFecha:'',notas:'Aplicado en acción masiva',cAt:new Date().toISOString()};
+      await putRecord('vacunas',vac);vacunas.push(vac);
+    }
+    toast(`✅ Baño registrado en ${seleccionados.length} animales`);
+  } else if(accionId==='mover'){
+    const destino=document.getElementById('am-destino')?.value;
+    if(!destino){toast('Selecciona el potrero destino');return;}
+    for(const bid of seleccionados){
+      const b=bovinos.find(x=>x.id===bid);if(!b)continue;
+      b.lote=destino;b.entPot=fecha;b.uAt=new Date().toISOString();
+      await putRecord('bovinos',b);
+    }
+    toast(`✅ ${seleccionados.length} animales movidos a "${destino}"`);
+  } else {
+    const notas=document.getElementById('am-notas')?.value||'';
+    for(const bid of seleccionados){
+      const vac={id:uid(),bovinoId:bid,tipo:amAccion.label,producto:'',fecha,proxFecha:'',notas,cAt:new Date().toISOString()};
+      await putRecord('vacunas',vac);vacunas.push(vac);
+    }
+    toast(`✅ "${amAccion.label}" aplicado a ${seleccionados.length} animales`);
+  }
+  cerrarOv('ovAccionMasiva');
+  verDetallePotrero(amPotId);
+}
+
+async function crearAccionPersonalizada(potId){
+  const nom=prompt('Nombre de la nueva acción (ej: Vitamina, Pesaje masivo):');
+  if(!nom?.trim())return;
+  const a={id:uid(),potreroId:potId,nombre:nom.trim(),perfilId:perfilActivo?.id};
+  await putRecord('accionesMasivas',a);
+  accionesMasivas.push(a);
+  verDetallePotrero(potId);
+  toast('Acción creada');
 }
 
 // ================================================================
