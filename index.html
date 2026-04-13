@@ -937,9 +937,11 @@ body.tema-oscuro .am-item{border-color:#374151;color:#f3f4f6;}
   </div>
   <div style="padding:12px">
     <!-- Acciones masivas -->
-    <div style="background:#fff;border-radius:var(--r);padding:12px;margin-bottom:10px;box-shadow:var(--sombra);" id="pdAccionesWrap">
-      <div style="font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--gris);margin-bottom:8px">Acciones masivas al lote</div>
-      <div style="display:flex;flex-wrap:wrap;gap:6px" id="pdAcciones"></div>
+    <div style="margin-bottom:10px">
+      <button onclick="abrirNuevoEventoLote(null,'${p.nombre}')" style="width:100%;background:linear-gradient(135deg,var(--v),var(--v2));color:#fff;border:none;border-radius:var(--r);padding:13px;font-family:inherit;font-size:.88rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><use href="#ic-plus"/></svg>
+        Registrar Evento de Manejo
+      </button>
     </div>
     <!-- Info potrero -->
     <div style="background:#fff;border-radius:var(--r);padding:12px;margin-bottom:10px;box-shadow:var(--sombra);" id="pdInfo"></div>
@@ -2366,10 +2368,20 @@ function getAlertas(){
   const hm=new Date().setHours(0,0,0,0),res=[];
   const bids=new Set(bPerfil().map(b=>b.id));
   vacunas.forEach(v=>{
-    if(!bids.has(v.bovinoId)||!v.fecha||!v.periodo)return;
-    const prox=new Date(v.fecha).setHours(0,0,0,0)+v.periodo*86400000;
+    if(!bids.has(v.bovinoId)||!v.fecha)return;
+    let prox=null;
+    // Usar proxFecha si existe (guardado como string YYYY-MM-DD)
+    if(v.proxFecha){
+      prox=new Date(v.proxFecha).setHours(0,0,0,0);
+    } else if(v.periodo){
+      prox=new Date(v.fecha).setHours(0,0,0,0)+v.periodo*86400000;
+    }
+    if(prox===null)return;
     const diff=Math.round((prox-hm)/86400000);
-    if(diff<=30){const b=bovinos.find(x=>x.id===v.bovinoId);res.push({v,b,diff});}
+    if(diff<=30){
+      const b=bovinos.find(x=>x.id===v.bovinoId);
+      if(b) res.push({v,b,diff,bovinoId:v.bovinoId});
+    }
   });
   return res.sort((a,b)=>a.diff-b.diff);
 }
@@ -2785,7 +2797,8 @@ function renderVacList(bid){
       <div class="vi-ico">💉</div>
       <div class="vi-inf">
         <div class="vi-nom">${nom}</div>
-        <div class="vi-dat">📅 ${fmtFecha(v.fecha)||'—'}${v.dosis&&v.dosis!==nom?' · '+v.dosis:''}</div>
+        <div class="vi-dat">📅 ${fmtFecha(v.fecha)||'—'}</div>
+        ${v.dosis&&v.dosis!==nom?`<div class="vi-dat">💊 ${v.dosis}</div>`:''}
         ${v.vet?`<div class="vi-dat">👤 ${v.vet}</div>`:''}
         ${v.notas?`<div class="vi-dat">📝 ${v.notas}</div>`:''}
         ${pt?`<span class="vi-prox ${pc}">${pt}</span>`:''}
@@ -2805,11 +2818,19 @@ function abrirVacModal(bid,vacId=null){
   document.getElementById('vacSave').textContent=vacId?'💾 Guardar Cambios':'💉 Registrar Vacuna';
   if(vacId){
     const v=vacunas.find(x=>x.id===vacId);if(!v)return;
-    document.getElementById('vf-tipo').value=v.tipo||'';
-    document.getElementById('vf-nom').value=v.nombre||'';
+    // Intentar seleccionar el tipo en el select, si no coincide poner en vf-nom
+    const selOpts=[...document.getElementById('vf-tipo').options].map(o=>o.value);
+    if(v.tipo&&selOpts.includes(v.tipo)){
+      document.getElementById('vf-tipo').value=v.tipo;
+    } else {
+      document.getElementById('vf-tipo').selectedIndex=0;
+    }
+    // El nombre del producto va en vf-nom (campo "Especificar nombre")
+    // Si viene de evento masivo, el producto está en v.nombre o v.dosis
+    document.getElementById('vf-nom').value=v.nombre||v.dosis||'';
     document.getElementById('vf-fecha').value=v.fecha||'';
     document.getElementById('vf-per').value=v.periodo||'';
-    document.getElementById('vf-dosis').value=v.dosis||'';
+    document.getElementById('vf-dosis').value=v.dosis||v.nombre||'';
     document.getElementById('vf-vet').value=v.vet||'';
     document.getElementById('vf-notas').value=v.notas||'';
   } else {
@@ -2828,11 +2849,15 @@ async function guardarVacuna(){
   if(!fecha){toast('⚠️ La fecha es requerida');return;}
   const v={
     id:editVacId2||uid(),bovinoId:vacBovId,tipo:tipo||null,
-    nombre:nom||(tipo==='otro'?'':tipo)||nom,
+    nombre:nom||tipo||'',
     fecha,periodo:parseInt(document.getElementById('vf-per').value)||null,
-    dosis:document.getElementById('vf-dosis').value,
-    vet:document.getElementById('vf-vet').value,
-    notas:document.getElementById('vf-notas').value,
+    dosis:document.getElementById('vf-dosis').value.trim(),
+    vet:document.getElementById('vf-vet').value.trim(),
+    notas:document.getElementById('vf-notas').value.trim(),
+    proxFecha:document.getElementById('vf-per').value?
+      (()=>{const d=new Date(document.getElementById('vf-fecha').value||new Date());
+            d.setDate(d.getDate()+parseInt(document.getElementById('vf-per').value));
+            return d.toISOString().split('T')[0];})():'',
     uAt:new Date().toISOString()
   };
   await putRecord('vacunas',v);
@@ -3047,9 +3072,10 @@ function renderAlertas(){
       const dt=a.diff<0?`Vencida hace ${Math.abs(a.diff)}d`:a.diff===0?'¡Hoy!':a.diff===1?'Mañana':`En ${a.diff}d`;
       const bg=a.diff<0?'var(--rojop)':a.diff<=7?'var(--naranjap)':'var(--amarillop)';
       const tc=a.diff<0?'var(--rojo)':a.diff<=7?'var(--naranja)':'var(--amarillo)';
-      return`<div class="ai" onclick="verDetalle('${a.b?.id}')">
+      const bov=a.b||bovinos.find(x=>x.id===a.v?.bovinoId);
+      return`<div class="ai" onclick="verDetalle('${bov?.id||''}')">
         <div class="ai-ico" style="background:${bg}">💉</div>
-        <div style="flex:1"><div class="ai-t">${nom}</div><div class="ai-s">${a.b?a.b.arete+(a.b.nombre?' — '+a.b.nombre:''):'—'} · ${a.v.fecha||'—'}</div></div>
+        <div style="flex:1"><div class="ai-t">${nom||'Vacuna'}</div><div class="ai-s">${bov?bov.arete+(bov.nombre?' — '+bov.nombre:''):'—'} · ${fmtFecha(a.v.fecha)||'—'}</div></div>
         <span class="ai-d" style="background:${bg};color:${tc}">${dt}</span>
       </div>`;
     }).join('')}</div>`;
@@ -3708,16 +3734,7 @@ function verDetallePotrero(pid){
     </div>`;
 
   // Acciones masivas — predefinidas + personalizadas
-  const accionesDef=[
-    {id:'bano',label:'Baño garrapaticida',color:''},
-    {id:'mover',label:'Mover a otro potrero',color:'naranja'},
-  ];
-  const accionesCustom=accionesMasivas.filter(a=>a.potreroId===pid);
-  const todasAcciones=[...accionesDef,...accionesCustom.map(a=>({id:a.id,label:a.nombre,color:'',custom:true}))];
-
-  document.getElementById('pdAcciones').innerHTML=
-    todasAcciones.map(a=>`<button class="pot-btn ${a.color}" onclick="abrirAccionMasiva('${pid}','${a.id}','${a.label}')">${a.label}</button>`).join('')+
-    `<button class="pot-btn" style="background:var(--amarillop);color:var(--amarillo);border-color:#fbbf24" onclick="crearAccionPersonalizada('${pid}')">+ Nueva acción</button>`;
+  // Acciones rápidas removidas — se maneja desde la sección Manejo
 
   // Lista de animales
   document.getElementById('pdAnimTit').textContent=`${animales.length} animal${animales.length!==1?'es':''} en este potrero`;
@@ -4011,9 +4028,11 @@ function onTipoManejoChange(){
   onClasifChange();
 }
 
-function abrirNuevoEventoLote(loteIdEdit=null){
+function abrirNuevoEventoLote(loteIdEdit=null,potreroDefault=null){
   editLoteId=loteIdEdit;
   const lote=loteIdEdit?lotesEv.find(l=>l.id===loteIdEdit):null;
+  // Guardar potrero por defecto para preseleccionar en paso 2
+  window._mjPotreroDefault=potreroDefault||null;
   document.getElementById('mj-tipo').selectedIndex=0;
   document.getElementById('mj-producto').value=lote?.producto||'';
   document.getElementById('mj-fecha').value=lote?.fecha||hoy();
@@ -4070,6 +4089,10 @@ function mjPaso2(){
   const pSel=document.getElementById('mjf-potrero');
   pSel.innerHTML='<option value="">Todos los potreros</option>'+
     potrerosPerfil().map(p=>`<option value="${p.nombre}">${p.nombre}</option>`).join('');
+  // Preseleccionar potrero si viene desde el detalle de un potrero
+  if(window._mjPotreroDefault){
+    pSel.value=window._mjPotreroDefault;
+  }
   document.getElementById('mjf-sexo').selectedIndex=0;
   // Pasar a paso 2
   document.getElementById('mjPaso1').style.display='none';
