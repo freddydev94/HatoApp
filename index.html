@@ -2780,12 +2780,12 @@ function renderVacList(bid){
       else if(d<=30){pt=`🟡 En ${d} días`;pc='w';}
       else pt=`✅ En ${d} días`;
     }
-    const nom=v.nombre||(v.tipo||'');
+    const nom=v.nombre||v.producto||(v.tipo||'Sin nombre');
     return `<div class="vac-item">
       <div class="vi-ico">💉</div>
       <div class="vi-inf">
         <div class="vi-nom">${nom}</div>
-        <div class="vi-dat">📅 ${v.fecha||'—'}${v.dosis?' · '+v.dosis:''}</div>
+        <div class="vi-dat">📅 ${fmtFecha(v.fecha)||'—'}${v.dosis&&v.dosis!==nom?' · '+v.dosis:''}</div>
         ${v.vet?`<div class="vi-dat">👤 ${v.vet}</div>`:''}
         ${v.notas?`<div class="vi-dat">📝 ${v.notas}</div>`:''}
         ${pt?`<span class="vi-prox ${pc}">${pt}</span>`:''}
@@ -4029,7 +4029,9 @@ function abrirNuevoEventoLote(loteIdEdit=null){
   const clEl=document.getElementById('mj-cl-'+clasifVal);
   if(clEl)clEl.checked=true;
   else document.getElementById('mj-cl-manejo').checked=true;
-  if(clasifVal==='vacuna') document.getElementById('mj-vac-wrap').style.display='block';
+  // Mostrar/ocultar campos de vacuna según clasificación
+  document.getElementById('mj-vac-wrap').style.display=
+    (clasifVal==='vacuna'||clasifVal==='tratamiento')?'block':'none';
   document.getElementById('mjPaso1').style.display='block';
   document.getElementById('mjPaso2').style.display='none';
   document.getElementById('mjMdlTit').textContent=lote?'Editar Evento':'Nuevo Evento de Lote';
@@ -4128,72 +4130,80 @@ async function confirmarEventoLote(){
   if(!tipo){toast('Especifica el tipo de evento');return;}
   const producto=document.getElementById('mj-producto').value.trim();
   const fecha=document.getElementById('mj-fecha').value;
+  if(!fecha){toast('La fecha es requerida');return;}
   const notas=document.getElementById('mj-notas').value.trim();
   const destino=document.getElementById('mj-destino').value;
-  const proxDosis=document.getElementById('mj-proxdosis').value;
+  const proxDosis=document.getElementById('mj-proxdosis').value.trim();
   const loteProd=document.getElementById('mj-lote-prod').value.trim();
   const clasif=getClasif(); // 'manejo' | 'vacuna' | 'tratamiento'
   const esVac=clasif==='vacuna'||clasif==='tratamiento';
+  const loteId=editLoteId||uid();
 
+  // ── Limpiar registros anteriores si es edición ──
   if(editLoteId){
-    // ── EDICIÓN: actualizar lote existente ──
+    const evViejos=eventos.filter(e=>e.loteEvId===editLoteId);
+    for(const e of evViejos){try{await deleteRecord('eventos',e.id);}catch(err){}}
+    eventos=eventos.filter(e=>e.loteEvId!==editLoteId);
+    // Siempre limpiar vacunas viejas de este lote (aunque antes no era vacuna)
+    const vacViejas=vacunas.filter(v=>v.loteEvId===editLoteId);
+    for(const v of vacViejas){try{await deleteRecord('vacunas',v.id);}catch(err){}}
+    vacunas=vacunas.filter(v=>v.loteEvId!==editLoteId);
+    // Actualizar objeto lote
     const lote=lotesEv.find(l=>l.id===editLoteId);
     if(lote){
-      // Eliminar eventos individuales anteriores
-      const evViejos=eventos.filter(e=>e.loteEvId===editLoteId);
-      for(const e of evViejos){try{await deleteRecord('eventos',e.id);}catch(e2){}}
-      if(esVac){
-        // Eliminar vacunas anteriores de este lote
-        const vacViejas=vacunas.filter(v=>v.loteEvId===editLoteId);
-        for(const v of vacViejas){try{await deleteRecord('vacunas',v.id);}catch(e2){}}
-        vacunas=vacunas.filter(v=>v.loteEvId!==editLoteId);
-      }
-      eventos=eventos.filter(e=>e.loteEvId!==editLoteId);
-      lote.tipo=tipo;lote.producto=producto;lote.fecha=fecha;lote.notas=notas;
-      lote.animalesIds=selIds;lote.destino=destino||null;
-      lote.proxDosis=proxDosis||null;lote.loteProd=loteProd||null;
-      lote.uAt=new Date().toISOString();
+      Object.assign(lote,{tipo,producto,fecha,notas,animalesIds:selIds,
+        destino:destino||null,proxDosis:proxDosis||null,loteProd:loteProd||null,
+        clasif,uAt:new Date().toISOString()});
     }
   } else {
-    // ── NUEVO lote ──
-    const loteId=uid();
+    // ── Nuevo lote ──
     const lote={id:loteId,tipo,producto,fecha,notas,animalesIds:selIds,
       destino:destino||null,proxDosis:proxDosis||null,loteProd:loteProd||null,
       clasif,perfilId:perfilActivo?.id,cAt:new Date().toISOString()};
     lotesEv.unshift(lote);
-    editLoteId=loteId;
   }
 
-  const loteId=editLoteId;
-
-  // Crear eventos individuales nuevos
+  // ── Crear registros individuales para cada animal seleccionado ──
   for(const bid of selIds){
+    // Evento de manejo
     const ev={id:uid(),bovinoId:bid,tipo,producto,fecha,
       notas:notas||(destino?`Movido a "${destino}"`:''),
       loteEvId:loteId,masivo:true,cAt:new Date().toISOString()};
-    try{await putRecord('eventos',ev);eventos.push(ev);}catch(e){eventos.push(ev);}
+    try{await putRecord('eventos',ev);}catch(err){}
+    eventos.push(ev);
 
-    // Si es vacuna → guardar también en historial de vacunas
+    // Vacuna/Tratamiento en historial
     if(esVac){
-      const vac={id:uid(),bovinoId:bid,tipo,producto,fecha,
-        proxFecha:proxDosis?calcProxFecha(fecha,parseInt(proxDosis)):'',
+      const proxFechaCalc=proxDosis?calcProxFecha(fecha,parseInt(proxDosis)):'';
+      const notasVac=[notas,loteProd?'Lote: '+loteProd:''].filter(Boolean).join(' · ');
+      const vac={
+        id:uid(),
+        bovinoId:bid,
+        tipo,
+        nombre:producto||tipo,   // nombre del producto visible en el historial
+        dosis:producto||'',      // campo dosis
+        fecha,
         periodo:proxDosis?parseInt(proxDosis):null,
-        notas:(notas||'')+(loteProd?' · Lote: '+loteProd:''),
-        loteEvId:loteId,cAt:new Date().toISOString()};
-      try{await putRecord('vacunas',vac);vacunas.push(vac);}catch(e){vacunas.push(vac);}
+        proxFecha:proxFechaCalc,
+        notas:notasVac,
+        loteEvId:loteId,
+        cAt:new Date().toISOString()
+      };
+      try{await putRecord('vacunas',vac);}catch(err){}
+      vacunas.push(vac);
     }
 
-    // Movimiento
+    // Movimiento de potrero
     if(tipo==='Movimiento de potrero'&&destino){
       const b=bovinos.find(x=>x.id===bid);
       if(b){b.lote=destino;b.entPot=fecha;b.uAt=new Date().toISOString();
-        try{await putRecord('bovinos',b);}catch(e){}}
+        try{await putRecord('bovinos',b);}catch(err){}}
     }
-    // Baño
+    // Actualizar fecha de baño
     if(tipo==='Baño garrapaticida'||tipo==='Baño preventivo'){
       const b=bovinos.find(x=>x.id===bid);
       if(b){b.ultBano=fecha;b.uAt=new Date().toISOString();
-        try{await putRecord('bovinos',b);}catch(e){}}
+        try{await putRecord('bovinos',b);}catch(err){}}
     }
   }
 
@@ -4201,7 +4211,8 @@ async function confirmarEventoLote(){
   cerrarOv('ovManejoEvento');
   editLoteId=null;
   renderManejo();
-  toast(`✅ Evento ${esVac?'(vacuna) ':''} aplicado a ${selIds.length} animales`);
+  const msg=esVac?`✅ ${tipo} registrado en ${selIds.length} animales`:`✅ Evento aplicado a ${selIds.length} animales`;
+  toast(msg);
 }
 
 function calcProxFecha(fechaBase,dias){
