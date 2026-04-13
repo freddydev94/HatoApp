@@ -442,7 +442,102 @@ body.tema-oscuro .rq-modal{background:#1f2937;}
 .rq-inp:focus{border-color:var(--v2);}
 .rq-save{width:100%;background:linear-gradient(135deg,var(--v),var(--v2));color:#fff;border:none;border-radius:9px;padding:10px;font-family:inherit;font-size:.82rem;font-weight:700;cursor:pointer;}
 
-/* ── POTREROS ── */
+/* ── MÓDULO MANEJO ── */
+.mj-fab{width:100%;background:linear-gradient(135deg,var(--v),var(--v2));color:#fff;border:none;border-radius:var(--r);padding:14px;font-family:inherit;font-size:.9rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:12px;}
+.mj-ev-card{background:#fff;border-radius:var(--r);padding:14px 16px;margin-bottom:9px;box-shadow:var(--sombra);}
+body.tema-oscuro .mj-ev-card{background:#1f2937;}
+.mj-ev-hdr{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px;}
+.mj-ev-titulo{font-size:.95rem;font-weight:700;color:var(--v);}
+body.tema-oscuro .mj-ev-titulo{color:#81e09a;}
+.mj-ev-fecha{font-size:.68rem;color:var(--gris);margin-top:2px;}
+.mj-ev-badge{background:var(--vp);color:var(--v);font-size:.6rem;font-weight:700;padding:3px 8px;border-radius:12px;white-space:nowrap;}
+body.tema-oscuro .mj-ev-badge{background:#2d3748;color:#81e09a;}
+.mj-ev-info{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px;}
+.mj-ev-tag{background:var(--gris3);border-radius:6px;padding:3px 8px;font-size:.65rem;color:var(--gris);}
+body.tema-oscuro .mj-ev-tag{background:#374151;}
+.mj-ev-animales{display:flex;flex-wrap:wrap;gap:4px;}
+.mj-ev-arete{background:var(--vp);color:var(--v);font-size:.62rem;font-weight:700;padding:2px 7px;border-radius:6px;}
+body.tema-oscuro .mj-ev-arete{background:#2d3748;color:#81e09a;}
+.mj-filtros{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
+.mj-ftag{background:#fff;border:1.5px solid #e2e8f0;border-radius:20px;padding:5px 12px;font-family:inherit;font-size:.72rem;font-weight:600;color:var(--gris);cursor:pointer;}
+body.tema-oscuro .mj-ftag{background:#1f2937;border-color:#374151;color:#9ca3af;}
+.mj-ftag.on{background:var(--v);color:#fff;border-color:var(--v);}
+/* Modal nuevo evento lote */
+.mj-ov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:600;display:none;align-items:flex-end;}
+.mj-ov.on{display:flex;}
+.mj-mdl{background:#fff;border-radius:24px 24px 0 0;width:100%;max-height:92vh;overflow-y:auto;padding-bottom:24px;}
+body.tema-oscuro .mj-mdl{background:#1f2937;}
+.mj-mdl-h{background:linear-gradient(135deg,var(--v),var(--v2));padding:16px 20px;border-radius:24px 24px 0 0;display:flex;align-items:center;justify-content:space-between;}
+.mj-mdl-t{color:#fff;font-size:1rem;font-weight:700;}
+.mj-paso{font-size:.6rem;color:rgba(255,255,255,.55);margin-top:2px;}
+.mj-sel-anim{max-height:240px;overflow-y:auto;border:1.5px solid #e2e8f0;border-radius:12px;margin-top:8px;}
+body.tema-oscuro .mj-sel-anim{border-color:#374151;}
+.mj-anim-row{display:flex;align-items:center;gap:10px;padding:9px 12px;border-bottom:1px solid #f1f5f9;cursor:pointer;}
+body.tema-oscuro .mj-anim-row{border-color:#374151;color:#f3f4f6;}
+.mj-anim-row:last-child{border-bottom:none;}
+.mj-anim-row:active{background:var(--gris3);}
+.mj-anim-chk{width:17px;height:17px;accent-color:var(--v2);flex-shrink:0;cursor:pointer;}
+.mj-anim-info{flex:1;min-width:0;}
+.mj-anim-arete{font-size:.82rem;font-weight:700;}
+.mj-anim-det{font-size:.65rem;color:var(--gris);}
+.mj-sel-barra{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+.mj-sel-cnt{font-size:.7rem;color:var(--gris);font-weight:600;}
+.mj-filtro-row{display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap;}
+.mj-filtro-sel{border:1.5px solid #e2e8f0;border-radius:9px;padding:6px 10px;font-family:inherit;font-size:.75rem;color:#1a2e1a;background:#fff;outline:none;cursor:pointer;}
+body.tema-oscuro .mj-filtro-sel{background:#374151;border-color:#4b5563;color:#f3f4f6;}
+.mj-filtro-sel:focus{border-color:var(--v2);}
+.ev-item{background:#fff;border-radius:12px;padding:11px 13px;margin-bottom:7px;box-shadow:0 1px 6px rgba(0,0,0,.06);display:flex;gap:10px;align-items:flex-start;}
+body.tema-oscuro .ev-item{background:#1f2937;}
+.ev-ico{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ev-body{flex:1;min-width:0;}
+.ev-tipo{font-size:.82rem;font-weight:700;color:#1a2e1a;margin-bottom:2px;}
+body.tema-oscuro .ev-tipo{color:#f3f4f6;}
+.ev-det{font-size:.7rem;color:var(--gris);line-height:1.4;}
+.ev-meta{display:flex;align-items:center;justify-content:space-between;margin-top:4px;}
+.ev-fecha{font-size:.62rem;color:var(--gris2);}
+.ev-masivo{background:var(--vp);color:var(--v);font-size:.55rem;font-weight:700;padding:2px 6px;border-radius:6px;letter-spacing:.3px;}
+body.tema-oscuro .ev-masivo{background:#2d3748;color:#81e09a;}
+.ev-del{background:none;border:none;color:var(--gris2);cursor:pointer;padding:2px;font-size:.75rem;}
+/* Íconos por tipo de evento */
+.ev-ico.bano{background:#dbeafe;}
+.ev-ico.mover{background:#dcfce7;}
+.ev-ico.descorne{background:#fef9c3;}
+.ev-ico.pezuna{background:#fce7f3;}
+.ev-ico.otro{background:#f1f5f9;}
+.vl-sec{background:#fff;border-radius:var(--r);padding:14px 16px;margin-bottom:10px;box-shadow:var(--sombra);}
+body.tema-oscuro .vl-sec{background:#1f2937;}
+.vl-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.vl-nom{font-weight:700;font-size:.95rem;color:var(--v);}
+body.tema-oscuro .vl-nom{color:#81e09a;}
+.vl-btn{background:linear-gradient(135deg,var(--v),var(--v2));color:#fff;border:none;border-radius:9px;padding:6px 12px;font-family:inherit;font-size:.72rem;font-weight:700;cursor:pointer;}
+.vl-totales{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px;}
+.vl-tot{background:var(--gris3);border-radius:8px;padding:8px;text-align:center;}
+body.tema-oscuro .vl-tot{background:#374151;}
+.vl-tot-n{font-size:.9rem;font-weight:700;}
+.vl-tot-l{font-size:.55rem;color:var(--gris);text-transform:uppercase;letter-spacing:.4px;margin-top:2px;}
+/* Modal venta lote */
+.vml-ov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:700;display:none;align-items:flex-end;}
+.vml-ov.on{display:flex;}
+.vml-mdl{background:#fff;border-radius:24px 24px 0 0;width:100%;max-height:90vh;overflow-y:auto;padding-bottom:24px;}
+body.tema-oscuro .vml-mdl{background:#1f2937;}
+.vml-hdr{background:linear-gradient(135deg,var(--v),var(--v2));padding:14px 18px;border-radius:24px 24px 0 0;display:flex;align-items:center;justify-content:space-between;}
+.vml-t{color:#fff;font-size:.95rem;font-weight:700;}
+.vml-tabla{width:100%;border-collapse:collapse;font-size:.75rem;margin-top:8px;}
+.vml-tabla th{background:var(--gris3);padding:7px 8px;text-align:left;font-weight:700;color:var(--gris);font-size:.62rem;text-transform:uppercase;letter-spacing:.4px;}
+body.tema-oscuro .vml-tabla th{background:#374151;color:#9ca3af;}
+.vml-tabla td{padding:7px 8px;border-bottom:1px solid #f1f5f9;vertical-align:middle;}
+body.tema-oscuro .vml-tabla td{border-color:#374151;color:#f3f4f6;}
+.vml-tabla tr:last-child td{border-bottom:none;}
+.vml-inp{width:90px;border:1.5px solid #e2e8f0;border-radius:7px;padding:5px 6px;font-family:inherit;font-size:.75rem;outline:none;}
+body.tema-oscuro .vml-inp{background:#374151;border-color:#4b5563;color:#f3f4f6;}
+.vml-inp:focus{border-color:var(--v2);}
+.vml-resumen{background:linear-gradient(135deg,#0a1f0f,#1e4d2b);border-radius:12px;padding:12px 14px;margin:12px 0 8px;}
+.vml-res-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;}
+.vml-res-lbl{font-size:.7rem;color:rgba(255,255,255,.55);}
+.vml-res-val{font-size:.88rem;font-weight:700;color:#fff;}
+.vml-res-val.gan{color:#81e09a;}
+.vml-res-val.per{color:#f87171;}
+.vml-save{width:100%;background:linear-gradient(135deg,var(--v),var(--v2));color:#fff;border:none;border-radius:10px;padding:13px;font-family:inherit;font-size:.9rem;font-weight:700;cursor:pointer;}
 .pot-card{background:#fff;border-radius:var(--r);padding:14px 16px;margin-bottom:10px;box-shadow:var(--sombra);cursor:pointer;transition:transform .15s;}
 .pot-card:active{transform:scale(.98);}
 body.tema-oscuro .pot-card{background:#1f2937;}
@@ -488,7 +583,8 @@ body.tema-oscuro .am-item{border-color:#374151;color:#f3f4f6;}
 .am-chk{width:16px;height:16px;accent-color:var(--v2);cursor:pointer;}
 .am-save{width:100%;background:linear-gradient(135deg,var(--v),var(--v2));color:#fff;border:none;border-radius:10px;padding:12px;font-family:inherit;font-size:.88rem;font-weight:700;cursor:pointer;margin-top:4px;}
 /* Vista detalle potrero */
-#vPotrero{padding:0;}
+#vPotrero{display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:300;background:var(--crema);flex-direction:column;padding:0;overflow-y:auto;}
+#vPotrero.on{display:flex;}
 .pot-det-hdr{background:linear-gradient(150deg,var(--v),var(--v2));padding:16px;color:#fff;position:sticky;top:0;z-index:10;}
 .pot-det-nom{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;letter-spacing:-.5px;}
 .pot-det-sub{font-size:.7rem;opacity:.65;margin-top:2px;}
@@ -538,14 +634,6 @@ body.tema-oscuro .am-item{border-color:#374151;color:#f3f4f6;}
 <div id="pantallaPerfiles">
   <div class="pp-top">
     <div style="display:flex;flex-direction:column;align-items:center;margin-bottom:10px;">
-      <div style="display:flex;align-items:baseline;gap:0;line-height:1;">
-        <span style="font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:700;color:#fff;letter-spacing:-2px;">Hato</span>
-        <span style="font-family:'Outfit',sans-serif;font-size:.8rem;font-weight:300;color:#81e09a;letter-spacing:6px;margin-left:3px;align-self:flex-end;margin-bottom:5px;">APP</span>
-      </div>
-      <div style="width:70px;height:1px;background:linear-gradient(90deg,transparent,rgba(129,224,154,.5),transparent);margin:5px 0 4px;"></div>
-      <div style="font-family:'Outfit',sans-serif;font-size:.48rem;font-weight:600;letter-spacing:5px;color:rgba(255,255,255,.35);text-transform:uppercase;">Gestión Ganadera</div>
-    </div>
-    <div style="display:flex;flex-direction:column;align-items:center;">
       <div style="display:flex;align-items:baseline;gap:0;line-height:1;">
         <span style="font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:700;color:#fff;letter-spacing:-2px;">Hato</span>
         <span style="font-family:'Outfit',sans-serif;font-size:.9rem;font-weight:300;color:#81e09a;letter-spacing:6px;margin-left:4px;align-self:flex-end;margin-bottom:5px;">APP</span>
@@ -638,9 +726,12 @@ body.tema-oscuro .am-item{border-color:#374151;color:#f3f4f6;}
         <div class="hdr-perfil-foto" id="hdrFoto">🐄</div>
         <div class="hdr-perfil-nom" id="hdrNom">Perfil</div>
       </div>
-      <button class="hdr-btn" onclick="mostrarVista('alertas')">
-        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <button class="hdr-btn" onclick="mostrarVista('alertas')" title="Alertas">
+        <svg viewBox="0 0 24 24"><use href="#ic-bell"/></svg>
         <div class="bell-dot" id="bellDot"></div>
+      </button>
+      <button class="hdr-btn" onclick="mostrarVista('config')" title="Configuración">
+        <svg viewBox="0 0 24 24"><use href="#ic-settings"/></svg>
       </button>
     </div>
   </div>
@@ -673,9 +764,76 @@ body.tema-oscuro .am-item{border-color:#374151;color:#f3f4f6;}
 <div class="vista" id="vDetalle"></div>
 
 <div class="vista" id="vVentas">
-  <div class="vtit">💰 Control de Ventas</div>
-  <div id="resVentas" style="margin-bottom:10px"></div>
-  <div id="listaVentas"></div>
+  <div class="vtit">Control de Ventas</div>
+  <!-- Tabs ventas -->
+  <div style="display:flex;gap:6px;margin-bottom:12px;background:#fff;border-radius:12px;padding:4px;box-shadow:var(--sombra)">
+    <button id="vt-ind" onclick="switchVentaTab('ind',this)" style="flex:1;padding:8px;border:none;border-radius:9px;font-family:inherit;font-size:.78rem;font-weight:700;cursor:pointer;background:var(--v);color:#fff">Individual</button>
+    <button id="vt-lot" onclick="switchVentaTab('lot',this)" style="flex:1;padding:8px;border:none;border-radius:9px;font-family:inherit;font-size:.78rem;font-weight:700;cursor:pointer;background:transparent;color:var(--gris)">Por Lote</button>
+  </div>
+  <!-- Tab individual -->
+  <div id="vt-panel-ind">
+    <div id="resVentas" style="margin-bottom:10px"></div>
+    <div id="listaVentas"></div>
+  </div>
+  <!-- Tab por lote -->
+  <div id="vt-panel-lot" style="display:none">
+    <div id="ventasLote"></div>
+  </div>
+</div>
+
+<!-- MODAL VENTA POR LOTE -->
+<div class="vml-ov" id="ovVentaLote">
+<div class="vml-mdl">
+  <div class="vml-hdr">
+    <span class="vml-t" id="vmlTit">Venta de Lote</span>
+    <button class="mx" onclick="cerrarOv('ovVentaLote')">✕</button>
+  </div>
+  <div style="padding:12px">
+
+    <!-- Datos generales -->
+    <div style="display:flex;gap:8px;margin-bottom:10px">
+      <div class="campo" style="flex:1;border:none"><label>Comprador</label><input id="vml-comprador" placeholder="Nombre..."></div>
+      <div class="campo" style="flex:1;border:none"><label>Fecha</label><input type="date" id="vml-fecha"></div>
+    </div>
+
+    <!-- Categorías de precio -->
+    <div style="background:var(--vp);border-radius:12px;padding:10px 12px;margin-bottom:10px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <div style="font-size:.65rem;font-weight:700;color:var(--v);text-transform:uppercase;letter-spacing:.5px">Categorías de precio por kg</div>
+        <button onclick="agregarCategoriaPrecio()" style="background:var(--v);color:#fff;border:none;border-radius:7px;padding:4px 10px;font-family:inherit;font-size:.65rem;font-weight:700;cursor:pointer">+ Agregar</button>
+      </div>
+      <div id="vmlCategorias" style="display:flex;flex-direction:column;gap:6px"></div>
+      <div style="font-size:.6rem;color:var(--gris);margin-top:6px">Selecciona una categoría en la tabla para calcular el precio por kg × peso del animal</div>
+    </div>
+
+    <!-- Selección animales -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+      <div style="font-size:.65rem;font-weight:700;color:var(--gris);text-transform:uppercase;letter-spacing:.5px">Animales a vender</div>
+      <div style="display:flex;gap:6px">
+        <button onclick="selTodosVML(true)" style="background:var(--vp);color:var(--v);border:1.5px solid var(--v2);border-radius:7px;padding:4px 10px;font-family:inherit;font-size:.65rem;font-weight:700;cursor:pointer">Todos</button>
+        <button onclick="selTodosVML(false)" style="background:var(--gris3);color:var(--gris);border:1.5px solid #e2e8f0;border-radius:7px;padding:4px 10px;font-family:inherit;font-size:.65rem;font-weight:700;cursor:pointer">Ninguno</button>
+      </div>
+    </div>
+
+    <div style="overflow-x:auto;margin-bottom:10px">
+      <table class="vml-tabla">
+        <thead>
+          <tr>
+            <th style="width:24px"></th>
+            <th>Arete</th>
+            <th>Categoría</th>
+            <th>Peso venta</th>
+            <th>Inversión</th>
+            <th>Precio venta</th>
+          </tr>
+        </thead>
+        <tbody id="vmlTabla"></tbody>
+      </table>
+    </div>
+    <div class="vml-resumen" id="vmlResumen"></div>
+    <button class="vml-save" onclick="confirmarVentaLote()">Confirmar venta de seleccionados</button>
+  </div>
+</div>
 </div>
 
 <div class="vista" id="vAlertas">
@@ -806,20 +964,61 @@ body.tema-oscuro .am-item{border-color:#374151;color:#f3f4f6;}
         <div class="campo"><label>Capacidad (animales)</label><input type="number" id="pot-cap" placeholder="0" min="0"></div>
       </div>
       <div class="campo"><label>Tipo de pasto</label>
-        <select id="pot-pasto">
-          <option value="">Seleccionar...</option>
-          <option>Estrella africana</option>
-          <option>Buffel</option>
-          <option>Insurgente</option>
-          <option>Pangola</option>
-          <option>Bermuda</option>
-          <option>Brizantha</option>
-          <option>Mulato</option>
-          <option>Zacate nativo</option>
-          <option>Sorgo forrajero</option>
-          <option>Mezcla de pastos</option>
-          <option>Rastrojo</option>
-          <option>Agostadero natural</option>
+        <input id="pot-pasto-busq" placeholder="Buscar pasto..." style="width:100%;border:1.5px solid #e2e8f0;border-radius:8px;padding:7px 10px;font-family:inherit;font-size:.82rem;margin-bottom:4px;outline:none" oninput="filtrarPastos(this.value)">
+        <select id="pot-pasto" size="4" style="width:100%;border:1.5px solid #e2e8f0;border-radius:8px;padding:4px;font-family:inherit;font-size:.8rem;outline:none">
+          <option value="">Sin especificar</option>
+          <optgroup label="Gramíneas tropicales">
+            <option>Estrella africana (Cynodon nlemfuensis)</option>
+            <option>Bermuda (Cynodon dactylon)</option>
+            <option>Pangola (Digitaria eriantha)</option>
+            <option>Buffel (Cenchrus ciliaris)</option>
+            <option>Insurgente (Brachiaria brizantha)</option>
+            <option>Brizantha (Brachiaria brizantha cv. Marandu)</option>
+            <option>Mulato II (Brachiaria híbrido)</option>
+            <option>Tanzania (Panicum maximum cv. Tanzania)</option>
+            <option>Mombaza (Panicum maximum cv. Mombaza)</option>
+            <option>Tifton 85 (Cynodon sp.)</option>
+            <option>Minicola (Cynodon dactylon cv. Minicola)</option>
+            <option>Humidícola (Brachiaria humidicola)</option>
+            <option>Decumbens (Brachiaria decumbens)</option>
+            <option>Ruziziensis (Brachiaria ruziziensis)</option>
+            <option>Señal (Brachiaria brizantha)</option>
+            <option>Llanero (Andropogon gayanus)</option>
+            <option>Guinea (Panicum maximum)</option>
+            <option>Privilegio (Pennisetum violaceum)</option>
+            <option>Elefante (Pennisetum purpureum)</option>
+            <option>Kinggrass (Pennisetum purpureum × P. glaucum)</option>
+            <option>Zacate Jhonson (Sorghum halepense)</option>
+          </optgroup>
+          <optgroup label="Forrajeras">
+            <option>Sorgo forrajero</option>
+            <option>Maíz forrajero</option>
+            <option>Avena forrajera</option>
+            <option>Cebada forrajera</option>
+            <option>Ryegrass (Lolium perenne)</option>
+            <option>Alfalfa (Medicago sativa)</option>
+            <option>Rye grass italiano</option>
+          </optgroup>
+          <optgroup label="Nativos y agostaderos">
+            <option>Zacate nativo / Agostadero natural</option>
+            <option>Navajita (Bouteloua gracilis)</option>
+            <option>Banderita (Bouteloua curtipendula)</option>
+            <option>Popotillo (Aristida sp.)</option>
+            <option>Toboso (Hilaria mutica)</option>
+            <option>Mezquite con pasto nativo</option>
+            <option>Huizachal con zacate</option>
+          </optgroup>
+          <optgroup label="Rastrojos y residuos">
+            <option>Rastrojo de maíz</option>
+            <option>Rastrojo de sorgo</option>
+            <option>Rastrojo de frijol</option>
+            <option>Caña de azúcar (residuos)</option>
+          </optgroup>
+          <optgroup label="Mixtos">
+            <option>Mezcla de gramíneas</option>
+            <option>Gramínea + leguminosa</option>
+            <option>Silvopastoreo (árboles + pasto)</option>
+          </optgroup>
         </select>
       </div>
       <div class="campo"><label>Condición actual</label>
@@ -840,10 +1039,18 @@ body.tema-oscuro .am-item{border-color:#374151;color:#f3f4f6;}
         <select id="pot-agua">
           <option value="">Seleccionar...</option>
           <option>Presa / Represa</option>
-          <option>Pozo / Aguaje</option>
-          <option>Río / Arroyo</option>
-          <option>Bebedero artificial</option>
+          <option>Jagüey / Jagüey natural</option>
+          <option>Jagüey artificial</option>
+          <option>Pozo profundo (bomba)</option>
+          <option>Aguaje / Manantial</option>
+          <option>Río / Arroyo permanente</option>
+          <option>Río / Arroyo temporal</option>
+          <option>Noria</option>
+          <option>Bebedero con depósito</option>
+          <option>Bebedero con flotador</option>
           <option>Tanque elevado</option>
+          <option>Pipa / Acarreo</option>
+          <option>Canal de riego</option>
           <option>Sin agua permanente</option>
         </select>
       </div>
@@ -877,6 +1084,168 @@ body.tema-oscuro .am-item{border-color:#374151;color:#f3f4f6;}
     </div>
     <div class="am-animales" id="amAnimales"></div>
     <button class="am-save" onclick="aplicarAccionMasiva()">Aplicar a seleccionados</button>
+  </div>
+</div>
+</div>
+
+<!-- MANEJO — EVENTOS POR LOTE -->
+<div class="vista" id="vManejo">
+  <div class="vtit">Manejo del Hato</div>
+  <button class="mj-fab" onclick="abrirNuevoEventoLote()">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><use href="#ic-plus"/></svg>
+    Nuevo Evento de Lote
+  </button>
+  <!-- Filtros -->
+  <div class="mj-filtros" id="mjFiltros">
+    <button class="mj-ftag on" onclick="filtrarManejo('todos',this)">Todos</button>
+    <button class="mj-ftag" onclick="filtrarManejo('Baño garrapaticida',this)">Baño</button>
+    <button class="mj-ftag" onclick="filtrarManejo('Descorne',this)">Descorne</button>
+    <button class="mj-ftag" onclick="filtrarManejo('Movimiento',this)">Movimiento</button>
+    <button class="mj-ftag" onclick="filtrarManejo('Vitaminas',this)">Vitaminas</button>
+  </div>
+  <div id="listaManejoEventos"></div>
+</div>
+
+<!-- MODAL NUEVO EVENTO DE LOTE -->
+<div class="mj-ov" id="ovManejoEvento" onclick="if(event.target===this)cerrarOv('ovManejoEvento')">
+<div class="mj-mdl" id="mjMdl">
+  <div class="mj-mdl-h">
+    <div>
+      <div class="mj-mdl-t" id="mjMdlTit">Nuevo Evento de Lote</div>
+      <div class="mj-paso" id="mjPaso">Paso 1 de 2 — Datos del evento</div>
+    </div>
+    <button class="mx" onclick="cerrarOv('ovManejoEvento')">✕</button>
+  </div>
+
+  <!-- PASO 1: datos del evento -->
+  <div id="mjPaso1" style="padding:12px">
+    <div class="msec">
+      <div class="campo"><label>Tipo de evento <span class="req">*</span></label>
+        <select id="mj-tipo">
+          <option value="">Seleccionar...</option>
+          <optgroup label="💉 Vacunas (se guardan en historial vacunas)">
+            <option>Vacuna Aftosa</option>
+            <option>Vacuna Brucelosis</option>
+            <option>Vacuna Rabia</option>
+            <option>Vacuna Carbón sintomático</option>
+            <option>Vacuna Clostridial</option>
+            <option>Vacuna IBR/DVB</option>
+            <option>Vacuna Newcastle</option>
+            <option>Tratamiento médico</option>
+            <option>Aplicación de antibiótico</option>
+            <option>Aplicación de antiparasitario</option>
+          </optgroup>
+          <optgroup label="🧴 Sanidad y manejo sanitario">
+            <option>Baño garrapaticida</option>
+            <option>Baño preventivo</option>
+            <option>Aplicación de vitaminas</option>
+            <option>Aplicación de minerales</option>
+            <option>Aplicación hormonal</option>
+            <option>Curación de herida</option>
+          </optgroup>
+          <optgroup label="Manejo físico">
+            <option>Descorne</option>
+            <option>Arreglo de pezuñas</option>
+            <option>Castración</option>
+            <option>Tatuaje / Identificación</option>
+            <option>Colocación de arete</option>
+          </optgroup>
+          <optgroup label="Movimiento">
+            <option>Movimiento de potrero</option>
+            <option>Separación de grupo</option>
+            <option>Reagrupamiento</option>
+          </optgroup>
+          <optgroup label="Reproducción">
+            <option>Diagnóstico de gestación</option>
+            <option>Sincronización de celo</option>
+            <option>Aplicación hormonal</option>
+          </optgroup>
+          <option value="personalizado">Personalizado...</option>
+        </select>
+      </div>
+      <div class="campo" id="mj-personalizado-wrap" style="display:none">
+        <label>Nombre del evento <span class="req">*</span></label>
+        <input id="mj-personalizado" placeholder="Ej: Vitamina ADE, Sellado de pezones...">
+      </div>
+      <div class="campo"><label>Producto / Material</label>
+        <input id="mj-producto" placeholder="Ej: Amitraz 12.5%, Burdizzo, Ivermectina...">
+      </div>
+      <div class="campo"><label>Fecha <span class="req">*</span></label>
+        <input type="date" id="mj-fecha">
+      </div>
+      <div class="campo" id="mj-destino-wrap" style="display:none">
+        <label>Potrero destino <span class="req">*</span></label>
+        <select id="mj-destino">
+          <option value="">Seleccionar potrero...</option>
+        </select>
+      </div>
+      <!-- Clasificación del evento -->
+      <div class="campo" style="background:var(--vp);border-radius:10px;padding:10px 12px;margin-bottom:4px;border:none">
+        <label style="color:var(--v);font-weight:700;font-size:.72rem;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;display:block">¿Cómo clasificar este evento?</label>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:.85rem;font-weight:500">
+            <input type="radio" name="mj-clasif" value="manejo" id="mj-cl-manejo" checked onchange="onClasifChange()" style="accent-color:var(--v2);width:16px;height:16px">
+            🧴 Manejo — baño, descorne, movimiento...
+          </label>
+          <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:.85rem;font-weight:500">
+            <input type="radio" name="mj-clasif" value="vacuna" id="mj-cl-vacuna" onchange="onClasifChange()" style="accent-color:var(--v2);width:16px;height:16px">
+            💉 Vacuna preventiva — guarda en historial + próxima dosis
+          </label>
+          <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:.85rem;font-weight:500">
+            <input type="radio" name="mj-clasif" value="tratamiento" id="mj-cl-trat" onchange="onClasifChange()" style="accent-color:var(--v2);width:16px;height:16px">
+            🩺 Tratamiento médico — guarda en historial sin próxima dosis
+          </label>
+        </div>
+      </div>
+      <!-- Campos extra para vacuna -->
+      <div id="mj-vac-wrap" style="display:none">
+        <div class="campo" style="border:none">
+          <label>Próxima dosis (días)</label>
+          <input type="number" id="mj-proxdosis" placeholder="Ej: 180" min="0" max="999">
+        </div>
+        <div class="campo" style="border:none">
+          <label>Lote / Número de serie del producto</label>
+          <input id="mj-lote-prod" placeholder="Ej: Lote 2024-A">
+        </div>
+      </div>
+      <div class="campo" style="border:none"><label>Notas</label>
+        <textarea id="mj-notas" placeholder="Observaciones del evento..."></textarea>
+      </div>
+    </div>
+    <button class="bsave" onclick="mjPaso2()" style="margin-top:8px">
+      Siguiente — Seleccionar animales →
+    </button>
+  </div>
+
+  <!-- PASO 2: selección de animales -->
+  <div id="mjPaso2" style="display:none;padding:12px">
+    <!-- Filtros de selección -->
+    <div class="mj-filtro-row">
+      <select class="mj-filtro-sel" id="mjf-potrero" onchange="renderSelectorAnimales()">
+        <option value="">Todos los potreros</option>
+      </select>
+      <select class="mj-filtro-sel" id="mjf-sexo" onchange="renderSelectorAnimales()">
+        <option value="">Todo sexo</option>
+        <option value="hembra">Hembras</option>
+        <option value="macho">Machos</option>
+        <option value="ternero">Terneros</option>
+      </select>
+      <select class="mj-filtro-sel" id="mjf-raza" onchange="renderSelectorAnimales()">
+        <option value="">Toda raza</option>
+      </select>
+    </div>
+    <div class="mj-sel-barra">
+      <span class="mj-sel-cnt" id="mjSelCnt">0 seleccionados</span>
+      <div style="display:flex;gap:6px">
+        <button onclick="selTodosMJ(true)" style="background:var(--vp);color:var(--v);border:1.5px solid var(--v2);border-radius:7px;padding:4px 10px;font-family:inherit;font-size:.65rem;font-weight:700;cursor:pointer">Todos</button>
+        <button onclick="selTodosMJ(false)" style="background:var(--gris3);color:var(--gris);border:1.5px solid #e2e8f0;border-radius:7px;padding:4px 10px;font-family:inherit;font-size:.65rem;font-weight:700;cursor:pointer">Ninguno</button>
+      </div>
+    </div>
+    <div class="mj-sel-anim" id="mjAnimSel"></div>
+    <div style="display:flex;gap:8px;margin-top:12px">
+      <button onclick="mjVolver()" style="flex:1;background:var(--gris3);color:var(--gris);border:none;border-radius:12px;padding:12px;font-family:inherit;font-size:.85rem;font-weight:700;cursor:pointer">← Volver</button>
+      <button class="bsave" style="flex:2" onclick="confirmarEventoLote()">Aplicar evento</button>
+    </div>
   </div>
 </div>
 </div>
@@ -1027,6 +1396,60 @@ body.tema-oscuro .am-item{border-color:#374151;color:#f3f4f6;}
       <button class="bbtn" style="background:var(--rojop);color:var(--rojo);margin:0" onclick="borrarTodo()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#ic-trash"/></svg> Eliminar todos los datos</button>
     </div>
   </div>
+
+  <div class="cfg-sec" onclick="mostrarVista('acerca')" style="cursor:pointer">
+    <div class="cfg-row" style="border:none">
+      <div><div class="cfg-lbl">Acerca de HatoApp</div><div class="cfg-desc">Versión, créditos y más información</div></div>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gris)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL EVENTO DE MANEJO -->
+<div class="sov" id="ovEvento" onclick="csiO('ovEvento',event)">
+<div class="smdl">
+  <div class="smh" style="background:linear-gradient(135deg,#0a1f0f,#2d7a3e)">
+    <div class="smh-t">Registrar Evento de Manejo</div>
+    <button class="mx" onclick="cerrarOv('ovEvento')">✕</button>
+  </div>
+  <div style="padding:4px 0">
+    <div class="campo"><label>Tipo de evento</label>
+      <select id="evf-tipo">
+        <option value="">Seleccionar...</option>
+        <optgroup label="Sanidad">
+          <option>Baño garrapaticida</option>
+          <option>Baño preventivo</option>
+          <option>Aplicación de vitaminas</option>
+          <option>Aplicación de minerales</option>
+          <option>Curación de herida</option>
+        </optgroup>
+        <optgroup label="Manejo físico">
+          <option>Descorne</option>
+          <option>Arreglo de pezuñas</option>
+          <option>Castración</option>
+          <option>Tatuaje / Identificación</option>
+          <option>Colocación de arete</option>
+        </optgroup>
+        <optgroup label="Movimiento">
+          <option>Movimiento de potrero</option>
+          <option>Entrada al hato</option>
+          <option>Separación del grupo</option>
+        </optgroup>
+        <optgroup label="Reproducción">
+          <option>Diagnóstico de gestación</option>
+          <option>Sincronización de celo</option>
+          <option>Revisión reproductiva</option>
+        </optgroup>
+        <option value="otro">Otro (especificar)</option>
+      </select>
+    </div>
+    <div class="campo" id="evf-otro-wrap" style="display:none"><label>Especificar tipo</label><input id="evf-otro" placeholder="Describe el evento..."></div>
+    <div class="campo"><label>Producto / Material usado</label><input id="evf-producto" placeholder="Ej: Amitraz 12.5%, Burdizzo..."></div>
+    <div class="campo"><label>Fecha <span class="req">*</span></label><input type="date" id="evf-fecha"></div>
+    <div class="campo" style="border:none"><label>Notas</label><textarea id="evf-notas" placeholder="Observaciones adicionales..."></textarea></div>
+  </div>
+  <button class="ssave" onclick="guardarEvento()" style="background:linear-gradient(135deg,#0a1f0f,#2d7a3e)">Guardar Evento</button>
+</div>
 </div>
 
 <!-- ACERCA DE -->
@@ -1142,18 +1565,14 @@ body.tema-oscuro .am-item{border-color:#374151;color:#f3f4f6;}
   <button class="nb" id="n-potreros" onclick="mostrarVista('potreros')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Potreros
   </button>
-  <button class="nb" id="n-alertas" onclick="mostrarVista('alertas')">
-    <svg viewBox="0 0 24 24"><use href="#ic-bell"/></svg>Alertas
-    <div class="ndot" id="navDot"></div>
-  </button>
-  <button class="nb" id="n-resumen" onclick="mostrarVista('resumen')">
-    <svg viewBox="0 0 24 24"><use href="#ic-chart"/></svg>Resumen
+  <button class="nb" id="n-manejo" onclick="mostrarVista('manejo')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4m0 0h18"/></svg>Manejo
   </button>
   <button class="nb" id="n-ventas" onclick="mostrarVista('ventas')">
     <svg viewBox="0 0 24 24"><use href="#ic-dollar"/></svg>Ventas
   </button>
-  <button class="nb" id="n-config" onclick="mostrarVista('config')">
-    <svg viewBox="0 0 24 24"><use href="#ic-settings"/></svg>Config
+  <button class="nb" id="n-resumen" onclick="mostrarVista('resumen')">
+    <svg viewBox="0 0 24 24"><use href="#ic-chart"/></svg>Resumen
   </button>
 </nav>
 
@@ -1441,7 +1860,7 @@ let db=null;
 
 function initDB(){
   return new Promise((res,rej)=>{
-    const req=indexedDB.open(DB_NAME,4);
+    const req=indexedDB.open(DB_NAME,5);
     req.onupgradeneeded=e=>{
       const d=e.target.result;
       if(!d.objectStoreNames.contains('perfiles')) d.createObjectStore('perfiles',{keyPath:'id'});
@@ -1464,6 +1883,10 @@ function initDB(){
       if(!d.objectStoreNames.contains('potreros')){
         d.createObjectStore('potreros',{keyPath:'id'});
       }
+      if(!d.objectStoreNames.contains('eventos')){
+        const evs=d.createObjectStore('eventos',{keyPath:'id'});
+        evs.createIndex('bovinoId','bovinoId',{unique:false});
+      }
       if(!d.objectStoreNames.contains('accionesMasivas')){
         const as=d.createObjectStore('accionesMasivas',{keyPath:'id'});
         as.createIndex('potreroId','potreroId',{unique:false});
@@ -1483,9 +1906,11 @@ function getAll(store){
 }
 function putRecord(store,rec){
   return new Promise((res,rej)=>{
-    const req=db.transaction(store,'readwrite').objectStore(store).put(rec);
-    req.onsuccess=e=>res(e.target.result);
-    req.onerror=e=>rej(e.target.error);
+    try{
+      const req=db.transaction(store,'readwrite').objectStore(store).put(rec);
+      req.onsuccess=e=>res(e.target.result);
+      req.onerror=e=>rej(e.target.error);
+    }catch(e){rej(e);}
   });
 }
 function deleteRecord(store,id){
@@ -1506,7 +1931,7 @@ function clearStore(store){
 // ================================================================
 // Estado
 // ================================================================
-let bovinos=[],vacunas=[],perfiles=[],pesajes=[],gastos=[],potreros=[],accionesMasivas=[];
+let bovinos=[],vacunas=[],perfiles=[],pesajes=[],gastos=[],potreros=[],accionesMasivas=[],eventos=[];
 let editId=null,vacBovId=null,editVacId=null;
 let pesoBovId=null,gastoBovId=null,editGastoId=null;
 let editPotId=null,currentPotId=null,amAccion=null,amPotId=null;
@@ -1621,8 +2046,10 @@ async function init(){
     log('Paso 2: cargando configuración...');
     cargarConfig();
     log('Paso 3: leyendo datos...');
-    [bovinos,vacunas,perfiles,pesajes,gastos,potreros,accionesMasivas]=await Promise.all([
-      getAll('bovinos'),getAll('vacunas'),getAll('perfiles'),getAll('pesajes'),getAll('gastos'),getAll('potreros'),getAll('accionesMasivas')
+    const safeGet=async(store)=>{try{return await getAll(store);}catch(e){return[];}};
+    [bovinos,vacunas,perfiles,pesajes,gastos,potreros,accionesMasivas,eventos]=await Promise.all([
+      safeGet('bovinos'),safeGet('vacunas'),safeGet('perfiles'),safeGet('pesajes'),
+      safeGet('gastos'),safeGet('potreros'),safeGet('accionesMasivas'),safeGet('eventos')
     ]);
     log('Paso 4: inicializando formularios...');
     const fe=document.getElementById('f-fechaIngreso');if(fe)fe.value=hoy();
@@ -1689,12 +2116,13 @@ function seleccionarPerfil(id,cerrar=true){
   perfilActivo=perfiles.find(p=>p.id===id);
   if(!perfilActivo)return;
   localStorage.setItem('gpro_pid',id);
-  // Header
   const hf=document.getElementById('hdrFoto'),hn=document.getElementById('hdrNom');
-  hn.textContent=perfilActivo.nombre;
-  if(perfilActivo.foto) hf.innerHTML=`<img src="${perfilActivo.foto}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;
-  else hf.textContent=perfilActivo.emoji||'🐄';
-  if(cerrar) document.getElementById('pantallaPerfiles').classList.remove('on');
+  if(hn)hn.textContent=perfilActivo.nombre;
+  if(hf){
+    if(perfilActivo.foto) hf.innerHTML=`<img src="${perfilActivo.foto}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;
+    else hf.textContent=perfilActivo.emoji||'🐄';
+  }
+  if(cerrar){const pp=document.getElementById('pantallaPerfiles');if(pp)pp.classList.remove('on');}
   renderLista();updateStats();
   actualizarSelectorPotreros();
   const rqb=document.getElementById('rqBtn');if(rqb)rqb.classList.add('vis');
@@ -1948,14 +2376,15 @@ function getAlertas(){
 
 function updateStats(){
   const bp=bPerfil(),act=bp.filter(b=>!b.estado||b.estado==='activo');
-  document.getElementById('sT').textContent=act.length;
-  document.getElementById('sH').textContent=act.filter(b=>b.sexo==='hembra').length;
-  document.getElementById('sM').textContent=act.filter(b=>b.sexo==='macho').length;
-  document.getElementById('sTe').textContent=act.filter(b=>b.sexo==='ternero').length;
+  const s=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
+  s('sT',act.length);
+  s('sH',act.filter(b=>b.sexo==='hembra').length);
+  s('sM',act.filter(b=>b.sexo==='macho').length);
+  s('sTe',act.filter(b=>b.sexo==='ternero').length);
   const na=getAlertas().length;
-  document.getElementById('sA').textContent=na;
-  document.getElementById('bellDot').style.display=na>0?'block':'none';
-  document.getElementById('navDot').style.display=na>0?'block':'none';
+  s('sA',na);
+  const bd=document.getElementById('bellDot');if(bd)bd.style.display=na>0?'block':'none';
+  const nd=document.getElementById('navDot');if(nd)nd.style.display=na>0?'block':'none';
 }
 
 // ================================================================
@@ -1964,12 +2393,12 @@ function updateStats(){
 function mostrarVista(v){
   document.querySelectorAll('.vista').forEach(e=>e.classList.remove('on'));
   document.querySelectorAll('.nb').forEach(e=>e.classList.remove('on'));
-  const esD=v==='detalle';
-  document.getElementById('mainHdr').style.display=esD?'none':'';
-  document.getElementById('mainNav').style.display=esD?'none':'';
-  document.getElementById('fabBtn').style.display=v==='lista'?'flex':'none';
-  const mv={lista:'vLista',detalle:'vDetalle',ventas:'vVentas',alertas:'vAlertas',resumen:'vResumen',config:'vConfig',acerca:'vAcerca',potreros:'vPotreros',potrero:'vPotrero'};
-  const mn={lista:'n-lista',ventas:'n-ventas',alertas:'n-alertas',resumen:'n-resumen',config:'n-config',potreros:'n-potreros'};
+  const esD=v==='detalle'||v==='potrero';
+  const hdr=document.getElementById('mainHdr');if(hdr)hdr.style.display=esD?'none':'';
+  const nav=document.getElementById('mainNav');if(nav)nav.style.display=esD?'none':'';
+  const fab=document.getElementById('fabBtn');if(fab)fab.style.display=v==='lista'?'flex':'none';
+  const mv={lista:'vLista',detalle:'vDetalle',ventas:'vVentas',alertas:'vAlertas',resumen:'vResumen',config:'vConfig',acerca:'vAcerca',potreros:'vPotreros',potrero:'vPotrero',manejo:'vManejo'};
+  const mn={lista:'n-lista',ventas:'n-ventas',alertas:'n-alertas',resumen:'n-resumen',potreros:'n-potreros',manejo:'n-manejo'};
   if(mv[v]) document.getElementById(mv[v]).classList.add('on');
   if(mn[v]) document.getElementById(mn[v]).classList.add('on');
   if(v==='alertas') renderAlertas();
@@ -1977,6 +2406,7 @@ function mostrarVista(v){
   if(v==='ventas') renderVentas();
   if(v==='config') renderConfigPreview();
   if(v==='potreros') renderPotreros();
+  if(v==='manejo') renderManejo();
   const rqb=document.getElementById('rqBtn');
   if(rqb) rqb.classList.toggle('vis',v==='lista');
   if(v!=='lista'){const m=document.getElementById('rqModal');if(m)m.classList.remove('on');}
@@ -2222,14 +2652,15 @@ async function eliminarBovino(){
   const vIds=vacunas.filter(v=>v.bovinoId===editId).map(v=>v.id);
   const pIds=pesajes.filter(p=>p.bovinoId===editId).map(p=>p.id);
   const gIds=gastos.filter(g=>g.bovinoId===editId).map(g=>g.id);
-  for(const id of [...vIds,...pIds,...gIds]){
-    if(vIds.includes(id)) await deleteRecord('vacunas',id);
-    if(pIds.includes(id)) await deleteRecord('pesajes',id);
-    if(gIds.includes(id)) await deleteRecord('gastos',id);
-  }
+  const evIds=eventos.filter(e=>e.bovinoId===editId).map(e=>e.id);
+  for(const id of vIds) await deleteRecord('vacunas',id);
+  for(const id of pIds) await deleteRecord('pesajes',id);
+  for(const id of gIds) await deleteRecord('gastos',id);
+  for(const id of evIds) await deleteRecord('eventos',id);
   vacunas=vacunas.filter(v=>v.bovinoId!==editId);
   pesajes=pesajes.filter(p=>p.bovinoId!==editId);
   gastos=gastos.filter(g=>g.bovinoId!==editId);
+  eventos=eventos.filter(e=>e.bovinoId!==editId);
   await deleteRecord('bovinos',editId);
   bovinos=bovinos.filter(b=>b.id!==editId);
   cerrarOv('ovBov');mostrarVista('lista');renderLista();updateStats();
@@ -2268,6 +2699,7 @@ function verDetalle(id){
         <button class="dt" onclick="dTab(3,this)">💸 Gastos</button>
         <button class="dt" onclick="dTab(4,this)">🔬 Repro</button>
         <button class="dt" onclick="dTab(5,this)">💰 Econ.</button>
+        <button class="dt" onclick="dTab(6,this)">📋 Eventos</button>
       </div>
     </div>
     <div class="det-scroll">
@@ -2319,12 +2751,16 @@ function verDetalle(id){
         ${f('Valor Actual',fmt$(b.valA))}${f('Comprador',b.comp)}
         ${f('Proveedor',b.prov)}${f('Registro Oficial',b.regOf)}
       </div></div>
+      <div id="dp-6" class="det-body" style="display:none">
+        <button class="vadd" style="background:#e8f5e9;color:#2d7a3e;border-color:#2d7a3e" onclick="abrirEventoModal('${b.id}')">+ Registrar Evento de Manejo</button>
+        <div id="evl-${b.id}" style="margin-top:10px">${renderEventosList(b.id)}</div>
+      </div>
     </div>`;
   mostrarVista('detalle');
 }
 
 function dTab(i,btn){
-  for(let j=0;j<6;j++){const el=document.getElementById('dp-'+j);if(el)el.style.display=j===i?'block':'none';}
+  for(let j=0;j<7;j++){const el=document.getElementById('dp-'+j);if(el)el.style.display=j===i?'block':'none';}
   document.querySelectorAll('.dt').forEach((b,x)=>b.classList.toggle('on',x===i));
 }
 
@@ -2928,11 +3364,283 @@ async function borrarTodo(){
     for(const g of gastos.filter(x=>x.bovinoId===bid))await deleteRecord('gastos',g.id);
     await deleteRecord('bovinos',bid);
   }
+  // Borrar eventos del perfil
+  const eids=new Set(bids);
+  for(const e of eventos.filter(x=>eids.has(x.bovinoId)))await deleteRecord('eventos',e.id);
+  eventos=eventos.filter(e=>!bids.includes(e.bovinoId));
+  // Borrar potreros del perfil
+  for(const p of potrerosPerfil()) await deleteRecord('potreros',p.id);
+  // Borrar acciones masivas del perfil
+  for(const a of accionesMasivas.filter(x=>x.perfilId===perfilActivo?.id)) await deleteRecord('accionesMasivas',a.id);
   bovinos=bovinos.filter(b=>b.perfilId!==perfilActivo?.id);
   vacunas=vacunas.filter(v=>!bids.includes(v.bovinoId));
   pesajes=pesajes.filter(p=>!bids.includes(p.bovinoId));
   gastos=gastos.filter(g=>!bids.includes(g.bovinoId));
-  renderLista();updateStats();toast('🗑️ Datos eliminados');
+  potreros=potreros.filter(p=>p.perfilId!==perfilActivo?.id);
+  accionesMasivas=accionesMasivas.filter(a=>a.perfilId!==perfilActivo?.id);
+  renderLista();updateStats();renderPotreros();toast('Datos eliminados');
+}
+
+// ================================================================
+// FILTRAR PASTOS
+// ================================================================
+function filtrarPastos(q){
+  const sel=document.getElementById('pot-pasto');
+  if(!sel)return;
+  const txt=q.toLowerCase();
+  [...sel.options].forEach(o=>{
+    o.style.display=(!txt||o.value===''||o.text.toLowerCase().includes(txt))?'':'none';
+  });
+  [...sel.querySelectorAll('optgroup')].forEach(g=>{
+    const vis=[...g.options].some(o=>o.style.display!=='none');
+    g.style.display=vis?'':'none';
+  });
+}
+
+// ================================================================
+// VENTAS — TABS Y POR LOTE
+// ================================================================
+function switchVentaTab(tab, btn){
+  document.getElementById('vt-panel-ind').style.display=tab==='ind'?'block':'none';
+  document.getElementById('vt-panel-lot').style.display=tab==='lot'?'block':'none';
+  document.getElementById('vt-ind').style.background=tab==='ind'?'var(--v)':'transparent';
+  document.getElementById('vt-ind').style.color=tab==='ind'?'#fff':'var(--gris)';
+  document.getElementById('vt-lot').style.background=tab==='lot'?'var(--v)':'transparent';
+  document.getElementById('vt-lot').style.color=tab==='lot'?'#fff':'var(--gris)';
+  if(tab==='lot') renderVentasLote();
+}
+
+function renderVentasLote(){
+  const c=document.getElementById('ventasLote');
+  const pp=potrerosPerfil();
+  // Incluir también animales activos sin potrero
+  const sinPotrero=bPerfil().filter(b=>(!b.estado||b.estado==='activo')&&!b.lote);
+  let html='';
+
+  // Por potrero
+  pp.forEach(p=>{
+    const activos=bPerfil().filter(b=>b.lote===p.nombre&&(!b.estado||b.estado==='activo'));
+    const vendidos=bPerfil().filter(b=>b.lote===p.nombre&&b.estado==='vendido'&&b.precV);
+    if(!activos.length&&!vendidos.length)return;
+
+    // Calcular totales vendidos de este lote
+    let totVentaL=0,totInvL=0,totGanL=0;
+    vendidos.forEach(b=>{
+      const gc=gastos.filter(g=>g.bovinoId===b.id).reduce((s,g)=>s+parseFloat(g.monto||0),0);
+      const inv=parseFloat(b.precC||0)+gc;
+      const ven=parseFloat(b.precV||0);
+      totVentaL+=ven;totInvL+=inv;totGanL+=ven-inv;
+    });
+
+    html+=`<div class="vl-sec">
+      <div class="vl-hdr">
+        <div class="vl-nom">${p.nombre}</div>
+        ${activos.length?`<button class="vl-btn" onclick="abrirVentaLote('${p.id}')">Vender lote (${activos.length})</button>`:''}
+      </div>
+      <div class="vl-totales">
+        <div class="vl-tot"><div class="vl-tot-n" style="color:var(--v)">${activos.length}</div><div class="vl-tot-l">Activos</div></div>
+        <div class="vl-tot"><div class="vl-tot-n" style="color:var(--naranja)">${vendidos.length}</div><div class="vl-tot-l">Vendidos</div></div>
+        <div class="vl-tot"><div class="vl-tot-n" style="color:${totGanL>=0?'var(--verde)':'var(--rojo)'}">${totGanL>=0?'+':''}${fmt$(totGanL)}</div><div class="vl-tot-l">Ganancia</div></div>
+      </div>
+      ${vendidos.length?`<div style="font-size:.7rem;color:var(--gris);margin-top:2px">
+        Venta total: <strong>${fmt$(totVentaL)}</strong> · Inversión: <strong>${fmt$(totInvL)}</strong>
+      </div>`:''}
+    </div>`;
+  });
+
+  if(!html) html=`<div class="empty-l"><div style="font-size:2.5rem;opacity:.2">💰</div><h3>Sin potreros con datos de venta</h3><p>Crea potreros y asigna animales para ver ventas por lote</p></div>`;
+  c.innerHTML=html;
+}
+
+// ================================================================
+// VENTA POR LOTE — CATEGORÍAS Y FUNCIONES
+// ================================================================
+const VML_KEY='hatoapp_catprecios';
+let vmlCats=[],vmlPotId=null;
+
+function cargarCatPrecios(){
+  try{const s=localStorage.getItem(VML_KEY+'_'+(perfilActivo?.id||''));vmlCats=s?JSON.parse(s):[];}
+  catch(e){vmlCats=[];}
+  if(!vmlCats.length) vmlCats=[
+    {id:'c1',nombre:'Vaca',kgPrecio:''},
+    {id:'c2',nombre:'Toro',kgPrecio:''},
+    {id:'c3',nombre:'Becerro',kgPrecio:''},
+    {id:'c4',nombre:'Novillona',kgPrecio:''},
+  ];
+}
+
+function guardarCatPrecios(){
+  localStorage.setItem(VML_KEY+'_'+(perfilActivo?.id||''),JSON.stringify(vmlCats));
+}
+
+function renderCategorias(){
+  const c=document.getElementById('vmlCategorias');if(!c)return;
+  c.innerHTML=vmlCats.map((cat,i)=>`
+    <div style="display:flex;align-items:center;gap:6px">
+      <input value="${cat.nombre}" placeholder="Nombre"
+        style="flex:1;border:1.5px solid #e2e8f0;border-radius:8px;padding:6px 8px;font-family:inherit;font-size:.78rem;outline:none"
+        oninput="vmlCats[${i}].nombre=this.value;guardarCatPrecios();actualizarSelectoresCat()">
+      <div style="display:flex;align-items:center;gap:3px;background:#fff;border:1.5px solid #e2e8f0;border-radius:8px;padding:0 8px;height:34px">
+        <span style="font-size:.65rem;color:var(--gris)">${SIM_MAP[cfg.moneda]||'$'}/kg</span>
+        <input type="number" value="${cat.kgPrecio}" placeholder="0" min="0" step="0.5"
+          style="width:58px;border:none;outline:none;font-family:inherit;font-size:.78rem;background:transparent"
+          oninput="vmlCats[${i}].kgPrecio=this.value;guardarCatPrecios();recalcularConCat()">
+      </div>
+      <button onclick="eliminarCategoria(${i})" style="background:var(--rojop);color:var(--rojo);border:none;border-radius:7px;width:28px;height:28px;cursor:pointer;flex-shrink:0">✕</button>
+    </div>`).join('');
+}
+
+function agregarCategoriaPrecio(){
+  vmlCats.push({id:'c'+Date.now(),nombre:'',kgPrecio:''});
+  guardarCatPrecios();renderCategorias();actualizarSelectoresCat();
+}
+
+function eliminarCategoria(i){
+  vmlCats.splice(i,1);guardarCatPrecios();renderCategorias();actualizarSelectoresCat();
+}
+
+function actualizarSelectoresCat(){
+  const opts='<option value="">— Sin categoría —</option>'+
+    vmlCats.map(c=>`<option value="${c.id}">${c.nombre}${c.kgPrecio?' ('+c.kgPrecio+'/kg)':''}</option>`).join('');
+  document.querySelectorAll('.vml-catsel').forEach(sel=>{const v=sel.value;sel.innerHTML=opts;sel.value=v;});
+}
+
+function recalcularConCat(){
+  const p=potreros.find(x=>x.id===vmlPotId);
+  const activos=bPerfil().filter(b=>b.lote===p?.nombre&&(!b.estado||b.estado==='activo'));
+  activos.forEach(b=>{
+    const sel=document.getElementById('vmlcat-'+b.id);if(!sel?.value)return;
+    const cat=vmlCats.find(c=>c.id===sel.value);if(!cat?.kgPrecio)return;
+    const pesoVal=parseFloat(document.getElementById('vmlkg-'+b.id)?.value||0);
+    if(pesoVal>0){
+      let kg=pesoVal;if(cfg.peso==='lb')kg/=2.20462;
+      const inp=document.getElementById('vmlp-'+b.id);
+      if(inp)inp.value=Math.round(kg*parseFloat(cat.kgPrecio));
+    }
+  });
+  actualizarResumenVML();
+}
+
+function onCatChange(bid){
+  const sel=document.getElementById('vmlcat-'+bid);
+  const cat=vmlCats.find(c=>c.id===sel?.value);
+  if(!cat?.kgPrecio)return actualizarResumenVML();
+  const pesoVal=parseFloat(document.getElementById('vmlkg-'+bid)?.value||0);
+  if(pesoVal>0){
+    let kg=pesoVal;if(cfg.peso==='lb')kg/=2.20462;
+    const inp=document.getElementById('vmlp-'+bid);
+    if(inp)inp.value=Math.round(kg*parseFloat(cat.kgPrecio));
+  }
+  actualizarResumenVML();
+}
+
+function onPesoVentaChange(bid){
+  const sel=document.getElementById('vmlcat-'+bid);
+  const cat=vmlCats.find(c=>c.id===sel?.value);
+  if(!cat?.kgPrecio)return actualizarResumenVML();
+  const pesoVal=parseFloat(document.getElementById('vmlkg-'+bid)?.value||0);
+  if(pesoVal>0){
+    let kg=pesoVal;if(cfg.peso==='lb')kg/=2.20462;
+    const inp=document.getElementById('vmlp-'+bid);
+    if(inp)inp.value=Math.round(kg*parseFloat(cat.kgPrecio));
+  }
+  actualizarResumenVML();
+}
+
+function abrirVentaLote(potId){
+  vmlPotId=potId;cargarCatPrecios();
+  const p=potreros.find(x=>x.id===potId);
+  const activos=bPerfil().filter(b=>b.lote===p?.nombre&&(!b.estado||b.estado==='activo'));
+  document.getElementById('vmlTit').textContent=`Vender de: ${p?.nombre}`;
+  document.getElementById('vml-fecha').value=hoy();
+  document.getElementById('vml-comprador').value='';
+  renderCategorias();
+  const opts='<option value="">— Sin categoría —</option>'+
+    vmlCats.map(c=>`<option value="${c.id}">${c.nombre}${c.kgPrecio?' ('+c.kgPrecio+'/kg)':''}</option>`).join('');
+  document.getElementById('vmlTabla').innerHTML=activos.map(b=>{
+    const gc=gastos.filter(g=>g.bovinoId===b.id).reduce((s,g)=>s+parseFloat(g.monto||0),0);
+    const inv=parseFloat(b.precC||0)+gc;
+    return `<tr id="vmlrow-${b.id}">
+      <td><input type="checkbox" class="am-chk vml-chk" id="vmlc-${b.id}" value="${b.id}" checked onchange="actualizarResumenVML()"></td>
+      <td style="min-width:70px">
+        <strong style="font-size:.8rem">${b.arete}</strong>
+        ${b.nombre?`<br><span style="font-size:.62rem;color:var(--gris)">${b.nombre}</span>`:''}
+        <br><span style="font-size:.62rem;color:var(--gris)">${b.sexo==='hembra'?'♀ Hembra':b.sexo==='macho'?'♂ Macho':'● Ternero'}</span>
+      </td>
+      <td style="min-width:110px">
+        <select class="vml-inp vml-catsel" id="vmlcat-${b.id}" style="width:100%;font-size:.72rem;padding:4px 5px" onchange="onCatChange('${b.id}')">${opts}</select>
+      </td>
+      <td style="min-width:85px">
+        <div style="display:flex;align-items:center;gap:2px">
+          <input class="vml-inp" type="number" id="vmlkg-${b.id}" placeholder="0" min="0" step="0.5" value="${b.pesoAct||''}" style="width:60px" oninput="onPesoVentaChange('${b.id}')">
+          <span style="font-size:.6rem;color:var(--gris)">${cfg.peso}</span>
+        </div>
+      </td>
+      <td style="color:var(--naranja);font-size:.72rem;white-space:nowrap">${fmt$(inv)}</td>
+      <td style="min-width:88px"><input class="vml-inp" type="number" id="vmlp-${b.id}" placeholder="0" min="0" step="1" value="${b.precV||''}" style="width:80px" oninput="actualizarResumenVML()"></td>
+    </tr>`;
+  }).join('');
+  actualizarResumenVML();
+  document.getElementById('ovVentaLote').classList.add('on');
+}
+
+function selTodosVML(v){document.querySelectorAll('.vml-chk').forEach(c=>c.checked=v);actualizarResumenVML();}
+
+function actualizarResumenVML(){
+  const p=potreros.find(x=>x.id===vmlPotId);
+  const activos=bPerfil().filter(b=>b.lote===p?.nombre&&(!b.estado||b.estado==='activo'));
+  let totInv=0,totVen=0,sel=0;
+  activos.forEach(b=>{
+    const chk=document.getElementById('vmlc-'+b.id);if(!chk?.checked)return;
+    sel++;
+    const gc=gastos.filter(g=>g.bovinoId===b.id).reduce((s,g)=>s+parseFloat(g.monto||0),0);
+    const inv=parseFloat(b.precC||0)+gc;totInv+=inv;
+    const v=parseFloat(document.getElementById('vmlp-'+b.id)?.value||0);totVen+=v;
+    const row=document.getElementById('vmlrow-'+b.id);
+    if(row)row.style.background=v>0?(v>=inv?'rgba(16,185,129,.06)':'rgba(239,68,68,.06)'):'';
+  });
+  const gan=totVen-totInv;
+  document.getElementById('vmlResumen').innerHTML=`
+    <div class="vml-res-row"><span class="vml-res-lbl">Seleccionados</span><span class="vml-res-val">${sel} de ${activos.length}</span></div>
+    <div class="vml-res-row"><span class="vml-res-lbl">Inversión seleccionados</span><span class="vml-res-val">${fmt$(totInv)}</span></div>
+    <div class="vml-res-row"><span class="vml-res-lbl">Total venta</span><span class="vml-res-val">${fmt$(totVen)}</span></div>
+    <div class="vml-res-row" style="border-top:1px solid rgba(255,255,255,.15);margin-top:6px;padding-top:6px">
+      <span class="vml-res-lbl" style="color:#fff;font-weight:700">Ganancia / Pérdida</span>
+      <span class="vml-res-val ${gan>=0?'gan':'per'}">${gan>=0?'+':''}${fmt$(gan)}</span>
+    </div>`;
+}
+
+async function confirmarVentaLote(){
+  const p=potreros.find(x=>x.id===vmlPotId);
+  const activos=bPerfil().filter(b=>b.lote===p?.nombre&&(!b.estado||b.estado==='activo'));
+  const fecha=document.getElementById('vml-fecha').value||hoy();
+  const comprador=document.getElementById('vml-comprador').value.trim();
+  const selec=activos.filter(b=>document.getElementById('vmlc-'+b.id)?.checked);
+  if(!selec.length){toast('Selecciona al menos un animal');return;}
+  const sinPrecio=selec.filter(b=>!(parseFloat(document.getElementById('vmlp-'+b.id)?.value||0)>0));
+  if(sinPrecio.length){toast(`${sinPrecio.length} animal(es) sin precio de venta`);return;}
+  if(!confirm(`¿Confirmar venta de ${selec.length} animal(es)?`))return;
+  let count=0;
+  for(const b of selec){
+    const precV=parseFloat(document.getElementById('vmlp-'+b.id)?.value||0);
+    const pesoV=parseFloat(document.getElementById('vmlkg-'+b.id)?.value||0);
+    const catId=document.getElementById('vmlcat-'+b.id)?.value;
+    const cat=vmlCats.find(c=>c.id===catId);
+    b.estado='vendido';b.precV=precV;b.fechaV=fecha;
+    if(comprador)b.comp=comprador;
+    if(pesoV>0)b.pesoAct=pesoV;
+    if(cat?.nombre)b.catVenta=cat.nombre;
+    b.uAt=new Date().toISOString();
+    await putRecord('bovinos',b);
+    const i=bovinos.findIndex(x=>x.id===b.id);if(i>=0)bovinos[i]=b;
+    if(pesoV>0){
+      const np={id:uid(),bovinoId:b.id,peso:pesoV,fecha,notas:`Pesaje venta${cat?.nombre?' — '+cat.nombre:''}`,cAt:new Date().toISOString()};
+      await putRecord('pesajes',np);pesajes.push(np);
+    }
+    count++;
+  }
+  cerrarOv('ovVentaLote');renderLista();updateStats();renderVentasLote();
+  toast(`✅ ${count} animales marcados como vendidos`);
 }
 
 // ================================================================
@@ -3145,29 +3853,37 @@ async function aplicarAccionMasiva(){
 
   if(accionId==='bano'){
     const prod=document.getElementById('am-producto')?.value||'';
+    const potNom=potreros.find(x=>x.id===amPotId)?.nombre||'';
     for(const bid of seleccionados){
       const b=bovinos.find(x=>x.id===bid);if(!b)continue;
-      b.ultBano=fecha;b.proxBano='';b.uAt=new Date().toISOString();
+      b.ultBano=fecha;b.uAt=new Date().toISOString();
       await putRecord('bovinos',b);
-      // Registrar como vacuna/tratamiento
-      const vac={id:uid(),bovinoId:bid,tipo:'Baño garrapaticida',producto:prod,fecha,proxFecha:'',notas:'Aplicado en acción masiva',cAt:new Date().toISOString()};
-      await putRecord('vacunas',vac);vacunas.push(vac);
+      const ev={id:uid(),bovinoId:bid,tipo:'Baño garrapaticida',producto:prod,fecha,
+        notas:`Aplicado en acción masiva — Potrero: ${potNom}`,lote:potNom,masivo:true,cAt:new Date().toISOString()};
+      await putRecord('eventos',ev);eventos.push(ev);
     }
     toast(`✅ Baño registrado en ${seleccionados.length} animales`);
   } else if(accionId==='mover'){
     const destino=document.getElementById('am-destino')?.value;
     if(!destino){toast('Selecciona el potrero destino');return;}
+    const potNom=potreros.find(x=>x.id===amPotId)?.nombre||'';
     for(const bid of seleccionados){
       const b=bovinos.find(x=>x.id===bid);if(!b)continue;
+      const potreroOrig=b.lote||'';
       b.lote=destino;b.entPot=fecha;b.uAt=new Date().toISOString();
       await putRecord('bovinos',b);
+      const ev={id:uid(),bovinoId:bid,tipo:'Movimiento de potrero',
+        notas:`De "${potreroOrig}" → "${destino}"`,fecha,lote:destino,masivo:true,cAt:new Date().toISOString()};
+      await putRecord('eventos',ev);eventos.push(ev);
     }
     toast(`✅ ${seleccionados.length} animales movidos a "${destino}"`);
   } else {
     const notas=document.getElementById('am-notas')?.value||'';
+    const potNom=potreros.find(x=>x.id===amPotId)?.nombre||'';
     for(const bid of seleccionados){
-      const vac={id:uid(),bovinoId:bid,tipo:amAccion.label,producto:'',fecha,proxFecha:'',notas,cAt:new Date().toISOString()};
-      await putRecord('vacunas',vac);vacunas.push(vac);
+      const ev={id:uid(),bovinoId:bid,tipo:amAccion.label,notas:notas||`Acción masiva — ${potNom}`,
+        fecha,lote:potNom,masivo:true,cAt:new Date().toISOString()};
+      await putRecord('eventos',ev);eventos.push(ev);
     }
     toast(`✅ "${amAccion.label}" aplicado a ${seleccionados.length} animales`);
   }
@@ -3183,6 +3899,415 @@ async function crearAccionPersonalizada(potId){
   accionesMasivas.push(a);
   verDetallePotrero(potId);
   toast('Acción creada');
+}
+
+// ================================================================
+// MÓDULO MANEJO — EVENTOS POR LOTE
+// ================================================================
+// Los eventos de lote se guardan en el store 'eventos' con campo loteEvId
+// para agruparlos. Un "lote de evento" tiene su propio registro resumen.
+const LOTE_EV_KEY='hatoapp_lotesEv';
+let lotesEv=[],editLoteId=null; // [{id, tipo, producto, fecha, notas, animalesIds[], perfilId}]
+
+function cargarLotesEv(){
+  try{
+    const s=localStorage.getItem(LOTE_EV_KEY+'_'+(perfilActivo?.id||''));
+    lotesEv=s?JSON.parse(s):[];
+  }catch(e){lotesEv=[];}
+}
+
+function guardarLotesEv(){
+  localStorage.setItem(LOTE_EV_KEY+'_'+(perfilActivo?.id||''),JSON.stringify(lotesEv));
+}
+
+let mjFiltroActivo='todos';
+function filtrarManejo(tipo,btn){
+  mjFiltroActivo=tipo;
+  document.querySelectorAll('.mj-ftag').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  renderManejo();
+}
+
+function renderManejo(){
+  cargarLotesEv();
+  const c=document.getElementById('listaManejoEventos');
+  let lotes=[...lotesEv].sort((a,b)=>new Date(b.fecha)-new Date(a.fecha));
+  if(mjFiltroActivo!=='todos'){
+    lotes=lotes.filter(l=>l.tipo?.toLowerCase().includes(mjFiltroActivo.toLowerCase()));
+  }
+  if(!lotes.length){
+    c.innerHTML=`<div class="empty-l" style="margin-top:0">
+      <div style="font-size:2.5rem;opacity:.2">📋</div>
+      <h3>Sin eventos registrados</h3>
+      <p>Crea un evento de lote para registrar baños, descornes, inyecciones y más</p>
+    </div>`;
+    return;
+  }
+  c.innerHTML=lotes.map(l=>{
+    const animales=bPerfil().filter(b=>l.animalesIds?.includes(b.id));
+    const aretes=animales.slice(0,6).map(b=>`<span class="mj-ev-arete">${b.arete}</span>`).join('');
+    const mas=animales.length>6?`<span class="mj-ev-tag">+${animales.length-6} más</span>`:'';
+    const esVac=l.clasif==='vacuna';
+    const esTrat=l.clasif==='tratamiento';
+    return `<div class="mj-ev-card">
+      <div class="mj-ev-hdr">
+        <div>
+          <div class="mj-ev-titulo">${l.tipo}${esVac?` <span style="font-size:.58rem;background:#fce7f3;color:var(--rosa);padding:2px 6px;border-radius:6px;font-weight:700;vertical-align:middle">VACUNA</span>`:esTrat?` <span style="font-size:.58rem;background:#fef9c3;color:var(--amarillo);padding:2px 6px;border-radius:6px;font-weight:700;vertical-align:middle">TRATAMIENTO</span>`:''}</div>
+          <div class="mj-ev-fecha">${fmtFecha(l.fecha)}${l.producto?' · '+l.producto:''}${l.proxDosis?' · Próxima: '+l.proxDosis+' días':''}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+          <span class="mj-ev-badge">${animales.length} animal${animales.length!==1?'es':''}</span>
+          <div style="display:flex;gap:8px">
+            <button onclick="editarEventoLote('${l.id}')" style="background:none;border:none;color:var(--v2);font-size:.7rem;font-weight:700;cursor:pointer">✏️ Editar</button>
+            <button onclick="eliminarEventoLote('${l.id}')" style="background:none;border:none;color:var(--gris2);font-size:.7rem;cursor:pointer">✕ Eliminar</button>
+          </div>
+        </div>
+      </div>
+      ${l.notas?`<div style="font-size:.72rem;color:var(--gris);margin-bottom:8px">${l.notas}</div>`:''}
+      <div class="mj-ev-animales">${aretes}${mas}</div>
+    </div>`;
+  }).join('');
+}
+
+async function eliminarEventoLote(lid){
+  if(!confirm('¿Eliminar este evento de lote?'))return;
+  const lote=lotesEv.find(l=>l.id===lid);
+  if(lote){
+    // Eliminar eventos individuales vinculados
+    const evToDelete=eventos.filter(e=>e.loteEvId===lid);
+    for(const e of evToDelete){
+      try{await deleteRecord('eventos',e.id);}catch(err){}
+    }
+    eventos=eventos.filter(e=>e.loteEvId!==lid);
+    lotesEv=lotesEv.filter(l=>l.id!==lid);
+    guardarLotesEv();
+  }
+  renderManejo();
+  toast('Evento eliminado');
+}
+
+// ── MODAL NUEVO/EDITAR EVENTO ──
+function getClasif(){
+  return document.querySelector('input[name="mj-clasif"]:checked')?.value||'manejo';
+}
+
+function onClasifChange(){
+  const cl=getClasif();
+  document.getElementById('mj-vac-wrap').style.display=cl==='vacuna'?'block':'none';
+}
+
+function onTipoManejoChange(){
+  const v=document.getElementById('mj-tipo').value;
+  document.getElementById('mj-personalizado-wrap').style.display=v==='personalizado'?'block':'none';
+  document.getElementById('mj-destino-wrap').style.display=v==='Movimiento de potrero'?'block':'none';
+  // Sugerir clasificación según el tipo seleccionado
+  if(v&&(v.toLowerCase().includes('vacun'))){
+    document.getElementById('mj-cl-vacuna').checked=true;
+  } else if(v&&(v.includes('Tratamiento')||v.includes('antibiótico')||v.includes('antiparasitario')||v.includes('vitaminas')||v.includes('minerales')||v.includes('hormonal')||v.includes('Curación')||v.toLowerCase().includes('tratamiento'))){
+    document.getElementById('mj-cl-trat').checked=true;
+  } else {
+    document.getElementById('mj-cl-manejo').checked=true;
+  }
+  onClasifChange();
+}
+
+function abrirNuevoEventoLote(loteIdEdit=null){
+  editLoteId=loteIdEdit;
+  const lote=loteIdEdit?lotesEv.find(l=>l.id===loteIdEdit):null;
+  document.getElementById('mj-tipo').selectedIndex=0;
+  document.getElementById('mj-producto').value=lote?.producto||'';
+  document.getElementById('mj-fecha').value=lote?.fecha||hoy();
+  document.getElementById('mj-notas').value=lote?.notas||'';
+  document.getElementById('mj-personalizado').value='';
+  document.getElementById('mj-proxdosis').value=lote?.proxDosis||'';
+  document.getElementById('mj-lote-prod').value=lote?.loteProd||'';
+  document.getElementById('mj-personalizado-wrap').style.display='none';
+  document.getElementById('mj-destino-wrap').style.display='none';
+  document.getElementById('mj-vac-wrap').style.display='none';
+  // Resetear clasificación
+  const clasifVal=lote?.clasif||'manejo';
+  const clEl=document.getElementById('mj-cl-'+clasifVal);
+  if(clEl)clEl.checked=true;
+  else document.getElementById('mj-cl-manejo').checked=true;
+  if(clasifVal==='vacuna') document.getElementById('mj-vac-wrap').style.display='block';
+  document.getElementById('mjPaso1').style.display='block';
+  document.getElementById('mjPaso2').style.display='none';
+  document.getElementById('mjMdlTit').textContent=lote?'Editar Evento':'Nuevo Evento de Lote';
+  document.getElementById('mjPaso').textContent='Paso 1 de 2 — Datos del evento';
+  // Llenar selector destino
+  const sel=document.getElementById('mj-destino');
+  sel.innerHTML='<option value="">Seleccionar potrero...</option>'+
+    potrerosPerfil().map(p=>`<option value="${p.nombre}">${p.nombre}</option>`).join('');
+  if(lote?.destino)document.getElementById('mj-destino').value=lote.destino;
+  // Si es edición, preseleccionar el tipo
+  if(lote?.tipo){
+    const opt=[...document.getElementById('mj-tipo').options].find(o=>o.value===lote.tipo||o.text===lote.tipo);
+    if(opt)opt.selected=true;
+    else{document.getElementById('mj-tipo').value='personalizado';document.getElementById('mj-personalizado').value=lote.tipo;document.getElementById('mj-personalizado-wrap').style.display='block';}
+    document.getElementById('mj-vac-wrap').style.display=esVacuna(lote.tipo)?'block':'none';
+    document.getElementById('mj-destino-wrap').style.display=lote.tipo==='Movimiento de potrero'?'block':'none';
+  }
+  document.getElementById('mj-tipo').onchange=onTipoManejoChange;
+  document.getElementById('ovManejoEvento').classList.add('on');
+}
+
+function editarEventoLote(lid){abrirNuevoEventoLote(lid);}
+
+function mjPaso2(){
+  let tipo=document.getElementById('mj-tipo').value;
+  if(tipo==='personalizado') tipo=document.getElementById('mj-personalizado').value.trim();
+  if(!tipo){toast('Selecciona el tipo de evento');return;}
+  if(!document.getElementById('mj-fecha').value){toast('La fecha es requerida');return;}
+  if(tipo==='Movimiento de potrero'&&!document.getElementById('mj-destino').value){
+    toast('Selecciona el potrero destino');return;
+  }
+  // Llenar filtros de animales
+  const razasUnicas=[...new Set(bPerfil().filter(b=>b.raza).map(b=>b.raza))].sort();
+  const rSel=document.getElementById('mjf-raza');
+  rSel.innerHTML='<option value="">Toda raza</option>'+razasUnicas.map(r=>`<option value="${r}">${r}</option>`).join('');
+  const pSel=document.getElementById('mjf-potrero');
+  pSel.innerHTML='<option value="">Todos los potreros</option>'+
+    potrerosPerfil().map(p=>`<option value="${p.nombre}">${p.nombre}</option>`).join('');
+  document.getElementById('mjf-sexo').selectedIndex=0;
+  // Pasar a paso 2
+  document.getElementById('mjPaso1').style.display='none';
+  document.getElementById('mjPaso2').style.display='block';
+  document.getElementById('mjPaso').textContent='Paso 2 de 2 — Selecciona los animales';
+  renderSelectorAnimales();
+}
+
+function mjVolver(){
+  document.getElementById('mjPaso1').style.display='block';
+  document.getElementById('mjPaso2').style.display='none';
+  document.getElementById('mjPaso').textContent='Paso 1 de 2 — Datos del evento';
+}
+
+function renderSelectorAnimales(){
+  const potFil=document.getElementById('mjf-potrero').value;
+  const sexFil=document.getElementById('mjf-sexo').value;
+  const razFil=document.getElementById('mjf-raza').value;
+  let animales=bPerfil().filter(b=>!b.estado||b.estado==='activo');
+  if(potFil) animales=animales.filter(b=>b.lote===potFil);
+  if(sexFil) animales=animales.filter(b=>b.sexo===sexFil);
+  if(razFil) animales=animales.filter(b=>b.raza===razFil);
+  const c=document.getElementById('mjAnimSel');
+  if(!animales.length){
+    c.innerHTML=`<div style="text-align:center;padding:20px;font-size:.78rem;color:var(--gris)">Sin animales con esos filtros</div>`;
+    actualizarCntMJ();return;
+  }
+  const yaSelIds=editLoteId?lotesEv.find(l=>l.id===editLoteId)?.animalesIds||[]:null;
+  c.innerHTML=animales.map(b=>{
+    const marcado=yaSelIds?yaSelIds.includes(b.id):true;
+    return `<label class="mj-anim-row" for="mjc-${b.id}" style="cursor:pointer">
+      <input type="checkbox" class="mj-anim-chk" id="mjc-${b.id}" value="${b.id}" ${marcado?'checked':''} onchange="actualizarCntMJ()" style="width:18px;height:18px;accent-color:var(--v2);flex-shrink:0;cursor:pointer">
+      <div class="mj-anim-info">
+        <div class="mj-anim-arete">${b.arete}${b.nombre?' — '+b.nombre:''}</div>
+        <div class="mj-anim-det">${b.sexo==='hembra'?'♀ Hembra':b.sexo==='macho'?'♂ Macho':'● Ternero'}${b.raza?' · '+b.raza:''}${b.lote?' · '+b.lote:''}</div>
+      </div>
+    </label>`;
+  }).join('');
+  actualizarCntMJ();
+}
+
+function selTodosMJ(v){
+  document.querySelectorAll('.mj-anim-chk').forEach(c=>c.checked=v);
+  actualizarCntMJ();
+}
+
+function actualizarCntMJ(){
+  const sel=document.querySelectorAll('.mj-anim-chk:checked').length;
+  const tot=document.querySelectorAll('.mj-anim-chk').length;
+  document.getElementById('mjSelCnt').textContent=`${sel} de ${tot} seleccionados`;
+}
+
+async function confirmarEventoLote(){
+  const selIds=[...document.querySelectorAll('.mj-anim-chk:checked')].map(c=>c.value);
+  if(!selIds.length){toast('Selecciona al menos un animal');return;}
+  let tipo=document.getElementById('mj-tipo').value;
+  if(tipo==='personalizado') tipo=document.getElementById('mj-personalizado').value.trim();
+  if(!tipo){toast('Especifica el tipo de evento');return;}
+  const producto=document.getElementById('mj-producto').value.trim();
+  const fecha=document.getElementById('mj-fecha').value;
+  const notas=document.getElementById('mj-notas').value.trim();
+  const destino=document.getElementById('mj-destino').value;
+  const proxDosis=document.getElementById('mj-proxdosis').value;
+  const loteProd=document.getElementById('mj-lote-prod').value.trim();
+  const clasif=getClasif(); // 'manejo' | 'vacuna' | 'tratamiento'
+  const esVac=clasif==='vacuna'||clasif==='tratamiento';
+
+  if(editLoteId){
+    // ── EDICIÓN: actualizar lote existente ──
+    const lote=lotesEv.find(l=>l.id===editLoteId);
+    if(lote){
+      // Eliminar eventos individuales anteriores
+      const evViejos=eventos.filter(e=>e.loteEvId===editLoteId);
+      for(const e of evViejos){try{await deleteRecord('eventos',e.id);}catch(e2){}}
+      if(esVac){
+        // Eliminar vacunas anteriores de este lote
+        const vacViejas=vacunas.filter(v=>v.loteEvId===editLoteId);
+        for(const v of vacViejas){try{await deleteRecord('vacunas',v.id);}catch(e2){}}
+        vacunas=vacunas.filter(v=>v.loteEvId!==editLoteId);
+      }
+      eventos=eventos.filter(e=>e.loteEvId!==editLoteId);
+      lote.tipo=tipo;lote.producto=producto;lote.fecha=fecha;lote.notas=notas;
+      lote.animalesIds=selIds;lote.destino=destino||null;
+      lote.proxDosis=proxDosis||null;lote.loteProd=loteProd||null;
+      lote.uAt=new Date().toISOString();
+    }
+  } else {
+    // ── NUEVO lote ──
+    const loteId=uid();
+    const lote={id:loteId,tipo,producto,fecha,notas,animalesIds:selIds,
+      destino:destino||null,proxDosis:proxDosis||null,loteProd:loteProd||null,
+      clasif,perfilId:perfilActivo?.id,cAt:new Date().toISOString()};
+    lotesEv.unshift(lote);
+    editLoteId=loteId;
+  }
+
+  const loteId=editLoteId;
+
+  // Crear eventos individuales nuevos
+  for(const bid of selIds){
+    const ev={id:uid(),bovinoId:bid,tipo,producto,fecha,
+      notas:notas||(destino?`Movido a "${destino}"`:''),
+      loteEvId:loteId,masivo:true,cAt:new Date().toISOString()};
+    try{await putRecord('eventos',ev);eventos.push(ev);}catch(e){eventos.push(ev);}
+
+    // Si es vacuna → guardar también en historial de vacunas
+    if(esVac){
+      const vac={id:uid(),bovinoId:bid,tipo,producto,fecha,
+        proxFecha:proxDosis?calcProxFecha(fecha,parseInt(proxDosis)):'',
+        periodo:proxDosis?parseInt(proxDosis):null,
+        notas:(notas||'')+(loteProd?' · Lote: '+loteProd:''),
+        loteEvId:loteId,cAt:new Date().toISOString()};
+      try{await putRecord('vacunas',vac);vacunas.push(vac);}catch(e){vacunas.push(vac);}
+    }
+
+    // Movimiento
+    if(tipo==='Movimiento de potrero'&&destino){
+      const b=bovinos.find(x=>x.id===bid);
+      if(b){b.lote=destino;b.entPot=fecha;b.uAt=new Date().toISOString();
+        try{await putRecord('bovinos',b);}catch(e){}}
+    }
+    // Baño
+    if(tipo==='Baño garrapaticida'||tipo==='Baño preventivo'){
+      const b=bovinos.find(x=>x.id===bid);
+      if(b){b.ultBano=fecha;b.uAt=new Date().toISOString();
+        try{await putRecord('bovinos',b);}catch(e){}}
+    }
+  }
+
+  guardarLotesEv();
+  cerrarOv('ovManejoEvento');
+  editLoteId=null;
+  renderManejo();
+  toast(`✅ Evento ${esVac?'(vacuna) ':''} aplicado a ${selIds.length} animales`);
+}
+
+function calcProxFecha(fechaBase,dias){
+  const d=new Date(fechaBase);d.setDate(d.getDate()+dias);
+  return d.toISOString().split('T')[0];
+}
+
+// ================================================================
+// EVENTOS DE MANEJO
+// ================================================================
+
+// Tipos que se clasifican como vacunas
+const TIPOS_VACUNA=new Set([
+  'Vacuna Newcastle','Vacuna Rabia','Vacuna Brucelosis','Vacuna Aftosa',
+  'Vacuna Carbón sintomático','Vacuna Clostridial','Vacuna IBR/DVB',
+  'Aplicación de antibiótico','Aplicación de antiparasitario',
+  'Tratamiento médico','Aplicación de vitaminas','Aplicación de minerales',
+  'Aplicación hormonal',
+]);
+function esVacuna(tipo){return TIPOS_VACUNA.has(tipo)||tipo?.toLowerCase().includes('vacun')||tipo?.toLowerCase().includes('tratamiento');}
+const EV_ICONOS={
+  'Baño garrapaticida':'💧','Baño preventivo':'💧',
+  'Movimiento de potrero':'🔄','Separación del grupo':'🔄','Entrada al hato':'🔄',
+  'Descorne':'✂️','Arreglo de pezuñas':'🦶','Castración':'⚕️',
+  'Aplicación de vitaminas':'💊','Aplicación de minerales':'🧂',
+  'Diagnóstico de gestación':'🔬','Sincronización de celo':'🔬','Revisión reproductiva':'🔬',
+  'Curación de herida':'🩹','Tatuaje / Identificación':'🏷️','Colocación de arete':'🏷️',
+};
+const EV_COLOR={
+  'Baño garrapaticida':'bano','Baño preventivo':'bano',
+  'Movimiento de potrero':'mover','Separación del grupo':'mover','Entrada al hato':'mover',
+  'Descorne':'descorne','Arreglo de pezuñas':'pezuna',
+};
+
+let evBovId=null;
+
+function renderEventosList(bid){
+  const evs=eventos.filter(e=>e.bovinoId===bid).sort((a,b)=>new Date(b.fecha)-new Date(a.fecha));
+  if(!evs.length) return`<div style="text-align:center;padding:28px 16px;color:var(--gris)"><div style="font-size:2rem;opacity:.3;margin-bottom:8px">📋</div><p style="font-size:.82rem">Sin eventos de manejo registrados</p></div>`;
+  return evs.map(ev=>{
+    const ico=EV_ICONOS[ev.tipo]||'📋';
+    const cls=EV_COLOR[ev.tipo]||'otro';
+    return`<div class="ev-item">
+      <div class="ev-ico ${cls}">${ico}</div>
+      <div class="ev-body">
+        <div class="ev-tipo">${ev.tipo}</div>
+        ${ev.producto?`<div class="ev-det">Producto: ${ev.producto}</div>`:''}
+        ${ev.notas?`<div class="ev-det">${ev.notas}</div>`:''}
+        <div class="ev-meta">
+          <span class="ev-fecha">${fmtFecha(ev.fecha)}</span>
+          <div style="display:flex;align-items:center;gap:6px">
+            ${ev.masivo?`<span class="ev-masivo">Acción masiva</span>`:''}
+            <button class="ev-del" onclick="eliminarEvento('${ev.id}','${bid}')">✕</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function abrirEventoModal(bid){
+  evBovId=bid;
+  document.getElementById('evf-tipo').selectedIndex=0;
+  document.getElementById('evf-producto').value='';
+  document.getElementById('evf-fecha').value=hoy();
+  document.getElementById('evf-notas').value='';
+  document.getElementById('evf-otro').value='';
+  document.getElementById('evf-otro-wrap').style.display='none';
+  document.getElementById('evf-tipo').onchange=function(){
+    document.getElementById('evf-otro-wrap').style.display=this.value==='otro'?'block':'none';
+  };
+  document.getElementById('ovEvento').classList.add('on');
+}
+
+async function guardarEvento(){
+  let tipo=document.getElementById('evf-tipo').value;
+  if(!tipo){toast('Selecciona el tipo de evento');return;}
+  if(tipo==='otro'){
+    tipo=document.getElementById('evf-otro').value.trim();
+    if(!tipo){toast('Describe el tipo de evento');return;}
+  }
+  const fecha=document.getElementById('evf-fecha').value;
+  if(!fecha){toast('La fecha es requerida');return;}
+  const ev={
+    id:uid(),bovinoId:evBovId,tipo,
+    producto:document.getElementById('evf-producto').value.trim(),
+    fecha,notas:document.getElementById('evf-notas').value.trim(),
+    masivo:false,cAt:new Date().toISOString()
+  };
+  try{await putRecord('eventos',ev);eventos.push(ev);}
+  catch(e){// Store no existe aún, solo guardar en memoria
+    eventos.push(ev);
+  }
+  cerrarOv('ovEvento');
+  const el=document.getElementById('evl-'+evBovId);
+  if(el)el.innerHTML=renderEventosList(evBovId);
+  toast('Evento registrado');
+}
+
+async function eliminarEvento(eid,bid){
+  if(!confirm('¿Eliminar este evento?'))return;
+  await deleteRecord('eventos',eid);
+  eventos=eventos.filter(e=>e.id!==eid);
+  const el=document.getElementById('evl-'+bid);
+  if(el)el.innerHTML=renderEventosList(bid);
+  toast('Evento eliminado');
 }
 
 // ================================================================
