@@ -837,7 +837,15 @@ body.tema-oscuro .am-item{border-color:#374151;color:#f3f4f6;}
 </div>
 
 <div class="vista" id="vAlertas">
-  <div class="vtit">🔔 Alertas de Vacunación</div>
+  <div class="vtit">Alertas</div>
+  <!-- Tabs de tipo de alerta -->
+  <div style="display:flex;gap:6px;margin-bottom:12px;overflow-x:auto;padding-bottom:2px">
+    <button class="mj-ftag on" id="alt-tab-todas" onclick="switchAlertaTab('todas',this)">Todas</button>
+    <button class="mj-ftag" id="alt-tab-vacunas" onclick="switchAlertaTab('vacunas',this)">💉 Vacunas</button>
+    <button class="mj-ftag" id="alt-tab-repro" onclick="switchAlertaTab('repro',this)">🔬 Reproducción</button>
+    <button class="mj-ftag" id="alt-tab-bano" onclick="switchAlertaTab('bano',this)">🛁 Baños</button>
+    <button class="mj-ftag" id="alt-tab-peso" onclick="switchAlertaTab('peso',this)">⚖️ Pesajes</button>
+  </div>
   <div id="alertasBody"></div>
 </div>
 
@@ -1378,6 +1386,75 @@ body.tema-oscuro .am-item{border-color:#374151;color:#f3f4f6;}
     <div style="padding:0 12px 12px;font-size:.68rem;color:var(--gris);">El tema se aplica al instante en toda la app.</div>
   </div>
 
+
+  <div class="cfg-sec">
+    <div class="cfg-sec-t"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#ic-bell"/></svg>Configuración de Alertas</div>
+    <!-- Toggle por tipo -->
+    <div class="cfg-row">
+      <div><div class="cfg-lbl">💉 Alertas de Vacunas</div><div class="cfg-desc">Próximas dosis y vencidas</div></div>
+      <label style="display:flex;align-items:center;cursor:pointer;gap:6px">
+        <input type="checkbox" id="cfg-alt-vacunas" onchange="guardarConfigAlertas()" style="width:18px;height:18px;accent-color:var(--v2)">
+        <span style="font-size:.75rem;color:var(--gris)" id="cfg-alt-vacunas-lbl">Activado</span>
+      </label>
+    </div>
+    <div class="cfg-row" id="cfg-alt-vacunas-dias-row">
+      <div><div class="cfg-lbl">Días de aviso — Vacunas</div><div class="cfg-desc">Alertar X días antes de la dosis</div></div>
+      <select class="cfg-sel" id="cfg-alt-vacunas-dias" onchange="guardarConfigAlertas()">
+        <option value="7">7 días</option>
+        <option value="14">14 días</option>
+        <option value="30" selected>30 días</option>
+        <option value="60">60 días</option>
+      </select>
+    </div>
+    <div class="cfg-row">
+      <div><div class="cfg-lbl">🔬 Alertas de Reproducción</div><div class="cfg-desc">Partos próximos</div></div>
+      <label style="display:flex;align-items:center;cursor:pointer;gap:6px">
+        <input type="checkbox" id="cfg-alt-repro" onchange="guardarConfigAlertas()" style="width:18px;height:18px;accent-color:var(--v2)">
+        <span style="font-size:.75rem;color:var(--gris)" id="cfg-alt-repro-lbl">Activado</span>
+      </label>
+    </div>
+    <div class="cfg-row" id="cfg-alt-repro-dias-row">
+      <div><div class="cfg-lbl">Días de aviso — Partos</div><div class="cfg-desc">Alertar X días antes del parto</div></div>
+      <select class="cfg-sel" id="cfg-alt-repro-dias" onchange="guardarConfigAlertas()">
+        <option value="7">7 días</option>
+        <option value="15">15 días</option>
+        <option value="30" selected>30 días</option>
+        <option value="60">60 días</option>
+      </select>
+    </div>
+    <div class="cfg-row">
+      <div><div class="cfg-lbl">🛁 Alertas de Baños</div><div class="cfg-desc">Próximo baño garrapaticida</div></div>
+      <label style="display:flex;align-items:center;cursor:pointer;gap:6px">
+        <input type="checkbox" id="cfg-alt-bano" onchange="guardarConfigAlertas()" style="width:18px;height:18px;accent-color:var(--v2)">
+        <span style="font-size:.75rem;color:var(--gris)" id="cfg-alt-bano-lbl">Activado</span>
+      </label>
+    </div>
+    <div class="cfg-row" id="cfg-alt-bano-dias-row">
+      <div><div class="cfg-lbl">Días de aviso — Baños</div></div>
+      <select class="cfg-sel" id="cfg-alt-bano-dias" onchange="guardarConfigAlertas()">
+        <option value="3">3 días</option>
+        <option value="7" selected>7 días</option>
+        <option value="14">14 días</option>
+        <option value="30">30 días</option>
+      </select>
+    </div>
+    <div class="cfg-row">
+      <div><div class="cfg-lbl">⚖️ Alertas de Pesajes</div><div class="cfg-desc">Animales sin pesar</div></div>
+      <label style="display:flex;align-items:center;cursor:pointer;gap:6px">
+        <input type="checkbox" id="cfg-alt-peso" onchange="guardarConfigAlertas()" style="width:18px;height:18px;accent-color:var(--v2)">
+        <span style="font-size:.75rem;color:var(--gris)" id="cfg-alt-peso-lbl">Activado</span>
+      </label>
+    </div>
+    <div class="cfg-row" style="border:none" id="cfg-alt-peso-dias-row">
+      <div><div class="cfg-lbl">Días sin pesar para alertar</div></div>
+      <select class="cfg-sel" id="cfg-alt-peso-dias" onchange="guardarConfigAlertas()">
+        <option value="60">60 días</option>
+        <option value="90" selected>90 días</option>
+        <option value="120">120 días</option>
+        <option value="180">180 días</option>
+      </select>
+    </div>
+  </div>
   <div class="cfg-sec">
     <div class="cfg-sec-t"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#ic-download"/></svg>Datos y Respaldo</div>
     <div style="padding:4px 4px 8px">
@@ -1970,6 +2047,60 @@ function instalarPWA(){
   else toast('📱 Menú del navegador → "Agregar a pantalla de inicio"');
 }
 
+
+// ================================================================
+// CONFIGURACIÓN DE ALERTAS
+// ================================================================
+const ALT_KEY='hatoapp_alertasCfg';
+let altCfg={
+  vacunas:true, vacunasDias:30,
+  repro:true,   reproDias:30,
+  bano:true,    banoDias:7,
+  peso:true,    pesoDias:90
+};
+
+function cargarConfigAlertas(){
+  try{const s=localStorage.getItem(ALT_KEY);if(s)altCfg={...altCfg,...JSON.parse(s)};}catch(e){}
+  // Aplicar a controles
+  const campos=[
+    ['cfg-alt-vacunas','vacunas'],['cfg-alt-vacunas-dias','vacunasDias'],
+    ['cfg-alt-repro','repro'],['cfg-alt-repro-dias','reproDias'],
+    ['cfg-alt-bano','bano'],['cfg-alt-bano-dias','banoDias'],
+    ['cfg-alt-peso','peso'],['cfg-alt-peso-dias','pesoDias'],
+  ];
+  campos.forEach(([id,key])=>{
+    const el=document.getElementById(id);
+    if(!el)return;
+    if(el.type==='checkbox'){
+      el.checked=altCfg[key]!==false;
+      const lbl=document.getElementById(id+'-lbl');
+      if(lbl)lbl.textContent=el.checked?'Activado':'Desactivado';
+    } else {
+      el.value=altCfg[key]||el.options[0]?.value;
+    }
+  });
+}
+
+function guardarConfigAlertas(){
+  altCfg={
+    vacunas:document.getElementById('cfg-alt-vacunas')?.checked!==false,
+    vacunasDias:parseInt(document.getElementById('cfg-alt-vacunas-dias')?.value)||30,
+    repro:document.getElementById('cfg-alt-repro')?.checked!==false,
+    reproDias:parseInt(document.getElementById('cfg-alt-repro-dias')?.value)||30,
+    bano:document.getElementById('cfg-alt-bano')?.checked!==false,
+    banoDias:parseInt(document.getElementById('cfg-alt-bano-dias')?.value)||7,
+    peso:document.getElementById('cfg-alt-peso')?.checked!==false,
+    pesoDias:parseInt(document.getElementById('cfg-alt-peso-dias')?.value)||90,
+  };
+  // Actualizar labels
+  ['vacunas','repro','bano','peso'].forEach(t=>{
+    const lbl=document.getElementById('cfg-alt-'+t+'-lbl');
+    if(lbl)lbl.textContent=altCfg[t]?'Activado':'Desactivado';
+  });
+  localStorage.setItem(ALT_KEY,JSON.stringify(altCfg));
+  updateStats();
+  toast('✓ Configuración de alertas guardada');
+}
 // ================================================================
 // CONFIGURACIÓN
 // ================================================================
@@ -1978,6 +2109,7 @@ let cfg={peso:'kg',pesoDec:'1',moneda:'MXN',monedaSim:'symbol',fecha:'dd/mm/yyyy
 
 function cargarConfig(){
   try{const s=localStorage.getItem(CFG_KEY);if(s)cfg={...cfg,...JSON.parse(s)};}catch(e){}
+  cargarConfigAlertas();
   ['peso','pesoDec','moneda','monedaSim','fecha'].forEach(k=>{
     const el=document.getElementById('cfg-'+k);
     if(el)el.value=cfg[k]||el.options[0].value;
@@ -2364,27 +2496,7 @@ function confirmarCrop(){
 // ================================================================
 function bPerfil(){return perfilActivo?bovinos.filter(b=>b.perfilId===perfilActivo.id):[];}
 
-function getAlertas(){
-  const hm=new Date().setHours(0,0,0,0),res=[];
-  const bids=new Set(bPerfil().map(b=>b.id));
-  vacunas.forEach(v=>{
-    if(!bids.has(v.bovinoId)||!v.fecha)return;
-    let prox=null;
-    // Usar proxFecha si existe (guardado como string YYYY-MM-DD)
-    if(v.proxFecha){
-      prox=new Date(v.proxFecha).setHours(0,0,0,0);
-    } else if(v.periodo){
-      prox=new Date(v.fecha).setHours(0,0,0,0)+v.periodo*86400000;
-    }
-    if(prox===null)return;
-    const diff=Math.round((prox-hm)/86400000);
-    if(diff<=30){
-      const b=bovinos.find(x=>x.id===v.bovinoId);
-      if(b) res.push({v,b,diff,bovinoId:v.bovinoId});
-    }
-  });
-  return res.sort((a,b)=>a.diff-b.diff);
-}
+// getAlertas definida en sección ALERTAS más adelante
 
 function updateStats(){
   const bp=bPerfil(),act=bp.filter(b=>!b.estado||b.estado==='activo');
@@ -2785,8 +2897,16 @@ function renderVacList(bid){
   const hm=new Date().setHours(0,0,0,0);
   return vl.map(v=>{
     let pt='',pc='ok';
-    if(v.fecha&&v.periodo){
-      const d=Math.round((new Date(v.fecha).setHours(0,0,0,0)+v.periodo*86400000-hm)/86400000);
+    // Usar proxFecha si disponible, si no calcular desde periodo
+    if(v.proxFecha){
+      const dp=Math.round((parseDateMs(v.proxFecha)-hm)/86400000);
+      if(dp<0){pt=`⚠️ Vencida hace ${Math.abs(dp)}d`;pc='l';}
+      else if(dp===0){pt='🔴 ¡Hoy!';pc='l';}
+      else if(dp<=7){pt=`🟠 En ${dp} días`;pc='w';}
+      else pt=`✅ En ${dp} días`;
+    } else if(v.fecha&&v.periodo){
+      const base=parseDateMs(v.fecha);
+      const d=base!==null?Math.round((base+v.periodo*86400000-hm)/86400000):999;
       if(d<0){pt=`⚠️ Vencida hace ${Math.abs(d)}d`;pc='l';}
       else if(d===0){pt='🔴 ¡Hoy!';pc='l';}
       else if(d<=30){pt=`🟡 En ${d} días`;pc='w';}
@@ -3057,30 +3177,194 @@ function renderVentas(){
 }
 
 // ================================================================
-// ALERTAS
+// ALERTAS — Sistema completo multi-tipo
 // ================================================================
+let alertaTabActiva='todas';
+
+function switchAlertaTab(tab,btn){
+  alertaTabActiva=tab;
+  document.querySelectorAll('[id^="alt-tab-"]').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  renderAlertas();
+}
+
+// Obtener TODAS las alertas del perfil activo
+function getAlertas(){
+  const hoy=new Date().setHours(0,0,0,0);
+  const bp=bPerfil();
+  const bids=new Set(bp.map(b=>b.id));
+  const res=[];
+
+  // ── 1. VACUNAS — próxima dosis ──
+  if(altCfg.vacunas!==false){
+  const diasVac=altCfg.vacunasDias||30;
+  vacunas.forEach(v=>{
+    if(!bids.has(v.bovinoId)||!v.fecha)return;
+    let prox=null;
+    if(v.proxFecha){
+      prox=parseDateMs(v.proxFecha);
+    }
+    if(!prox&&v.periodo){
+      const base=parseDateMs(v.fecha);
+      if(base)prox=base+v.periodo*86400000;
+    }
+    if(prox===null)return;
+    const diff=Math.round((prox-hoy)/86400000);
+    if(diff<=diasVac){
+      const b=bp.find(x=>x.id===v.bovinoId);
+      if(!b)return;
+      res.push({
+        tipo:'vacuna',
+        icono:'💉',
+        titulo:v.nombre||v.tipo||'Vacuna',
+        subtitulo:b.arete+(b.nombre?' — '+b.nombre:''),
+        fecha:v.proxFecha||null,
+        diff,
+        bovinoId:b.id,
+        bid:b.id
+      });
+    }
+  });
+  } // fin if altCfg.vacunas
+
+  // ── 2. REPRODUCCIÓN — parto probable ──
+  if(altCfg.repro!==false){
+  const diasRepro=altCfg.reproDias||30;
+  bp.filter(b=>b.pPrb&&(!b.estado||b.estado==='activo')).forEach(b=>{
+    try{
+      const prox=parseDateMs(b.pPrb);if(!prox)return;
+      const diff=Math.round((prox-hoy)/86400000);
+      if(diff<=diasRepro){
+        res.push({
+          tipo:'repro',
+          icono:'🐄',
+          titulo:'Parto probable',
+          subtitulo:b.arete+(b.nombre?' — '+b.nombre:''),
+          fecha:b.pPrb,
+          diff,
+          bovinoId:b.id,
+          bid:b.id
+        });
+      }
+    }catch(e){}
+  });
+  } // fin if altCfg.repro
+
+  // ── 3. BAÑOS — próximo baño garrapaticida ──
+  if(altCfg.bano!==false){
+  const diasBano=altCfg.banoDias||7;
+  bp.filter(b=>b.proxBano&&(!b.estado||b.estado==='activo')).forEach(b=>{
+    try{
+      const prox=parseDateMs(b.proxBano);if(!prox)return;
+      const diff=Math.round((prox-hoy)/86400000);
+      if(diff<=diasBano){
+        res.push({
+          tipo:'bano',
+          icono:'🛁',
+          titulo:'Próximo baño garrapaticida',
+          subtitulo:b.arete+(b.nombre?' — '+b.nombre:''),
+          fecha:b.proxBano,
+          diff,
+          bovinoId:b.id,
+          bid:b.id
+        });
+      }
+    }catch(e){}
+  });
+  } // fin if altCfg.bano
+
+  // ── 4. PESAJES — animales sin pesar ──
+  if(altCfg.peso!==false){
+  const diasPeso=altCfg.pesoDias||90;
+  bp.filter(b=>!b.estado||b.estado==='activo').forEach(b=>{
+    const ultPesaje=pesajes
+      .filter(p=>p.bovinoId===b.id)
+      .sort((a,z)=>new Date(z.fecha)-new Date(a.fecha))[0];
+    const refFecha=ultPesaje?.fecha||b.fechaIngreso||b.cAt;
+    if(!refFecha)return;
+    try{
+      const ultima=parseDateMs(refFecha);if(!ultima)return;
+      const diasSinPesar=Math.round((hoy-ultima)/86400000);
+      if(diasSinPesar>=90){
+        res.push({
+          tipo:'peso',
+          icono:'⚖️',
+          titulo:`Sin pesaje hace ${diasSinPesar} días`,
+          subtitulo:b.arete+(b.nombre?' — '+b.nombre:''),
+          fecha:refFecha,
+          diff:-diasSinPesar, // negativo = ya pasó
+          bovinoId:b.id,
+          bid:b.id,
+          vencida:true
+        });
+      }
+    }catch(e){}
+  });
+  } // fin if altCfg.peso
+
+  return res.sort((a,b)=>a.diff-b.diff);
+}
+
 function renderAlertas(){
-  const al=getAlertas();
+  let al=getAlertas();
   const c=document.getElementById('alertasBody');
-  if(!al.length){c.innerHTML=`<div style="text-align:center;padding:44px 20px;color:var(--gris)"><div style="font-size:3rem">✅</div><div style="font-weight:700;font-size:1rem;margin:10px 0 5px;color:#374151">¡Todo al día!</div><div style="font-size:.82rem">Sin vacunas por vencer en los próximos 30 días</div></div>`;return;}
-  const venc=al.filter(a=>a.diff<0),urg=al.filter(a=>a.diff>=0&&a.diff<=7),prox=al.filter(a=>a.diff>7);
+
+  // Filtrar por tab activa
+  if(alertaTabActiva!=='todas'){
+    const mapa={vacunas:'vacuna',repro:'repro',bano:'bano',peso:'peso'};
+    al=al.filter(a=>a.tipo===mapa[alertaTabActiva]);
+  }
+
+  if(!al.length){
+    const msgs={
+      todas:'Sin alertas pendientes. ¡Todo al día!',
+      vacunas:'Sin vacunas por vencer en los próximos 60 días',
+      repro:'Sin partos próximos registrados',
+      bano:'Sin baños próximos registrados',
+      peso:'Todos los animales han sido pesados recientemente'
+    };
+    c.innerHTML=`<div style="text-align:center;padding:44px 20px;color:var(--gris)">
+      <div style="font-size:3rem;margin-bottom:10px">✅</div>
+      <div style="font-weight:700;font-size:1rem;color:#374151;margin-bottom:5px">¡Todo al día!</div>
+      <div style="font-size:.82rem">${msgs[alertaTabActiva]||msgs.todas}</div>
+    </div>`;
+    return;
+  }
+
+  const venc=al.filter(a=>a.diff<0);
+  const urg=al.filter(a=>a.diff>=0&&a.diff<=7);
+  const prox=al.filter(a=>a.diff>7);
+
+  const tarjeta=(a)=>{
+    const bg=a.diff<0?'var(--rojop)':a.diff<=7?'var(--naranjap)':'var(--amarillop)';
+    const tc=a.diff<0?'var(--rojo)':a.diff<=7?'var(--naranja)':'var(--amarillo)';
+    const dt=a.diff<0
+      ?`Hace ${Math.abs(a.diff)}d`
+      :a.diff===0?'¡Hoy!'
+      :a.diff===1?'Mañana'
+      :`En ${a.diff}d`;
+    return`<div class="ai" onclick="verDetalle('${a.bid||''}')">
+      <div class="ai-ico" style="background:${bg};font-size:1rem">${a.icono}</div>
+      <div style="flex:1;min-width:0">
+        <div class="ai-t">${a.titulo}</div>
+        <div class="ai-s">${a.subtitulo}${a.fecha?' · '+fmtFecha(a.fecha):''}</div>
+      </div>
+      <span class="ai-d" style="background:${bg};color:${tc};flex-shrink:0">${dt}</span>
+    </div>`;
+  };
+
   const bloque=(tit,col,items)=>{
     if(!items.length)return'';
-    return`<div class="ap"><div class="as-t" style="color:${col}">${tit} (${items.length})</div>
-    ${items.map(a=>{
-      const nom=a.v.nombre||(a.v.tipo||'');
-      const dt=a.diff<0?`Vencida hace ${Math.abs(a.diff)}d`:a.diff===0?'¡Hoy!':a.diff===1?'Mañana':`En ${a.diff}d`;
-      const bg=a.diff<0?'var(--rojop)':a.diff<=7?'var(--naranjap)':'var(--amarillop)';
-      const tc=a.diff<0?'var(--rojo)':a.diff<=7?'var(--naranja)':'var(--amarillo)';
-      const bov=a.b||bovinos.find(x=>x.id===a.v?.bovinoId);
-      return`<div class="ai" onclick="verDetalle('${bov?.id||''}')">
-        <div class="ai-ico" style="background:${bg}">💉</div>
-        <div style="flex:1"><div class="ai-t">${nom||'Vacuna'}</div><div class="ai-s">${bov?bov.arete+(bov.nombre?' — '+bov.nombre:''):'—'} · ${fmtFecha(a.v.fecha)||'—'}</div></div>
-        <span class="ai-d" style="background:${bg};color:${tc}">${dt}</span>
-      </div>`;
-    }).join('')}</div>`;
+    return`<div class="ap">
+      <div class="as-t" style="color:${col}">${tit} (${items.length})</div>
+      ${items.map(tarjeta).join('')}
+    </div>`;
   };
-  c.innerHTML=bloque('🔴 VENCIDAS','var(--rojo)',venc)+bloque('🟠 URGENTE — Esta semana','var(--naranja)',urg)+bloque('🟡 PRÓXIMAS — Este mes','var(--amarillo)',prox);
+
+  c.innerHTML=
+    bloque('🔴 Vencidas / Pendientes','var(--rojo)',venc)+
+    bloque('🟠 Urgente — Esta semana','var(--naranja)',urg)+
+    bloque('🟡 Próximas — Este mes','var(--amarillo)',prox);
 }
 
 // ================================================================
@@ -4239,9 +4523,21 @@ async function confirmarEventoLote(){
 }
 
 function calcProxFecha(fechaBase,dias){
-  const d=new Date(fechaBase);d.setDate(d.getDate()+dias);
-  return d.toISOString().split('T')[0];
+  if(!fechaBase||!dias)return'';
+  const[y,m,d]=fechaBase.split('-').map(Number);
+  const dt=new Date(y,m-1,d+dias,12,0,0);
+  return dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0');
 }
+
+// Parsear fecha string sin bug de timezone
+function parseDate(s){
+  if(!s)return null;
+  if(s.includes('T'))return new Date(s);
+  const p=s.split('-').map(Number);
+  return new Date(p[0],p[1]-1,p[2],12,0,0);
+}
+function parseDateMs(s){const d=parseDate(s);return d?new Date(d.getFullYear(),d.getMonth(),d.getDate()).getTime():null;}
+
 
 // ================================================================
 // EVENTOS DE MANEJO
